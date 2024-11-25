@@ -1,0 +1,9 @@
+#General
+.env
+.idea
+
+#Server
+./server/node_modules
+./server/package-lock.json
+
+#Client
