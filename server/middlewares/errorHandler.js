@@ -1,11 +1,10 @@
+import logger from '../utils/logger.js';
+
 const errorHandler = (err, req, res, next) => {
-    console.error(err);
+    logger.error(err.message, { stack: err.stack });
 
-    if (err.message === 'Username is already taken' || err.message === 'Email is already taken') {
-        return res.status(409).json({ error: err.message });
-    }
-
-    res.status(500).json({ error: 'Internal Server Error' });
-}
+    const status = err.message === 'Username is already taken' || err.message === 'Email is already taken' ? 409 : 500;
+    res.status(status).json({ error: err.message || 'Internal Server Error' });
+};
 
 export default errorHandler;
