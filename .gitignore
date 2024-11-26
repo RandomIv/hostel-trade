@@ -9,9 +9,10 @@
 
 #Client
 
-node_modules/
-./client/package-lock.json
-./client/eslint.config.js
+/node_modules/
+client/package-lock.json
+
+
 
 # Logs
 logs
