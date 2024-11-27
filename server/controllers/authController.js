@@ -9,6 +9,7 @@ import {
   verifyToken,
 } from '../utils/authUtils.js';
 import handleAsync from '../utils/handleAsync.js';
+import COOKIE_OPTIONS from '../config/cookieConfig.js';
 
 export const register = handleAsync(async (req, res) => {
   const { username, email, password } = req.body;
@@ -37,12 +38,7 @@ export const login = handleAsync(async (req, res) => {
 });
 
 export const logout = handleAsync(async (req, res) => {
-  const clearCookieOptions = {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'Strict',
-  };
-  res.clearCookie('refresh_token', clearCookieOptions);
+  res.clearCookie('refresh_token', COOKIE_OPTIONS);
   res
     .status(200)
     .json({ status: 'success', message: 'Logged out successfully' });

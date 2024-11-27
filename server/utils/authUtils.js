@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import COOKIE_OPTIONS from '../config/cookieConfig.js';
 
 dotenv.config({ path: '../.env' });
 
@@ -26,11 +27,5 @@ export const verifyToken = (token, secret) => {
 };
 
 export const setTokenCookie = (res, refreshToken) => {
-  const cookieOptions = {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'Strict',
-    maxAge: 15 * 24 * 60 * 60 * 1000,
-  };
-  res.cookie('refresh_token', refreshToken, cookieOptions);
+  res.cookie('refresh_token', refreshToken, COOKIE_OPTIONS);
 };
