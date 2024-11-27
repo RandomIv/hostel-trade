@@ -1,6 +1,5 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import COOKIE_OPTIONS from '../config/cookieConfig.js';
 
 dotenv.config({ path: '../.env' });
 
@@ -24,8 +23,4 @@ export const verifyToken = (token, secret) => {
   } catch (err) {
     throw new Error('Invalid Token');
   }
-};
-
-export const setTokenCookie = (res, refreshToken) => {
-  res.cookie('refresh_token', refreshToken, COOKIE_OPTIONS);
 };

@@ -3,11 +3,7 @@ import {
   registerUser,
   verifyPassword,
 } from '../services/authService.js';
-import {
-  generateToken,
-  setTokenCookie,
-  verifyToken,
-} from '../utils/authUtils.js';
+import { generateToken, verifyToken } from '../utils/authUtils.js';
 import handleAsync from '../utils/handleAsync.js';
 import COOKIE_OPTIONS from '../config/cookieConfig.js';
 
@@ -28,11 +24,11 @@ export const login = handleAsync(async (req, res) => {
 
   const { accessToken, refreshToken } = generateToken(payload);
 
-  setTokenCookie(res, refreshToken);
+  res.cookie('refresh_token', refreshToken, COOKIE_OPTIONS);
+  res.set('Authorization', `Bearer ${accessToken}`);
 
   res.status(200).json({
     status: 'success',
-    accessToken,
     message: 'Logged in successfully',
   });
 });
@@ -56,11 +52,11 @@ export const refresh = handleAsync(async (req, res) => {
     id: payload.id,
   });
 
-  setTokenCookie(res, newRefreshToken);
+  res.cookie('refresh_token', newRefreshToken, COOKIE_OPTIONS);
+  res.set('Authorization', `Bearer ${accessToken}`);
 
   res.status().json({
     status: 'success',
-    accessToken,
     message: 'Token refreshed successfully',
   });
 });
