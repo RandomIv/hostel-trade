@@ -1,32 +1,36 @@
-import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
+import db from '../config/db.js';
+import bcrypt from 'bcrypt';
 
-dotenv.config({ path: '../.env' });
+export const registerUser = async (username, email, password) => {
+  const hashedPassword = await bcrypt.hash(password, 10);
 
-const TOKEN_OPTIONS = {
-    access: { expiresIn: '15m', secret: process.env.ACCESS_TOKEN_SECRET },
-    refresh: { expiresIn: '15d', secret: process.env.REFRESH_TOKEN_SECRET },
+  const { error } = await db
+    .from('user')
+    .insert({ username, email, password: hashedPassword });
+
+  if (error) throw error;
 };
 
-export const generateToken = (payload) => ({
-    accessToken: jwt.sign(payload, TOKEN_OPTIONS.access.secret, { expiresIn: TOKEN_OPTIONS.access.expiresIn }),
-    refreshToken: jwt.sign(payload, TOKEN_OPTIONS.refresh.secret, { expiresIn: TOKEN_OPTIONS.refresh.expiresIn }),
-});
+export const verifyPassword = async (identifier, password) => {
+  const user = await getUserByIdentifier(identifier);
 
-export const verifyToken = (token, secret) => {
-    try {
-        return jwt.verify(token, secret);
-    } catch (err) {
-        throw new Error('Invalid Token');
-    }
-}
+  const isValid = await bcrypt.compare(password, user.password);
 
-export const setTokenCookie = (res, refreshToken) => {
-    const cookieOptions = {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'Strict',
-        maxAge: 15 * 24 * 60 * 60 * 1000,
-    };
-    res.cookie('refresh_token', refreshToken, cookieOptions);
+  if (!isValid) throw new Error('Invalid password');
+};
+
+export const getUserIdByIdentifier = async (identifier) => {
+  const { id } = await getUserByIdentifier(identifier);
+  return id;
+};
+
+const getUserByIdentifier = async (identifier) => {
+  const { data, error } = await db
+    .from('user')
+    .select('*')
+    .or(`username.eq.${identifier},email.eq.${identifier}`)
+    .single();
+
+  if (error) throw new Error('User not found');
+  return data;
 };

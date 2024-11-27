@@ -1,12 +1,11 @@
 import Router from 'express';
-import { register, login, logout, refresh } from '../controllers/userController.js';
-import handleAsync from '../middlewares/handleAsync.js';
+import { register, login, logout, refresh } from '../controllers/authController.js';
 
 const userRouter = Router();
 
-userRouter.post('/signup', handleAsync(register));
-userRouter.post('/login', handleAsync(login));
-userRouter.get('/logout', handleAsync(logout));
-userRouter.post('/refresh', handleAsync(refresh));
+userRouter.post('/signup', register);
+userRouter.post('/login', login);
+userRouter.get('/logout', logout);
+userRouter.post('/refresh', refresh);
 
 export default userRouter;
