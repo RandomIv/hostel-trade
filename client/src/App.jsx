@@ -1,5 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+import "./App.css";
+
 // Main
 import RootLayout from "./pages/Root";
 import HomePage from "./pages/Home";
@@ -28,7 +30,7 @@ const router = createBrowserRouter([
 
       // Access Control
       { path: "auth", element: <AuthPage /> },
-      { path: "registration", element: <RegistrationPage /> },
+      { path: "reg", element: <RegistrationPage /> },
 
       // Products
       { path: "product-details", element: <ProductDetailsPage /> },
