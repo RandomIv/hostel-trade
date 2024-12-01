@@ -46,12 +46,13 @@ input {
   display: flex;
   justify-content: center;
 
-  margin-top: 2rem;
-  margin-bottom: 1rem;
+  margin-top: 1.5rem;
 }
 
 .auth-form button {
   padding: 10px 15px;
+
+  width: 40%;
 
   font-size: 18px;
   color: white;
@@ -65,4 +66,12 @@ input {
   border: 2px solid #050c9c;
   color: #050c9c;
   background-color: transparent;
+}
+
+.link {
+  text-align: center;
+}
+
+.link span {
+  margin-right: 10px;
 }

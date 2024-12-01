@@ -16,10 +16,10 @@ export default function MainNavigation() {
           <span className={classes["navbar-img-link-text"]}>Hostel Trade</span>
         </Link>
         <div className={classes["auth-reg-container"]}>
-          <Link to="/reg" className={classes["auth-reg-btn"]}>
+          <Link to="/auth?mode=signup" className={classes["auth-reg-btn"]}>
             Зареєструватись
           </Link>
-          <Link to="/auth" className={classes["auth-reg-btn"]}>
+          <Link to="/auth?mode=login" className={classes["auth-reg-btn"]}>
             Увійти
           </Link>
         </div>

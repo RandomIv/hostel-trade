@@ -6,9 +6,12 @@ import "./App.css";
 import RootLayout from "./pages/Root";
 import HomePage from "./pages/Home";
 import SearchPage from "./pages/SearchPage";
+import ErrorPage from "./pages/Error";
+
 // Access Control
-import AuthPage from "./pages/AccessControl/Authorization";
-import RegistrationPage from "./pages/AccessControl/Registration";
+import AuthPage, {
+  action as authAction,
+} from "./pages/AccessControl/Authentication";
 // Products
 import EditProductPage from "./pages/Products/EditProduct";
 import NewProductPage from "./pages/Products/NewProduct";
@@ -23,14 +26,14 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    errorElement: <ErrorPage />,
     children: [
       // Main
       { index: true, element: <HomePage /> },
       { path: "search", element: <SearchPage /> },
 
       // Access Control
-      { path: "auth", element: <AuthPage /> },
-      { path: "reg", element: <RegistrationPage /> },
+      { path: "auth", element: <AuthPage />, action: authAction },
 
       // Products
       { path: "product-details", element: <ProductDetailsPage /> },
