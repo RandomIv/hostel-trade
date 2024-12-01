@@ -1,18 +1,15 @@
-#General
+# General
 .env
 .idea
 .prettierrc
-#Server
+
+# Server
 ./server/node_modules
 ./server/package-lock.json
 
-
-#Client
-
+# Client
 /node_modules/
 client/package-lock.json
-
-
 
 # Logs
 logs
@@ -30,20 +27,12 @@ dist-ssr
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
-.idea
 .DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
-
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 
 # Dependency directories
 node_modules/
@@ -53,16 +42,13 @@ bower_components/
 build/
 dist/
 
-
 # React specific
 *.swp
 *.swo
 *.idea/
 .vscode/
-.DS_Store
 *.lock
 coverage/
-
 
 # IDE/Editor files
 *.sublime-project
@@ -79,4 +65,3 @@ Desktop.ini
 
 # Misc
 *.bak
-
