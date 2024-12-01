@@ -1,7 +1,10 @@
+import classes from "./Auth.module.css";
+import AuthForm from "../../components/AuthForm/AuthForm";
+
 export default function RegistrationPage() {
   return (
-    <>
-      <h1>Registration Page</h1>
-    </>
+    <div className={classes.background}>
+      <AuthForm />
+    </div>
   );
 }

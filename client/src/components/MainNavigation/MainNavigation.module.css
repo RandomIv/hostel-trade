@@ -34,8 +34,9 @@
 }
 
 .navbar-img-link-text {
-  font-size: 30px;
+  font-size: 25px;
   font-weight: 900;
+  text-transform: uppercase;
   color: white;
 }
 
