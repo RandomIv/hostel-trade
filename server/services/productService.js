@@ -1,16 +1,11 @@
 import db from '../config/db.js';
 
 export const getProductById = async (id) => {
-  const { data, error } = await db.from('product').select('*').eq('id', id);
-
-  if (error) throw new Error('Product not found');
-  return data[0];
+  return db.from('product').select('*').eq('id', id);
 };
 
 export const getAllProducts = async () => {
-  const { data, error } = await db.from('product').select('*');
-  if (error) throw error;
-  return data;
+  return db.from('product').select('*');
 };
 
 export const createProduct = async (
@@ -20,11 +15,9 @@ export const createProduct = async (
   typeId,
   description,
 ) => {
-  const { error } = await db
+  return db
     .from('product')
     .insert({ user_id: userId, name, price, type_id: typeId, description });
-
-  if (error) throw error;
 };
 
 export const saveUpdatedProduct = async (
@@ -34,15 +27,12 @@ export const saveUpdatedProduct = async (
   typeId,
   description,
 ) => {
-  const { error } = await db
+  return db
     .from('product')
     .update({ name, price, type_id: typeId, description })
     .eq('id', id);
-
-  if (error) throw error;
 };
 
 export const deleteProductById = async (id) => {
-  const { error } = await db.from('product').delete().eq('id', id);
-  if (error) throw error;
+  return db.from('product').delete().eq('id', id);
 };

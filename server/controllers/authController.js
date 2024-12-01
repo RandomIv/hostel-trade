@@ -1,28 +1,37 @@
+import { getUserByIdentifier, createUser } from '../services/authService.js';
+import { promisify } from 'util';
 import {
-  getUserIdByIdentifier,
-  registerUser,
-  verifyPassword,
-} from '../services/authService.js';
-import { generateToken, verifyToken } from '../utils/authUtils.js';
+  generateRefreshToken,
+  generateAccessToken,
+  verifyRefreshToken,
+} from '../utils/authUtils.js';
 import handleAsync from '../utils/handleAsync.js';
 import COOKIE_OPTIONS from '../config/cookieConfig.js';
+import AppError from '../utils/appError.js';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
-export const register = handleAsync(async (req, res) => {
+export const register = handleAsync(async (req, res, next) => {
   const { username, email, password } = req.body;
-  await registerUser(username, email, password);
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const { error } = await createUser(username, email, hashedPassword);
+
+  if (error) return next(error);
+
   return res
     .status(201)
     .json({ status: 'success', message: 'User registered successfully' });
 });
-
-export const login = handleAsync(async (req, res) => {
+export const login = handleAsync(async (req, res, next) => {
   const { loginIdentifier, password } = req.body;
-  await verifyPassword(loginIdentifier, password);
-
-  const userId = await getUserIdByIdentifier(loginIdentifier);
-  const payload = { id: userId };
-
-  const { accessToken, refreshToken } = generateToken(payload);
+  const { data: user, error } = await getUserByIdentifier(loginIdentifier);
+  if (error) return next(error);
+  if (!user || !(await bcrypt.compare(password, user.password))) {
+    return next(new AppError('Invalid login or password', 401));
+  }
+  const payload = { id: user.id };
+  const accessToken = await generateAccessToken(payload);
+  const refreshToken = await generateRefreshToken(payload);
 
   res.cookie('refresh_token', refreshToken, COOKIE_OPTIONS);
   res.set('Authorization', `Bearer ${accessToken}`);
@@ -40,15 +49,18 @@ export const logout = handleAsync(async (req, res) => {
     .json({ status: 'success', message: 'Logged out successfully' });
 });
 
-export const refresh = handleAsync(async (req, res) => {
+export const refresh = handleAsync(async (req, res, next) => {
   const refreshToken = req.cookies.refresh_token;
 
   if (!refreshToken) {
-    return res.status(401).json({ message: 'No refresh token provided' });
+    return next(new AppError('Refresh token does not exist', 401));
   }
 
-  const payload = verifyToken(refreshToken, process.env.REFRESH_TOKEN_SECRET);
-  const { accessToken, refreshToken: newRefreshToken } = generateToken({
+  const payload = verifyRefreshToken(refreshToken);
+  const accessToken = generateAccessToken({
+    id: payload.id,
+  });
+  const newRefreshToken = generateRefreshToken({
     id: payload.id,
   });
 

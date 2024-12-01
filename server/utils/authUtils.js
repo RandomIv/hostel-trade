@@ -1,26 +1,24 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import TOKEN_OPTIONS from '../config/tokenConfig.js';
+import { promisify } from 'util';
 
 dotenv.config({ path: '../.env' });
 
-const TOKEN_OPTIONS = {
-  access: { expiresIn: '15m', secret: process.env.ACCESS_TOKEN_SECRET },
-  refresh: { expiresIn: '15d', secret: process.env.REFRESH_TOKEN_SECRET },
+export const generateRefreshToken = async (payload) => {
+  return promisify(jwt.sign)(payload, TOKEN_OPTIONS.refresh.secret, {
+    expiresIn: TOKEN_OPTIONS.refresh.expiresIn,
+  });
+};
+export const generateAccessToken = async (payload) => {
+  return promisify(jwt.sign)(payload, TOKEN_OPTIONS.access.secret, {
+    expiresIn: TOKEN_OPTIONS.access.expiresIn,
+  });
+};
+export const verifyAccessToken = async (token) => {
+  return promisify(jwt.verify)(token, process.env.ACCESS_TOKEN_SECRET);
 };
 
-export const generateToken = (payload) => ({
-  accessToken: jwt.sign(payload, TOKEN_OPTIONS.access.secret, {
-    expiresIn: TOKEN_OPTIONS.access.expiresIn,
-  }),
-  refreshToken: jwt.sign(payload, TOKEN_OPTIONS.refresh.secret, {
-    expiresIn: TOKEN_OPTIONS.refresh.expiresIn,
-  }),
-});
-
-export const verifyToken = (token, secret) => {
-  try {
-    return jwt.verify(token, secret);
-  } catch (err) {
-    throw new Error('Invalid Token');
-  }
+export const verifyRefreshToken = async (token) => {
+  return promisify(jwt.verify)(token, process.env.REFRESH_TOKEN_SECRET);
 };

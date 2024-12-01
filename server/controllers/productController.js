@@ -7,14 +7,16 @@ import {
   deleteProductById,
 } from '../services/productService.js';
 
-export const getProduct = handleAsync(async (req, res) => {
+export const getProduct = handleAsync(async (req, res, next) => {
   const { id } = req.params;
-  const product = await getProductById(id);
+  const { data: product, error } = await getProductById(id);
+  if (error) return next(error);
   res.status(200).json({ status: 'success', product: product });
 });
 
-export const getProducts = handleAsync(async (req, res) => {
-  const products = await getAllProducts();
+export const getProducts = handleAsync(async (req, res, next) => {
+  const { data: products, error } = await getAllProducts();
+  if (error) return next(error);
   res.status(200).json({ status: 'success', products: products });
 });
 
@@ -26,18 +28,26 @@ export const postProduct = handleAsync(async (req, res) => {
     .json({ status: 'success', message: 'Product created successfully' });
 });
 
-export const updateProduct = handleAsync(async (req, res) => {
+export const updateProduct = handleAsync(async (req, res, next) => {
   const { id } = req.params;
   const { name, price, typeId, description } = req.body;
-  await saveUpdatedProduct(id, name, price, typeId, description);
+  const { error } = await saveUpdatedProduct(
+    id,
+    name,
+    price,
+    typeId,
+    description,
+  );
+  if (error) return next(error);
   res
     .status(200)
     .json({ status: 'success', message: 'Product updated successfully' });
 });
 
-export const deleteProduct = handleAsync(async (req, res) => {
+export const deleteProduct = handleAsync(async (req, res, next) => {
   const { id } = req.params;
-  await deleteProductById(id);
+  const { error } = await deleteProductById(id);
+  if (error) return next(error);
   res
     .status(200)
     .json({ status: 'success', message: 'Product deleted successfully' });
