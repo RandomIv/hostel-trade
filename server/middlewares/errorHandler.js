@@ -5,7 +5,6 @@ const errorHandler = (err, req, res, next) => {
 
   err.statusCode = err.statusCode || 500;
   err.status = err.status || 'error';
-  // const status = err.message === 'Username is already taken' || err.message === 'Email is already taken' ? 409 : 500;
   res.status(err.statusCode).json({ status: err.status, message: err.message });
 };
 
