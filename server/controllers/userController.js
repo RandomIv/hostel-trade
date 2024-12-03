@@ -17,7 +17,14 @@ export const getUser = handleAsync(async (req, res, next) => {
 
 export const updateUser = handleAsync(async (req, res, next) => {
   const { id } = req.params;
-  const dataToUpdate = req.body;
+
+  const dataToUpdate = {
+    ...JSON.parse(
+      JSON.stringify(req.body)
+        .replaceAll(/([A-Z])/g, '_$1')
+        .toLowerCase(),
+    ),
+  };
 
   if (dataToUpdate.password) {
     dataToUpdate.password = await bcrypt.hash(dataToUpdate.password, 10);
