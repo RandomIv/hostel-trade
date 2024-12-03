@@ -36,11 +36,11 @@ export const login = handleAsync(async (req, res, next) => {
   const refreshToken = await generateRefreshToken(payload);
 
   res.cookie('refresh_token', refreshToken, COOKIE_OPTIONS);
-  res.set('Authorization', `Bearer ${accessToken}`);
 
   res.status(200).json({
     status: 'success',
     message: 'Logged in successfully',
+    accessToken,
   });
 });
 
@@ -67,10 +67,10 @@ export const refresh = handleAsync(async (req, res, next) => {
   });
 
   res.cookie('refresh_token', newRefreshToken, COOKIE_OPTIONS);
-  res.set('Authorization', `Bearer ${accessToken}`);
 
   res.status().json({
     status: 'success',
     message: 'Token refreshed successfully',
+    accessToken,
   });
 });
