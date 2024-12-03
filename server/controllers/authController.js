@@ -1,5 +1,4 @@
 import { getUserByIdentifier, createUser } from '../services/authService.js';
-import { promisify } from 'util';
 import {
   generateRefreshToken,
   generateAccessToken,
@@ -9,7 +8,6 @@ import handleAsync from '../utils/handleAsync.js';
 import COOKIE_OPTIONS from '../config/cookieConfig.js';
 import AppError from '../utils/appError.js';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 
 export const register = handleAsync(async (req, res, next) => {
   const { username, email, password } = req.body;
@@ -22,23 +20,27 @@ export const register = handleAsync(async (req, res, next) => {
     .status(201)
     .json({ status: 'success', message: 'User registered successfully' });
 });
+
 export const login = handleAsync(async (req, res, next) => {
   const { loginIdentifier, password } = req.body;
   const { data: user, error } = await getUserByIdentifier(loginIdentifier);
+
   if (error) return next(error);
+
   if (!user || !(await bcrypt.compare(password, user.password))) {
     return next(new AppError('Invalid login or password', 401));
   }
+
   const payload = { id: user.id };
   const accessToken = await generateAccessToken(payload);
   const refreshToken = await generateRefreshToken(payload);
 
   res.cookie('refresh_token', refreshToken, COOKIE_OPTIONS);
-  res.set('Authorization', `Bearer ${accessToken}`);
 
   res.status(200).json({
     status: 'success',
     message: 'Logged in successfully',
+    accessToken,
   });
 });
 
@@ -65,10 +67,10 @@ export const refresh = handleAsync(async (req, res, next) => {
   });
 
   res.cookie('refresh_token', newRefreshToken, COOKIE_OPTIONS);
-  res.set('Authorization', `Bearer ${accessToken}`);
 
   res.status().json({
     status: 'success',
     message: 'Token refreshed successfully',
+    accessToken,
   });
 });
