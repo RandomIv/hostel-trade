@@ -1,7 +1,6 @@
-import jwt from 'jsonwebtoken';
 import handleAsync from '../utils/handleAsync.js';
 import AppError from '../utils/appError.js';
-import { promisify } from 'util';
+import { verifyAccessToken } from '../utils/authUtils.js';
 
 const authenticateToken = handleAsync(async (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -9,7 +8,7 @@ const authenticateToken = handleAsync(async (req, res, next) => {
 
   if (!token) return next(new AppError('You are not logged in', 401));
 
-  const payload = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+  const payload = await verifyAccessToken(token);
   req.user = payload;
   next();
 });

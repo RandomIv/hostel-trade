@@ -10,11 +10,13 @@ export const generateRefreshToken = async (payload) => {
     expiresIn: TOKEN_OPTIONS.refresh.expiresIn,
   });
 };
+
 export const generateAccessToken = async (payload) => {
   return promisify(jwt.sign)(payload, TOKEN_OPTIONS.access.secret, {
     expiresIn: TOKEN_OPTIONS.access.expiresIn,
   });
 };
+
 export const verifyAccessToken = async (token) => {
   return promisify(jwt.verify)(token, process.env.ACCESS_TOKEN_SECRET);
 };
