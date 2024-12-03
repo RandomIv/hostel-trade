@@ -24,15 +24,9 @@ export const getProducts = handleAsync(async (req, res, next) => {
   res.status(200).json({ status: 'success', products: products });
 });
 
-export const postProduct = handleAsync(async (req, res) => {
-  const { userId, name, price, typeId, description } = req.body;
-  const { error } = await createProduct(
-    userId,
-    name,
-    price,
-    typeId,
-    description,
-  );
+export const postProduct = handleAsync(async (req, res, next) => {
+  const dataToCreate = req.body;
+  const { error } = await createProduct(dataToCreate);
 
   if (error) return next(error);
 
@@ -43,14 +37,8 @@ export const postProduct = handleAsync(async (req, res) => {
 
 export const updateProduct = handleAsync(async (req, res, next) => {
   const { id } = req.params;
-  const { name, price, typeId, description } = req.body;
-  const { error } = await saveUpdatedProduct(
-    id,
-    name,
-    price,
-    typeId,
-    description,
-  );
+  const dataToUpdate = req.body;
+  const { error } = await saveUpdatedProduct(id, dataToUpdate);
 
   if (error) return next(error);
 
