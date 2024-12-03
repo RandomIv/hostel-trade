@@ -10,6 +10,7 @@ import {
 const productRouter = Router();
 
 productRouter.route('/product').get(getProducts).post(postProduct);
+
 productRouter
   .route('/product/:id')
   .get(getProduct)
