@@ -9,9 +9,11 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
+
 app.use('/api', authRouter);
 app.use('/api', productRouter);
 app.use('/api', userRouter);
+
 app.use(errorHandler);
 
 export default app;
