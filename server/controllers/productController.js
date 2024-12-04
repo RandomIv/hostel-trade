@@ -25,7 +25,14 @@ export const getProducts = handleAsync(async (req, res, next) => {
 });
 
 export const postProduct = handleAsync(async (req, res, next) => {
-  const dataToCreate = req.body;
+  const dataToCreate = {
+    ...JSON.parse(
+      JSON.stringify(req.body)
+        .replaceAll(/([A-Z])/g, '_$1')
+        .toLowerCase(),
+    ),
+  };
+
   const { error } = await createProduct(dataToCreate);
 
   if (error) return next(error);
@@ -37,7 +44,14 @@ export const postProduct = handleAsync(async (req, res, next) => {
 
 export const updateProduct = handleAsync(async (req, res, next) => {
   const { id } = req.params;
-  const dataToUpdate = req.body;
+  const dataToUpdate = {
+    ...JSON.parse(
+      JSON.stringify(req.body)
+        .replaceAll(/([A-Z])/g, '_$1')
+        .toLowerCase(),
+    ),
+  };
+
   const { error } = await saveUpdatedProduct(id, dataToUpdate);
 
   if (error) return next(error);
