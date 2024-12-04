@@ -8,6 +8,7 @@ import handleAsync from '../utils/handleAsync.js';
 import COOKIE_OPTIONS from '../config/cookieConfig.js';
 import AppError from '../utils/appError.js';
 import bcrypt from 'bcrypt';
+import logger from '../utils/logger.js';
 
 export const register = handleAsync(async (req, res, next) => {
   const { username, email, password } = req.body;
@@ -40,7 +41,7 @@ export const login = handleAsync(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     message: 'Logged in successfully',
-    accessToken,
+    token: accessToken,
   });
 });
 
@@ -52,25 +53,21 @@ export const logout = handleAsync(async (req, res) => {
 });
 
 export const refresh = handleAsync(async (req, res, next) => {
-  const refreshToken = req.cookies.refresh_token;
-
-  if (!refreshToken) {
+  logger.info(req.cookies);
+  if (!req.cookies || !req.cookies.refresh_token) {
     return next(new AppError('Refresh token does not exist', 401));
   }
-
-  const payload = verifyRefreshToken(refreshToken);
-  const accessToken = generateAccessToken({
+  const refreshToken = req.cookies.refresh_token;
+  logger.info(refreshToken);
+  const payload = await verifyRefreshToken(refreshToken);
+  logger.info(payload);
+  const accessToken = await generateAccessToken({
     id: payload.id,
   });
-  const newRefreshToken = generateRefreshToken({
-    id: payload.id,
-  });
 
-  res.cookie('refresh_token', newRefreshToken, COOKIE_OPTIONS);
-
-  res.status().json({
+  res.status(200).json({
     status: 'success',
     message: 'Token refreshed successfully',
-    accessToken,
+    token: accessToken,
   });
 });

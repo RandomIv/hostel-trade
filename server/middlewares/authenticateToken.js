@@ -8,8 +8,7 @@ const authenticateToken = handleAsync(async (req, res, next) => {
 
   if (!token) return next(new AppError('You are not logged in', 401));
 
-  const payload = await verifyAccessToken(token);
-  req.user = payload;
+  req.user = await verifyAccessToken(token);
   next();
 });
 

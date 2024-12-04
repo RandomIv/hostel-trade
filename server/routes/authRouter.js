@@ -12,7 +12,7 @@ const authRouter = Router();
 authRouter.post('/signup', register);
 authRouter.post('/login', login);
 authRouter.get('/logout', logout);
-authRouter.post('/refresh', refresh);
+authRouter.get('/refresh', refresh);
 authRouter.get('/protect', authenticateToken, (req, res) => {
   res.status(200).json({ user: req.user });
 });
