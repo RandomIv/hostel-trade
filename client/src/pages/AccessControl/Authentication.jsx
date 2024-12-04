@@ -17,7 +17,7 @@ export async function action({ request }) {
 
   if (mode !== 'login' && mode !== 'signup') {
     throw new Error(
-      JSON.stringify({ message: 'Unsupported mode.' }, { status: 422 }),
+      JSON.stringify({ message: 'Unsupported mode.' }, { status: 422 })
     );
   }
 
@@ -53,17 +53,20 @@ export async function action({ request }) {
     return response;
   }
   const resData = await response.json();
-  if (response.ok && resData.token) {
-    localStorage.setItem('token', resData.token);
-    return redirect('/profile');
+  console.log(resData);
+  if (response.ok) {
+    if (resData.token) {
+      localStorage.setItem('token', resData.token);
+      return redirect('/profile');
+    } else {
+      return redirect('/auth?mode=login');
+    }
   } else {
     throw new Error(
       JSON.stringify(
         { message: 'Could not authenticate user' },
-        { status: 401 },
-      ),
+        { status: 401 }
+      )
     );
   }
-  console.log(resData);
-  return redirect('/login');
 }

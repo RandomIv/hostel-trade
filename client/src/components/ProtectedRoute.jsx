@@ -49,17 +49,21 @@ const checkRefreshToken = async () => {
 export default function ProtectedRoute() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
+
   const authenticate = async () => {
     if ((await checkAccessToken()) || (await checkRefreshToken())) {
       setIsAuthenticated(true);
     }
     setLoading(false);
   };
+
   useEffect(() => {
     authenticate().catch((error) => {
       console.error(error);
     });
   }, []);
+
   if (loading) return <div>Loading...</div>;
+
   return isAuthenticated ? <Outlet /> : <Navigate to="/auth?mode=login" />;
 }

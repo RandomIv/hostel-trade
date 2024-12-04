@@ -6,7 +6,7 @@ import './App.css';
 import RootLayout from './pages/Root';
 import HomePage from './pages/Home';
 import SearchPage from './pages/SearchPage';
-import ErrorPage from './pages/Error';
+import ErrorPage from './pages/Error/Error';
 
 // Access Control
 import AuthPage, {
