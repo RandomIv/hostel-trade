@@ -6,6 +6,7 @@
 # Server
 ./server/node_modules
 ./server/package-lock.json
+server/package-lock.json
 
 # Client
 /node_modules/
