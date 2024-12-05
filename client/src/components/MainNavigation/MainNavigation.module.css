@@ -69,17 +69,22 @@
   background-color: white;
 }
 
-.auth-logout-btn {
-  color: white;
-}
-
 .auth-auth-btn:hover {
   color: white;
   background-color: transparent;
   border: 2px solid white;
 }
 
+.logout-btn-container {
+  display: flex;
+}
+
+.auth-logout-btn {
+  color: white;
+}
+
 .auth-logout-btn:hover {
+  cursor: pointer;
   color: white;
   background-color: transparent;
   border: 2px solid white;

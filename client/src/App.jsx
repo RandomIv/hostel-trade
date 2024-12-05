@@ -12,6 +12,7 @@ import ErrorPage from './pages/Error/Error';
 import AuthPage, {
   action as authAction,
 } from './pages/AccessControl/Authentication';
+import { action as logoutAction } from './pages/AccessControl/Logout.jsx';
 // Products
 import EditProductPage from './pages/Products/EditProduct';
 import NewProductPage from './pages/Products/NewProduct';
@@ -22,12 +23,15 @@ import LikedProductsPage from './pages/User/LikedProducts';
 import ProfileSettingsPage from './pages/User/ProfileSettings';
 import UserProductsPage from './pages/User/UserProducts';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
+import { tokenLoader } from './utils/auth.js';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
     errorElement: <ErrorPage />,
+    id: 'root',
+    loader: tokenLoader,
     children: [
       // Main
       { index: true, element: <HomePage /> },
@@ -35,6 +39,7 @@ const router = createBrowserRouter([
 
       // Access Control
       { path: 'auth', element: <AuthPage />, action: authAction },
+      { path: 'logout', action: logoutAction },
 
       // Products
       { path: 'product-details', element: <ProductDetailsPage /> },

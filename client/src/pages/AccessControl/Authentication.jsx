@@ -38,8 +38,6 @@ export async function action({ request }) {
     authData = { loginIdentifier: data.get('username-email'), ...authData };
   }
 
-  console.log(authData);
-
   const response = await fetch('http://localhost:5000/api/' + mode, {
     method: 'POST',
     headers: {
@@ -53,7 +51,6 @@ export async function action({ request }) {
     return response;
   }
   const resData = await response.json();
-  console.log(resData);
   if (response.ok) {
     if (resData.token) {
       localStorage.setItem('token', resData.token);

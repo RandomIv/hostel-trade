@@ -47,3 +47,30 @@ export const checkRefreshToken = async () => {
     return false;
   }
 };
+
+export async function logout() {
+  const response = await fetch('http://localhost:5000/api/logout', {
+    method: 'GET',
+    credentials: 'include',
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to log out');
+  }
+
+  return await response.json();
+}
+
+export function getAuthToken() {
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    return null;
+  }
+
+  return token;
+}
+
+export function tokenLoader() {
+  return getAuthToken();
+}

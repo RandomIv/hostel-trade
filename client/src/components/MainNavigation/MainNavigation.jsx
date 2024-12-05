@@ -1,10 +1,8 @@
-import { Link } from 'react-router-dom';
+import { Form, Link, useRouteLoaderData } from 'react-router-dom';
 import classes from './MainNavigation.module.css';
 
-import useAuth from '../../hooks/useAuth';
-
 export default function MainNavigation() {
-  const { isAuthenticated, isLoading, error } = useAuth();
+  const token = useRouteLoaderData('root');
 
   return (
     <>
@@ -20,13 +18,15 @@ export default function MainNavigation() {
           <span className={classes['navbar-img-link-text']}>Hostel Trade</span>
         </Link>
         <div className={classes['auth-reg-container']}>
-          {isAuthenticated ? (
-            <>
-              <Link className={classes['auth-logout-btn']}>Вийти</Link>
+          {token ? (
+            <div className={classes['logout-btn-container']}>
+              <Form action="/logout" method="post">
+                <button className={classes['auth-logout-btn']}>Вийти</button>
+              </Form>
               <Link to="/profile" className={classes['auth-auth-btn']}>
                 Профіль
               </Link>
-            </>
+            </div>
           ) : (
             <>
               <Link to="/auth?mode=signup" className={classes['auth-auth-btn']}>
