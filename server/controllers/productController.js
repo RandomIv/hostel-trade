@@ -7,6 +7,7 @@ import {
   deleteProductById,
 } from '../services/productService.js';
 import { sendResponse } from '../utils/responseUtils.js';
+import { toSnakeCase } from '../utils/objectUtils.js';
 
 export const getProduct = handleAsync(async (req, res, next) => {
   const { id } = req.params;
@@ -26,13 +27,7 @@ export const getProducts = handleAsync(async (req, res, next) => {
 });
 
 export const postProduct = handleAsync(async (req, res, next) => {
-  const dataToCreate = {
-    ...JSON.parse(
-      JSON.stringify(req.body)
-        .replaceAll(/([A-Z])/g, '_$1')
-        .toLowerCase(),
-    ),
-  };
+  const dataToCreate = toSnakeCase(req.body);
 
   const { error } = await createProduct(dataToCreate);
 
@@ -43,13 +38,7 @@ export const postProduct = handleAsync(async (req, res, next) => {
 
 export const updateProduct = handleAsync(async (req, res, next) => {
   const { id } = req.params;
-  const dataToUpdate = {
-    ...JSON.parse(
-      JSON.stringify(req.body)
-        .replaceAll(/([A-Z])/g, '_$1')
-        .toLowerCase(),
-    ),
-  };
+  const dataToUpdate = toSnakeCase(req.body);
 
   const { error } = await saveUpdatedProduct(id, dataToUpdate);
 

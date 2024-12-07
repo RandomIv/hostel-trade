@@ -6,6 +6,7 @@ import {
 } from '../services/userService.js';
 import bcrypt from 'bcrypt';
 import { sendResponse } from '../utils/responseUtils.js';
+import { toSnakeCase } from '../utils/objectUtils.js';
 
 export const getUser = handleAsync(async (req, res, next) => {
   const { id } = req.params;
@@ -18,14 +19,7 @@ export const getUser = handleAsync(async (req, res, next) => {
 
 export const updateUser = handleAsync(async (req, res, next) => {
   const { id } = req.params;
-
-  const dataToUpdate = {
-    ...JSON.parse(
-      JSON.stringify(req.body)
-        .replaceAll(/([A-Z])/g, '_$1')
-        .toLowerCase(),
-    ),
-  };
+  const dataToUpdate = toSnakeCase(req.body);
 
   if (dataToUpdate.password) {
     dataToUpdate.password = await bcrypt.hash(dataToUpdate.password, 10);
