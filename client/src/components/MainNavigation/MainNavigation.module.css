@@ -50,7 +50,8 @@
   object-fit: cover;
 }
 
-.auth-reg-btn {
+.auth-auth-btn,
+.auth-logout-btn {
   display: inline-block;
   padding: 10px 15px;
   margin-right: 10px;
@@ -58,14 +59,32 @@
   font-size: 20px;
   font-weight: 700;
   text-decoration: none;
-  color: #050c9c;
 
-  background-color: white;
   border: 2px solid transparent;
   border-radius: 5px;
 }
 
-.auth-reg-btn:hover {
+.auth-auth-btn {
+  color: #050c9c;
+  background-color: white;
+}
+
+.auth-auth-btn:hover {
+  color: white;
+  background-color: transparent;
+  border: 2px solid white;
+}
+
+.logout-btn-container {
+  display: flex;
+}
+
+.auth-logout-btn {
+  color: white;
+}
+
+.auth-logout-btn:hover {
+  cursor: pointer;
   color: white;
   background-color: transparent;
   border: 2px solid white;
