@@ -8,7 +8,6 @@ import handleAsync from '../utils/handleAsync.js';
 import COOKIE_OPTIONS from '../config/cookieConfig.js';
 import AppError from '../utils/appError.js';
 import bcrypt from 'bcrypt';
-import logger from '../utils/logger.js';
 import { sendResponse } from '../utils/responseUtils.js';
 
 export const register = handleAsync(async (req, res, next) => {
@@ -46,14 +45,11 @@ export const logout = handleAsync(async (req, res) => {
 });
 
 export const refresh = handleAsync(async (req, res, next) => {
-  logger.info(req.cookies);
-  if (!req.cookies || !req.cookies.refresh_token) {
+  if (!req?.cookies?.refresh_token) {
     return next(new AppError('Refresh token does not exist', 401));
   }
   const refreshToken = req.cookies.refresh_token;
-  logger.info(refreshToken);
   const payload = await verifyRefreshToken(refreshToken);
-  logger.info(payload);
   const accessToken = await generateAccessToken({
     id: payload.id,
   });
