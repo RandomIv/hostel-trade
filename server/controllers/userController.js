@@ -5,6 +5,7 @@ import {
   updateUserById,
 } from '../services/userService.js';
 import bcrypt from 'bcrypt';
+import { sendResponse } from '../utils/responseUtils.js';
 
 export const getUser = handleAsync(async (req, res, next) => {
   const { id } = req.params;
@@ -12,7 +13,7 @@ export const getUser = handleAsync(async (req, res, next) => {
 
   if (error) return next(error);
 
-  res.status(200).json({ status: 'success', user });
+  sendResponse(res, 200, { user });
 });
 
 export const updateUser = handleAsync(async (req, res, next) => {
@@ -33,9 +34,7 @@ export const updateUser = handleAsync(async (req, res, next) => {
 
   if (error) return next(error);
 
-  res
-    .status(200)
-    .json({ status: 'success', message: 'User updated successfully' });
+  sendResponse(res, 200, null, 'User updated successfully');
 });
 
 export const deleteUser = handleAsync(async (req, res, next) => {
@@ -44,7 +43,5 @@ export const deleteUser = handleAsync(async (req, res, next) => {
 
   if (error) return next(error);
 
-  res
-    .status(200)
-    .json({ status: 'success', message: 'User deleted successfully' });
+  sendResponse(res, 200, null, 'User deleted successfully');
 });

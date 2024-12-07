@@ -9,6 +9,7 @@ import COOKIE_OPTIONS from '../config/cookieConfig.js';
 import AppError from '../utils/appError.js';
 import bcrypt from 'bcrypt';
 import logger from '../utils/logger.js';
+import { sendResponse } from '../utils/responseUtils.js';
 
 export const register = handleAsync(async (req, res, next) => {
   const { username, email, password } = req.body;
@@ -17,9 +18,7 @@ export const register = handleAsync(async (req, res, next) => {
 
   if (error) return next(error);
 
-  return res
-    .status(201)
-    .json({ status: 'success', message: 'User registered successfully' });
+  sendResponse(res, 201, null, 'User registered successfully');
 });
 
 export const login = handleAsync(async (req, res, next) => {
@@ -38,18 +37,12 @@ export const login = handleAsync(async (req, res, next) => {
 
   res.cookie('refresh_token', refreshToken, COOKIE_OPTIONS);
 
-  res.status(200).json({
-    status: 'success',
-    message: 'Logged in successfully',
-    token: accessToken,
-  });
+  sendResponse(res, 200, { token: accessToken }, 'Logged in successfully');
 });
 
 export const logout = handleAsync(async (req, res) => {
   res.clearCookie('refresh_token', COOKIE_OPTIONS);
-  res
-    .status(200)
-    .json({ status: 'success', message: 'Logged out successfully' });
+  sendResponse(res, 200, null, 'Logged out successfully');
 });
 
 export const refresh = handleAsync(async (req, res, next) => {
@@ -65,9 +58,10 @@ export const refresh = handleAsync(async (req, res, next) => {
     id: payload.id,
   });
 
-  res.status(200).json({
-    status: 'success',
-    message: 'Token refreshed successfully',
-    token: accessToken,
-  });
+  sendResponse(
+    res,
+    200,
+    { token: accessToken },
+    'Token refreshed successfully',
+  );
 });

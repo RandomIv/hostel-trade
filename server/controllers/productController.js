@@ -6,6 +6,7 @@ import {
   saveUpdatedProduct,
   deleteProductById,
 } from '../services/productService.js';
+import { sendResponse } from '../utils/responseUtils.js';
 
 export const getProduct = handleAsync(async (req, res, next) => {
   const { id } = req.params;
@@ -13,7 +14,7 @@ export const getProduct = handleAsync(async (req, res, next) => {
 
   if (error) return next(error);
 
-  res.status(200).json({ status: 'success', product: product });
+  sendResponse(res, 200, { product });
 });
 
 export const getProducts = handleAsync(async (req, res, next) => {
@@ -21,7 +22,7 @@ export const getProducts = handleAsync(async (req, res, next) => {
 
   if (error) return next(error);
 
-  res.status(200).json({ status: 'success', products: products });
+  sendResponse(res, 200, { products });
 });
 
 export const postProduct = handleAsync(async (req, res, next) => {
@@ -37,9 +38,7 @@ export const postProduct = handleAsync(async (req, res, next) => {
 
   if (error) return next(error);
 
-  res
-    .status(201)
-    .json({ status: 'success', message: 'Product created successfully' });
+  sendResponse(res, 201, null, 'Product created successfully');
 });
 
 export const updateProduct = handleAsync(async (req, res, next) => {
@@ -56,9 +55,7 @@ export const updateProduct = handleAsync(async (req, res, next) => {
 
   if (error) return next(error);
 
-  res
-    .status(200)
-    .json({ status: 'success', message: 'Product updated successfully' });
+  sendResponse(res, 200, null, 'Product updated successfully');
 });
 
 export const deleteProduct = handleAsync(async (req, res, next) => {
@@ -67,7 +64,5 @@ export const deleteProduct = handleAsync(async (req, res, next) => {
 
   if (error) return next(error);
 
-  res
-    .status(200)
-    .json({ status: 'success', message: 'Product deleted successfully' });
+  sendResponse(res, 200, null, 'Product deleted successfully');
 });
