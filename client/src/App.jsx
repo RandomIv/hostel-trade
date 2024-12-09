@@ -4,7 +4,7 @@ import './App.css';
 
 // Main
 import RootLayout from './pages/Root';
-import HomePage from './pages/Home';
+import HomePage from './pages//Home/Home';
 import SearchPage from './pages/SearchPage/SearchPage';
 import ErrorPage from './pages/Error/Error';
 
