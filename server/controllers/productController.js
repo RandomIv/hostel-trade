@@ -11,8 +11,8 @@ import { toSnakeCase } from '../utils/objectUtils.js';
 
 export const getProduct = handleAsync(async (req, res, next) => {
   const { id } = req.params;
-  const { data: product, error } = await getProductById(id);
 
+  const { data: product, error } = await getProductById(id);
   if (error) return next(error);
 
   sendResponse(res, 200, { product });
@@ -20,8 +20,8 @@ export const getProduct = handleAsync(async (req, res, next) => {
 
 export const getProducts = handleAsync(async (req, res, next) => {
   const { filter, sort } = req.body;
-  const { data: products, error } = await selectProducts(filter, sort);
 
+  const { data: products, error } = await selectProducts(filter, sort);
   if (error) return next(error);
 
   sendResponse(res, 200, { products });
