@@ -1,7 +1,7 @@
 import handleAsync from '../utils/handleAsync.js';
 import {
   getProductById,
-  getAllProducts,
+  selectProducts,
   createProduct,
   saveUpdatedProduct,
   deleteProductById,
@@ -19,7 +19,8 @@ export const getProduct = handleAsync(async (req, res, next) => {
 });
 
 export const getProducts = handleAsync(async (req, res, next) => {
-  const { data: products, error } = await getAllProducts();
+  const { filter, sort } = req.body;
+  const { data: products, error } = await selectProducts(filter, sort);
 
   if (error) return next(error);
 

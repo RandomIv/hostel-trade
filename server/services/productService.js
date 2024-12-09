@@ -1,11 +1,24 @@
 import db from '../config/db.js';
+import applyQueryModifiers from '../utils/queryUtils.js';
 
 export const getProductById = async (id) => {
   return db.from('product').select('*').eq('id', id);
 };
 
-export const getAllProducts = async () => {
-  return db.from('product').select('*');
+export const selectProducts = async (filter, sort) => {
+  let query = db.from('product').select('*');
+  query = applyQueryModifiers(query, 'ilike', 'name', `%${filter.name}%`);
+  query = applyQueryModifiers(query, 'gte', 'price', filter.price.min);
+  query = applyQueryModifiers(query, 'gte', 'price', filter.price.max);
+  query = applyQueryModifiers(query, 'in', 'type_id', filter.typeId);
+  query = applyQueryModifiers(query, 'order', 'price', {
+    ascending: sort.price === 'asc',
+  });
+  query = applyQueryModifiers(query, 'order', 'created_at', {
+    ascending: sort.date === 'asc',
+  });
+
+  return query;
 };
 
 export const createProduct = async (data) => {
