@@ -75,3 +75,11 @@ input {
 .link span {
   margin-right: 10px;
 }
+
+.error-container {
+  margin: auto;
+  padding: 7px 10px;
+  width: 80%;
+
+  background-color: rgb(255, 203, 203, 0.7);
+}

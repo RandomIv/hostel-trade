@@ -8,7 +8,9 @@ import {
 
 import classes from './AuthForm.module.css';
 
-export default function AuthForm() {
+import { loginErrorHandle } from '../../utils/auth';
+
+export default function AuthForm({ error }) {
   const navigation = useNavigation();
   const [searchParams] = useSearchParams();
 
@@ -62,6 +64,11 @@ export default function AuthForm() {
           minLength={6}
         />
       </p>
+      {error && (
+        <div className={classes['error-container']}>
+          {loginErrorHandle(error)}
+        </div>
+      )}
       <div className={classes['btn-container']}>
         <button disabled={isSubmitting}>
           {!isLogin ? 'Зареєструватись' : 'Увійти'}

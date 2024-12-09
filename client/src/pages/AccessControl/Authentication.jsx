@@ -1,12 +1,14 @@
 /* eslint-disable react-refresh/only-export-components */
 import classes from './Auth.module.css';
 import AuthForm from '../../components/AuthForm/AuthForm';
-import { redirect } from 'react-router-dom';
+import { redirect, useActionData } from 'react-router-dom';
 
 export default function AuthPage() {
+  const errorData = useActionData();
+
   return (
     <div className={classes.background}>
-      <AuthForm />
+      <AuthForm error={errorData} />
     </div>
   );
 }
@@ -16,16 +18,16 @@ export async function action({ request }) {
   const mode = searchParams.get('mode') || 'login';
 
   if (mode !== 'login' && mode !== 'signup') {
-    throw new Error(
-      JSON.stringify({ message: 'Unsupported mode.' }, { status: 422 })
-    );
+    return {
+      error: true,
+      message: 'Unsupported mode.',
+      status: 422,
+    };
   }
 
   const data = await request.formData();
 
-  let authData = {
-    password: data.get('password'),
-  };
+  let authData = { password: data.get('password') };
 
   if (mode === 'signup') {
     authData = {
@@ -38,32 +40,37 @@ export async function action({ request }) {
     authData = { loginIdentifier: data.get('username-email'), ...authData };
   }
 
-  const response = await fetch('http://localhost:5000/api/' + mode, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    credentials: 'include',
-    body: JSON.stringify(authData),
-  });
+  try {
+    const response = await fetch('http://localhost:5000/api/' + mode, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify(authData),
+    });
 
-  if (response.status === 422 || response.status === 401) {
-    return response;
-  }
-  const resData = await response.json();
-  if (response.ok) {
+    if (!response.ok) {
+      const errorData = await response.json();
+      return {
+        error: true,
+        message: errorData.message || 'Could not authenticate user.',
+        status: response.status,
+      };
+    }
+
+    const { data: resData } = await response.json();
     if (resData.token) {
       localStorage.setItem('token', resData.token);
       return redirect('/profile');
     } else {
       return redirect('/auth?mode=login');
     }
-  } else {
-    throw new Error(
-      JSON.stringify(
-        { message: 'Could not authenticate user' },
-        { status: 401 }
-      )
-    );
+  } catch (error) {
+    return {
+      error: true,
+      message: error.message || 'An unexpected error occurred.',
+      status: 500,
+    };
   }
 }

@@ -5,14 +5,14 @@ import './App.css';
 // Main
 import RootLayout from './pages/Root';
 import HomePage from './pages/Home';
-import SearchPage from './pages/SearchPage';
+import SearchPage from './pages/SearchPage/SearchPage';
 import ErrorPage from './pages/Error/Error';
 
 // Access Control
 import AuthPage, {
   action as authAction,
 } from './pages/AccessControl/Authentication';
-import { action as logoutAction } from './pages/AccessControl/Logout.jsx';
+import { action as logoutAction } from './components/Logout.jsx';
 // Products
 import EditProductPage from './pages/Products/EditProduct';
 import NewProductPage from './pages/Products/NewProduct';
