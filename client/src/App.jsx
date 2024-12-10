@@ -16,7 +16,9 @@ import { action as logoutAction } from './components/Auth/Logout.jsx';
 // Products
 import EditProductPage from './pages/Products/EditProduct';
 import NewProductPage from './pages/Products/NewProduct';
-import ProductDetailsPage from './pages/Products/ProductDetails';
+import ProductDetailsPage, {
+  loader as productDetailsLoader,
+} from './pages/Products/ProductDetails/ProductDetails';
 // User
 import ProfilePage from './pages/User/Profile';
 import LikedProductsPage from './pages/User/LikedProducts';
@@ -42,7 +44,11 @@ const router = createBrowserRouter([
       { path: 'logout', action: logoutAction },
 
       // Products
-      { path: 'product/:id', element: <ProductDetailsPage /> },
+      {
+        path: 'product/:id',
+        element: <ProductDetailsPage />,
+        loader: productDetailsLoader,
+      },
 
       // User
       {

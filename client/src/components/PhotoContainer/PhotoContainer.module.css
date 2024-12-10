@@ -1,0 +1,32 @@
+.photo-container {
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  width: 80%;
+  height: auto;
+  background-color: white;
+  border: 1px solid rgb(0, 0, 0, 0.3);
+
+  border-radius: 10px;
+}
+
+.photo-container img {
+  padding: 20px;
+  width: 400px;
+  height: 400px;
+}
+
+.photo-btn i {
+  padding: 10px 12px;
+  font-size: 17px;
+  background-color: #f7f7f7;
+  border-radius: 5px;
+}
+
+.photo-btn i:first-child {
+  margin-left: 30px;
+}
+
+.photo-btn i:last-child {
+  margin-right: 30px;
+}

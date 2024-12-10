@@ -1,0 +1,28 @@
+.background {
+  background-color: rgb(198, 231, 255, 0.1);
+  height: 95vh;
+}
+
+.container {
+  margin: auto;
+  width: 70%;
+}
+
+.name-price-row {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 20px;
+  margin: auto;
+  margin-bottom: 30px;
+
+  border-bottom: 1px solid rgb(0, 0, 0, 0.5);
+}
+
+.name-price-row h1 {
+  font-size: 32px;
+}
+
+.name-price-row h3 {
+  font-size: 25px;
+}

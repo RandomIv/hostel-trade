@@ -1,5 +1,6 @@
 import classes from './SearchPage.module.css';
 
+import SearchBar from '../../components/SearchBar/SearchBar';
 import Product from '../../components/Product/Product';
 
 const PRODUCTS = [
@@ -59,7 +60,7 @@ const PRODUCTS = [
     image: [
       {
         id: 1,
-        url: 'https://anticollector.ua/attachments/fb_img_1605639195624-jpg.71807/',
+        url: 'https://www.findmeagift.co.uk/site_media/images/products/p_main/fiz110_happy_stan_multi_screwdriver_1.jpg',
         is_main: true,
         created_at: '2024-12-09T15:34:27.66869',
         product_id: 8,
@@ -71,23 +72,7 @@ const PRODUCTS = [
 export default function SearchPage() {
   return (
     <div className={classes['background']}>
-      <div className={classes['input-container']}>
-        <input
-          type="text"
-          className={classes['search-input']}
-          placeholder="Знайти..."
-        />
-        <button className={classes['search-btn']}>
-          <i className="fa-solid fa-filter"></i>
-        </button>
-        <button className={classes['search-btn']}>
-          Пошук
-          <i
-            className="fa-solid fa-magnifying-glass"
-            style={{ paddingRight: 0 }}
-          ></i>
-        </button>
-      </div>
+      <SearchBar />
       <div className={classes.container}>
         {PRODUCTS.map((product) => {
           return <Product key={product.id} data={product} />;

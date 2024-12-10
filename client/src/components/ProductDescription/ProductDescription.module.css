@@ -1,0 +1,29 @@
+.container {
+  width: 80%;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: white;
+  border-radius: 15px;
+  border: 1px solid rgb(0, 0, 0, 0.3);
+}
+
+.container h2 {
+  margin-bottom: 8px;
+  font-size: 28px;
+}
+
+.container p {
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.created-updated-row,
+.additional-info {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0;
+  font-size: 15px;
+}
+.created-updated-row {
+  border-bottom: 1px solid rgb(0, 0, 0, 0.3);
+}

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 
 import classes from './Product.module.css';
 import emptyPhoto from '../../assets/empty-photo-image.jpg';
+import { convertDate } from '../../utils/dataConvert';
 
 export default function Product({ data }) {
   const {
@@ -20,8 +21,7 @@ export default function Product({ data }) {
 
   const imageUrl = image.length !== 0 ? image[0].url : emptyPhoto;
 
-  const date = new Date(created_at);
-  const formattedDate = date.toLocaleDateString();
+  const formattedDate = convertDate(created_at);
 
   return (
     <Link to={`/product/${id}`} className={classes.link}>
