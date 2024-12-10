@@ -1,11 +1,13 @@
-/* Search section */
+.background {
+  background-color: rgb(198, 231, 255, 0.1);
+  height: 100vh;
+}
+/* Search Bar section */
 .input-container {
   display: flex;
   justify-content: center;
 
   width: 100%;
-
-  background-color: #f7f7f7;
 }
 
 .input-container * {
@@ -41,7 +43,6 @@
 
 /* Main section */
 .container {
-  width: 80%;
   margin: auto;
-  margin-top: 20px;
+  width: 80%;
 }

@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import classes from './Auth.module.css';
-import AuthForm from '../../components/AuthForm/AuthForm';
+import AuthForm from '../../components/Auth/AuthForm';
 import { redirect, useActionData } from 'react-router-dom';
 
 export default function AuthPage() {

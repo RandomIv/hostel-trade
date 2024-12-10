@@ -12,7 +12,7 @@ import ErrorPage from './pages/Error/Error';
 import AuthPage, {
   action as authAction,
 } from './pages/AccessControl/Authentication';
-import { action as logoutAction } from './components/Logout.jsx';
+import { action as logoutAction } from './components/Auth/Logout.jsx';
 // Products
 import EditProductPage from './pages/Products/EditProduct';
 import NewProductPage from './pages/Products/NewProduct';
@@ -42,7 +42,7 @@ const router = createBrowserRouter([
       { path: 'logout', action: logoutAction },
 
       // Products
-      { path: 'product-details', element: <ProductDetailsPage /> },
+      { path: 'product/:id', element: <ProductDetailsPage /> },
 
       // User
       {
