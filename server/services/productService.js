@@ -21,20 +21,21 @@ export const selectProducts = async (filter, sort) => {
     .select(
       `
       *,
-      image(*)
+      image(*),
+      type(*)
     `,
     )
     .eq('image.is_main', true);
 
-  query = applyQueryModifiers(query, 'ilike', 'name', `%${filter.name}%`);
-  query = applyQueryModifiers(query, 'gte', 'price', filter.price.min);
-  query = applyQueryModifiers(query, 'gte', 'price', filter.price.max);
-  query = applyQueryModifiers(query, 'in', 'type_id', filter.typeId);
+  query = applyQueryModifiers(query, 'ilike', 'name', `%${filter?.name}%`);
+  query = applyQueryModifiers(query, 'gte', 'price', filter?.price?.min);
+  query = applyQueryModifiers(query, 'gte', 'price', filter?.price?.max);
+  query = applyQueryModifiers(query, 'in', 'type_id', filter?.typeId);
   query = applyQueryModifiers(query, 'order', 'price', {
-    ascending: sort.price === 'asc',
+    ascending: sort?.price === 'asc',
   });
   query = applyQueryModifiers(query, 'order', 'created_at', {
-    ascending: sort.date === 'asc',
+    ascending: sort?.date === 'asc',
   });
 
   return query;
