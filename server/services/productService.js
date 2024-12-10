@@ -7,7 +7,8 @@ export const getProductById = async (id) => {
     .select(
       `
       *,
-      image(*)
+      image(*),
+      type(*)
     `,
     )
     .eq('id', id)
