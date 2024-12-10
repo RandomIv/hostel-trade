@@ -1,7 +1,7 @@
 import db from '../config/db.js';
 
 export const getUserById = async (id) => {
-  return db.from('user').select('*').eq('id', id);
+  return db.from('user').select('*').eq('id', id).single();
 };
 export const updateUserById = async (id, data) => {
   return db.from('user').update(data).eq('id', id);
