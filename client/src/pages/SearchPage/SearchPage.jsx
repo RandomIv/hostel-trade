@@ -9,14 +9,14 @@ export default function SearchPage() {
   const products = useLoaderData();
 
   return (
-    <div className={classes['background']}>
+    <>
       <SearchBar />
       <div className={classes.container}>
         {products.map((product) => {
           return <Product key={product.id} data={product} />;
         })}
       </div>
-    </div>
+    </>
   );
 }
 

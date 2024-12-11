@@ -12,7 +12,7 @@ export default function ProductDetailsPage() {
   const { name, price, image: images, id } = data;
 
   return (
-    <div className={classes['background']}>
+    <>
       <SearchBar />
       <div className={classes.container}>
         <div className={classes['name-price-row']}>
@@ -22,7 +22,7 @@ export default function ProductDetailsPage() {
         <PhotoContainer images={images} />
         <ProductDescription data={data} />
       </div>
-    </div>
+    </>
   );
 }
 
