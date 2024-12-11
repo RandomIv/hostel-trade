@@ -9,7 +9,7 @@ import { getProductById } from '../../../utils/product';
 
 export default function ProductDetailsPage() {
   const data = useLoaderData();
-  const { name, price, image: images, id } = data;
+  const { name, price, image: images } = data;
 
   return (
     <>

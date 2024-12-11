@@ -24,3 +24,8 @@
 .name-price-row h3 {
   font-size: 25px;
 }
+
+.category {
+  padding: 5px 10px;
+  background-color: #f7f7f7;
+}

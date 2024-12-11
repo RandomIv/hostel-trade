@@ -21,12 +21,20 @@ export default function PhotoContainer({ images }) {
 
   return (
     <>
-      <div className={classes['photo-container']}>
-        <button className={classes['photo-btn']} onClick={handlePrevBtnClick}>
+      <div className={classes['container']}>
+        <button
+          className={classes['photo-btn-prev']}
+          onClick={handlePrevBtnClick}
+        >
           <i className="fa-solid fa-arrow-left" />
         </button>
-        <img src={imageUrl} alt="product-image" />
-        <button className={classes['photo-btn']} onClick={handleNextBtnClick}>
+        <div className={classes['photo-container']}>
+          <img src={imageUrl} alt="product-image" />
+        </div>
+        <button
+          className={classes['photo-btn-next']}
+          onClick={handleNextBtnClick}
+        >
           <i className="fa-solid fa-arrow-right" />
         </button>
       </div>

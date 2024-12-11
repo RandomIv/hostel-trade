@@ -49,27 +49,17 @@ export default function FilterForm({ isHidden }) {
         </div>
         <div className={classes['col']}>
           <div>
-            <label htmlFor="hostel" className={classes['form-label']}>
+            <label htmlFor="name-sort" className={classes['form-label']}>
               За назвою:
             </label>
-            <input
-              id="hostel"
-              type="number"
-              name="hostel"
-              placeholder="Номер"
-            />
+            <input id="name-sort" name="name-sort" />
           </div>
 
           <div>
-            <label htmlFor="hostel" className={classes['form-label']}>
+            <label htmlFor="price-sort" className={classes['form-label']}>
               За ціною:
             </label>
-            <input
-              id="hostel"
-              type="number"
-              name="hostel"
-              placeholder="Номер"
-            />
+            <input id="price-sort" name="price-sort" />
           </div>
         </div>
       </div>

@@ -10,7 +10,6 @@ export default function Product({ data }) {
     user_id,
     name,
     price,
-    type_id: type,
     description,
     created_at,
     updated_at,
@@ -18,6 +17,8 @@ export default function Product({ data }) {
     views_count,
     image,
   } = data;
+
+  const category = data.type.name;
 
   const imageUrl = image.length !== 0 ? image[0].url : emptyPhoto;
 
@@ -33,7 +34,7 @@ export default function Product({ data }) {
             <div className={classes['details-container']}>
               <h3>{name}</h3>
               <div>
-                <span className={classes.category}>{type}</span>
+                <span className={classes.category}>{category}</span>
               </div>
               <p>{formattedDate}</p>
             </div>
