@@ -5,7 +5,9 @@ import './App.css';
 // Main
 import RootLayout from './pages/Root';
 import HomePage from './pages//Home/Home';
-import SearchPage from './pages/SearchPage/SearchPage';
+import SearchPage, {
+  loader as ProductsLoader,
+} from './pages/SearchPage/SearchPage';
 import ErrorPage from './pages/Error/Error';
 
 // Access Control
@@ -13,12 +15,14 @@ import AuthPage, {
   action as authAction,
 } from './pages/AccessControl/Authentication';
 import { action as logoutAction } from './components/Auth/Logout.jsx';
+
 // Products
 import EditProductPage from './pages/Products/EditProduct';
 import NewProductPage from './pages/Products/NewProduct';
 import ProductDetailsPage, {
   loader as productDetailsLoader,
 } from './pages/Products/ProductDetails/ProductDetails';
+
 // User
 import ProfilePage from './pages/User/Profile';
 import LikedProductsPage from './pages/User/LikedProducts';
@@ -37,7 +41,7 @@ const router = createBrowserRouter([
     children: [
       // Main
       { index: true, element: <HomePage /> },
-      { path: 'search', element: <SearchPage /> },
+      { path: 'search', element: <SearchPage />, loader: ProductsLoader },
 
       // Access Control
       { path: 'auth', element: <AuthPage />, action: authAction },
