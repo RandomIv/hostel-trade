@@ -1,0 +1,45 @@
+.filter-form {
+  width: 100%;
+  margin: auto;
+  margin-bottom: 70px;
+}
+
+.filter-form h2 {
+  font-size: 25px;
+  margin-bottom: 15px;
+}
+
+.row {
+  display: flex;
+  gap: 5%;
+  margin-bottom: 35px;
+}
+
+.col {
+  display: flex;
+  gap: 30px;
+}
+
+.col input {
+  padding: 5px;
+  font-size: 15px;
+}
+
+.price {
+  display: flex;
+  gap: 15px;
+}
+
+.form-label {
+  display: block;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.link {
+  padding: 10px 15px;
+  color: white;
+  text-decoration: none;
+  background-color: #050c9c;
+  border-radius: 5px;
+}

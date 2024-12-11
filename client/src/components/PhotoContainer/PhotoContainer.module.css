@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   margin: auto;
-  width: 80%;
+  width: 100%;
   height: auto;
   background-color: white;
   border: 1px solid rgb(0, 0, 0, 0.3);
@@ -12,8 +12,8 @@
 
 .photo-container img {
   padding: 20px;
-  width: 400px;
-  height: 400px;
+  max-height: 500px;
+  width: auto;
 }
 
 .photo-btn i {

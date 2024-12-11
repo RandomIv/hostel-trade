@@ -1,17 +1,22 @@
+.container {
+  width: 80%;
+  margin: auto;
+}
+
 .input-container {
   display: flex;
   justify-content: center;
-
-  width: 100%;
+  margin: 10px 0;
 }
 
 .input-container * {
   margin: 2rem 0;
   padding: 10px;
+  box-sizing: content-box !important;
 }
 
 .search-input {
-  width: 60%;
+  width: 100%;
   height: 3rem;
 
   font-size: 20px;

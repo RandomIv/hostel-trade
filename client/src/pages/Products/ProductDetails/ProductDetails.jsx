@@ -9,7 +9,7 @@ import { getProductById } from '../../../utils/product';
 
 export default function ProductDetailsPage() {
   const data = useLoaderData();
-  const { name, price, image, id } = data;
+  const { name, price, image: images, id } = data;
 
   return (
     <div className={classes['background']}>
@@ -19,7 +19,7 @@ export default function ProductDetailsPage() {
           <h1>{name}</h1>
           <h3>{price} грн.</h3>
         </div>
-        <PhotoContainer image={image} />
+        <PhotoContainer images={images} />
         <ProductDescription data={data} />
       </div>
     </div>
