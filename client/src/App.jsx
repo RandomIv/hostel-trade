@@ -6,7 +6,8 @@ import './App.css';
 import RootLayout from './pages/Root';
 import HomePage from './pages//Home/Home';
 import SearchPage, {
-  loader as ProductsLoader,
+  loader as productsLoader,
+  action as searchAction,
 } from './pages/SearchPage/SearchPage';
 import ErrorPage from './pages/Error/Error';
 
@@ -41,7 +42,12 @@ const router = createBrowserRouter([
     children: [
       // Main
       { index: true, element: <HomePage /> },
-      { path: 'search', element: <SearchPage />, loader: ProductsLoader },
+      {
+        path: 'search',
+        element: <SearchPage />,
+        loader: productsLoader,
+        action: searchAction,
+      },
 
       // Access Control
       { path: 'auth', element: <AuthPage />, action: authAction },

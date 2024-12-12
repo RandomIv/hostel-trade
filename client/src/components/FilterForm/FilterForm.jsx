@@ -3,7 +3,7 @@ import classes from './FilterForm.module.css';
 
 export default function FilterForm({ isHidden }) {
   return (
-    <Form method="post" className={classes['filter-form']} hidden={isHidden}>
+    <div className={classes['filter-form']} hidden={isHidden}>
       <h2>Фільтри</h2>
       <div className={classes['row']}>
         <div className={classes['col']}>
@@ -63,12 +63,6 @@ export default function FilterForm({ isHidden }) {
           </div>
         </div>
       </div>
-
-      <p>
-        <Link to={`/search`} className={classes.link}>
-          Застосувати
-        </Link>
-      </p>
-    </Form>
+    </div>
   );
 }

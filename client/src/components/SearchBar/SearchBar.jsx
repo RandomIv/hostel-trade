@@ -1,6 +1,7 @@
 import classes from './SearchBar.module.css';
 import FilterForm from '../FilterForm/FilterForm';
 import { useState } from 'react';
+import { Form } from 'react-router-dom';
 
 export default function SearchBar() {
   const [isFilter, setIsFilter] = useState(true);
@@ -12,10 +13,12 @@ export default function SearchBar() {
   }
 
   return (
-    <div className={classes['container']}>
+    <Form method="post" className={classes['container']}>
       <div className={classes['input-container']}>
         <input
+          id="name"
           type="text"
+          name="name"
           className={classes['search-input']}
           placeholder="Знайти..."
         />
@@ -31,6 +34,6 @@ export default function SearchBar() {
         </button>
       </div>
       <FilterForm isHidden={isFilter} />
-    </div>
+    </Form>
   );
 }

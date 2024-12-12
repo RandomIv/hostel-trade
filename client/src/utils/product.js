@@ -15,15 +15,25 @@ export async function getProductById(id) {
   }
 }
 
-export async function getProducts() {
+export async function getProducts(searchParams) {
+  const filter = {
+    name: searchParams.get('name') || null,
+    price: {
+      min: searchParams.get('min') || null,
+      max: searchParams.get('max') || null,
+    },
+    typeId: searchParams.get('typeId') || null,
+    hostel: searchParams.get('hostel') || null,
+  };
+
+  const sort = {
+    price: searchParams.get('price-sort') || null,
+    date: searchParams.get('date-sort') || null,
+  };
+
   const params = new URLSearchParams({
-    filter: JSON.stringify({
-      name: null,
-      price: { min: null, max: null },
-      typeId: null,
-      hostel: null,
-    }),
-    sort: JSON.stringify({ price: null, date: null }),
+    filter: JSON.stringify(filter),
+    sort: JSON.stringify(sort),
   });
 
   const url = `http://localhost:5000/api/product?${params.toString()}`;
