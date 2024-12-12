@@ -40,7 +40,7 @@ export const selectProducts = async (filter, sort) => {
   query = applyQueryModifiers(query, 'gte', 'price', filter?.price?.min);
   query = applyQueryModifiers(query, 'lte', 'price', filter?.price?.max);
   query = applyQueryModifiers(query, 'in', 'type_id', filter?.typeId);
-  query = applyQueryModifiers(query, 'eq', 'user.hostel', filter?.hostel);
+  query = applyQueryModifiers(query, 'in', 'user.hostel', filter?.hostel);
   query = applyQueryModifiers(query, 'order', 'price', {
     ascending: sort?.price === 'asc',
   });
