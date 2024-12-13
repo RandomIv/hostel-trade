@@ -1,5 +1,5 @@
 import classes from './ProductUserDetails.module.css';
-import emptyPhoto from '../../assets/empty-photo-image.jpg';
+import emptyAvatarPhoto from '../../assets/no-avatar-image.png';
 
 import { convertDate } from '../../utils/dataConvert';
 
@@ -14,7 +14,7 @@ export default function ProductUserDetails({ data }) {
           <div className={classes['img-row']}>
             <div>
               <img
-                src={avatar_img ? avatar_img : emptyPhoto}
+                src={avatar_img ? avatar_img : emptyAvatarPhoto}
                 alt="avatar-image"
                 className={classes['avatar-img']}
               />

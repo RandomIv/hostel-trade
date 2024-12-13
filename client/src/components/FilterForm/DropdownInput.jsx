@@ -54,13 +54,15 @@ export default function DropdownInput({
           onFocus={() => setIsDropdownVisible(true)}
           onBlur={() => setTimeout(() => setIsDropdownVisible(false), 200)}
         />
-        <button
-          type="button"
-          className={classes['reset-button']}
-          onClick={resetInput}
-        >
-          <i className="fa-solid fa-x" />
-        </button>
+        {selectedIds.length > 0 && (
+          <button
+            type="button"
+            className={classes['reset-button']}
+            onClick={resetInput}
+          >
+            <i className="fa-solid fa-x" />
+          </button>
+        )}
       </div>
 
       <input

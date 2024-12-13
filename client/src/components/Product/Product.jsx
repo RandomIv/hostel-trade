@@ -5,18 +5,7 @@ import emptyPhoto from '../../assets/empty-photo-image.jpg';
 import { convertDate } from '../../utils/dataConvert';
 
 export default function Product({ data }) {
-  const {
-    id,
-    user_id,
-    name,
-    price,
-    description,
-    created_at,
-    updated_at,
-    is_active,
-    views_count,
-    image,
-  } = data;
+  const { id, name, price, created_at, image } = data;
 
   const category = data.type.name;
 

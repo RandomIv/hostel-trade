@@ -16,7 +16,9 @@ export default function ProductDetailsPage() {
     <div className={classes.container}>
       <div className={classes['name-price-row']}>
         <h1>{name}</h1>
-        <h3>{price} грн.</h3>
+        <div>
+          <h3>{price} грн.</h3>
+        </div>
       </div>
       <PhotoContainer images={images} />
       <ProductDescription data={prodData} />

@@ -12,6 +12,23 @@
   font-size: 28px;
 }
 
+.h-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.h-row div {
+  display: flex;
+  align-items: center;
+}
+
+.category {
+  padding: 5px 10px;
+  font-size: 18px;
+  background-color: #f7f7f7;
+}
+
 .container p {
   margin-bottom: 10px;
   font-size: 20px;
@@ -24,6 +41,7 @@
   padding: 15px 0;
   font-size: 15px;
 }
+
 .created-updated-row {
   border-bottom: 1px solid rgb(0, 0, 0, 0.3);
 }

@@ -28,28 +28,59 @@ export default function PriceInput({ defaultValue }) {
     });
   };
 
+  const resetInput = (name) => {
+    setPrice((prev) => {
+      return {
+        ...prev,
+        [name]: '',
+      };
+    });
+  };
+
   return (
     <div className={classes['price-container']}>
       <label htmlFor="min-price" className={classes['form-label']}>
         Ціна
       </label>
       <div className={classes['price']}>
-        <input
-          id="min-price"
-          type="number"
-          name="min"
-          placeholder="Від"
-          value={price.min}
-          onChange={handleInputChange}
-        />
-        <input
-          id="max-price"
-          type="number"
-          name="max"
-          placeholder="До"
-          value={price.max}
-          onChange={handleInputChange}
-        />
+        <div className={classes['input-container']}>
+          <input
+            id="min-price"
+            type="number"
+            name="min"
+            placeholder="Від"
+            value={price.min}
+            onChange={handleInputChange}
+          />
+          {price.min !== '' && (
+            <button
+              type="button"
+              className={classes['reset-button']}
+              onClick={() => resetInput('min')}
+            >
+              <i className="fa-solid fa-x" />
+            </button>
+          )}
+        </div>
+        <div className={classes['input-container']}>
+          <input
+            id="max-price"
+            type="number"
+            name="max"
+            placeholder="До"
+            value={price.max}
+            onChange={handleInputChange}
+          />
+          {price.max !== '' && (
+            <button
+              type="button"
+              className={classes['reset-button']}
+              onClick={() => resetInput('max')}
+            >
+              <i className="fa-solid fa-x" />
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
