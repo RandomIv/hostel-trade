@@ -6,25 +6,28 @@ import { Form } from 'react-router-dom';
 export default function SearchBar() {
   const [isFilter, setIsFilter] = useState(true);
 
-  function handleFilterClick() {
+  const handleFilterClick = () => {
     setIsFilter((prev) => {
       return !prev;
     });
-  }
+  };
 
   return (
     <Form method="post" className={classes['container']}>
       <div className={classes['input-container']}>
-        <input
-          id="name"
-          type="text"
-          name="name"
-          className={classes['search-input']}
-          placeholder="Знайти..."
-        />
-        <button className={classes['search-btn']} onClick={handleFilterClick}>
-          <i className="fa-solid fa-filter" />
-        </button>
+        <div className={classes['input-bar-container']}>
+          <input
+            id="name"
+            type="text"
+            name="name"
+            className={classes['search-input']}
+            placeholder="Знайти..."
+          />
+          <button className={classes['filter-btn']} onClick={handleFilterClick}>
+            <i className="fa-solid fa-filter" />
+          </button>
+        </div>
+
         <button className={classes['search-btn']}>
           Пошук
           <i
