@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import classes from './FilterForm.module.css';
 
 export default function DropdownInput({
@@ -6,10 +6,15 @@ export default function DropdownInput({
   name,
   data,
   placeholder,
+  defaultValue,
   ...props
 }) {
-  const [selectedIds, setSelectedIds] = useState([]);
+  const [selectedIds, setSelectedIds] = useState(defaultValue);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+
+  useEffect(() => {
+    setSelectedIds(defaultValue); // Sync with parent state
+  }, [defaultValue]);
 
   const handleCheckboxChange = (id) => {
     setSelectedIds((prev) =>

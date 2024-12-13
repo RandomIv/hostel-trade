@@ -2,11 +2,11 @@ import { useLoaderData } from 'react-router-dom';
 
 import classes from './ProductDetails.module.css';
 
-import PhotoContainer from '../../../components/PhotoContainer/PhotoContainer';
-import ProductDescription from '../../../components/ProductDescription/ProductDescription';
-import ProductUserDetails from '../../../components/ProductUserDetails/ProductUserDetails';
+import PhotoContainer from '../../components/PhotoContainer/PhotoContainer';
+import ProductDescription from '../../components/ProductDescription/ProductDescription';
+import ProductUserDetails from '../../components/ProductUserDetails/ProductUserDetails';
 
-import { getProductById, getUserInfo } from '../../../utils/product';
+import { getProductById, getUserInfo } from '../../utils/product';
 
 export default function ProductDetailsPage() {
   const { prodData, userData } = useLoaderData();

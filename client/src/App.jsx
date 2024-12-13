@@ -14,7 +14,7 @@ import ErrorPage from './pages/Error/Error';
 // Access Control
 import AuthPage, {
   action as authAction,
-} from './pages/AccessControl/Authentication';
+} from './pages/Auth/Authentication.jsx';
 import { action as logoutAction } from './components/Auth/Logout.jsx';
 
 // Products
@@ -22,7 +22,7 @@ import EditProductPage from './pages/Products/EditProduct';
 import NewProductPage from './pages/Products/NewProduct';
 import ProductDetailsPage, {
   loader as productDetailsLoader,
-} from './pages/Products/ProductDetails/ProductDetails';
+} from './pages/ProductDetails/ProductDetails';
 
 // User
 import ProfilePage from './pages/User/Profile';
