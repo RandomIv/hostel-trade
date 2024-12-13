@@ -4,11 +4,13 @@ import classes from './ProductDetails.module.css';
 
 import PhotoContainer from '../../../components/PhotoContainer/PhotoContainer';
 import ProductDescription from '../../../components/ProductDescription/ProductDescription';
-import { getProductById } from '../../../utils/product';
+import ProductUserDetails from '../../../components/ProductUserDetails/ProductUserDetails';
+
+import { getProductById, getUserInfo } from '../../../utils/product';
 
 export default function ProductDetailsPage() {
-  const data = useLoaderData();
-  const { name, price, image: images } = data;
+  const { prodData, userData } = useLoaderData();
+  const { name, price, image: images } = prodData;
 
   return (
     <div className={classes.container}>
@@ -17,7 +19,8 @@ export default function ProductDetailsPage() {
         <h3>{price} грн.</h3>
       </div>
       <PhotoContainer images={images} />
-      <ProductDescription data={data} />
+      <ProductDescription data={prodData} />
+      <ProductUserDetails data={userData} />
     </div>
   );
 }
@@ -25,5 +28,6 @@ export default function ProductDetailsPage() {
 export async function loader({ params }) {
   const id = params.productId;
   const prodData = await getProductById(id);
-  return prodData;
+  const userData = await getUserInfo(prodData.user.id);
+  return { prodData, userData };
 }

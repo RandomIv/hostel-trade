@@ -61,3 +61,20 @@ export async function getProducts(searchParams) {
     return [];
   }
 }
+
+export async function getUserInfo(userId) {
+  try {
+    const response = await fetch(`http://localhost:5000/api/user/${userId}`);
+
+    if (!response.ok) {
+      console.error('Response Error:', response);
+      throw new Error('Failed to fetch userInfo');
+    }
+
+    const res = await response.json();
+    return res.data?.user || [];
+  } catch (error) {
+    console.error('Fetch Error:', error);
+    return [];
+  }
+}
