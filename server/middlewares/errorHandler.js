@@ -1,11 +1,18 @@
 import logger from '../utils/logger.js';
 
 const errorHandler = (err, req, res, next) => {
-  logger.error(err.message, { stack: err.stack });
+  logger.error({
+    message: err.message,
+    stack: err.stack,
+    path: req.originalUrl,
+    method: req.method,
+    body: req.body,
+    query: req.query,
+  });
 
-  err.statusCode = err.statusCode || 500;
-  err.status = err.status || 'error';
-  res.status(err.statusCode).json({ status: err.status, message: err.message });
+  const statusCode = err.statusCode || 500;
+  const status = err.status || 'error';
+  res.status(statusCode).json({ status, message: err.message });
 };
 
 export default errorHandler;
