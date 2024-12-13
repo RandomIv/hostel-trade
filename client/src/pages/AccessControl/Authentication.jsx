@@ -59,7 +59,7 @@ export async function action({ request }) {
     }
 
     const { data: resData } = await response.json();
-    if (resData.token) {
+    if (mode === 'login' && resData.token) {
       localStorage.setItem('token', resData.token);
       return redirect('/profile');
     } else {

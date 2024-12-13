@@ -23,14 +23,14 @@ export default function SearchBar() {
           placeholder="Знайти..."
         />
         <button className={classes['search-btn']} onClick={handleFilterClick}>
-          <i className="fa-solid fa-filter"></i>
+          <i className="fa-solid fa-filter" />
         </button>
         <button className={classes['search-btn']}>
           Пошук
           <i
             className="fa-solid fa-magnifying-glass"
             style={{ paddingRight: 0 }}
-          ></i>
+          />
         </button>
       </div>
       <FilterForm isHidden={isFilter} />

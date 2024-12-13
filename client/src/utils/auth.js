@@ -60,5 +60,7 @@ export function loginErrorHandle(error) {
     error.message === 'JSON object requested, multiple (or no) rows returned'
   ) {
     return 'Неправильний email, login або пароль';
+  } else {
+    return error.message;
   }
 }

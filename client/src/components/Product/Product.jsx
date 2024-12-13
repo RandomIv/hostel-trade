@@ -28,7 +28,9 @@ export default function Product({ data }) {
     <Link to={`/product/${id}`} className={classes.link}>
       <div className={classes['product-container']}>
         <div className={classes['inner-container']}>
-          <img src={imageUrl} alt="product-image" />
+          <div className={classes['image-container']}>
+            <img src={imageUrl} alt="product-image" />
+          </div>
 
           <div className={classes['details-price-container']}>
             <div className={classes['details-container']}>
