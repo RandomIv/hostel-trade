@@ -4,6 +4,13 @@ import classes from './MainNavigation.module.css';
 export default function MainNavigation() {
   const token = useRouteLoaderData('root');
 
+  const handleLogout = (event) => {
+    const confirmed = window.confirm('Ви впевнені, що хочете вийти?');
+    if (!confirmed) {
+      event.preventDefault();
+    }
+  };
+
   return (
     <>
       <div className={classes['navbar-container']}>
@@ -20,7 +27,7 @@ export default function MainNavigation() {
         <div className={classes['auth-reg-container']}>
           {token ? (
             <div className={classes['logout-btn-container']}>
-              <Form action="/logout" method="post">
+              <Form action="/logout" method="post" onSubmit={handleLogout}>
                 <button className={classes['auth-logout-btn']}>Вийти</button>
               </Form>
               <Link to="/profile" className={classes['auth-auth-btn']}>

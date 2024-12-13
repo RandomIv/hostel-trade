@@ -1,3 +1,5 @@
+const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/';
+
 export const checkAccessToken = async () => {
   const token = localStorage.getItem('token');
 
@@ -5,8 +7,9 @@ export const checkAccessToken = async () => {
     return false;
   }
 
-  const response = await fetch('http://localhost:5000/api/protect', {
+  const response = await fetch(BASE_URL + 'protect', {
     method: 'GET',
+    credentials: 'include',
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
@@ -16,7 +19,7 @@ export const checkAccessToken = async () => {
 };
 
 export const checkRefreshToken = async () => {
-  const response = await fetch('http://localhost:5000/api/refresh', {
+  const response = await fetch(BASE_URL + 'refresh', {
     method: 'GET',
     credentials: 'include',
   });
@@ -34,7 +37,7 @@ export const checkRefreshToken = async () => {
 };
 
 export async function logout() {
-  const response = await fetch('http://localhost:5000/api/logout', {
+  const response = await fetch(BASE_URL + 'logout', {
     method: 'GET',
     credentials: 'include',
   });
