@@ -13,7 +13,6 @@ export default function ProductDetailsPage() {
 
   return (
     <>
-      <SearchBar />
       <div className={classes.container}>
         <div className={classes['name-price-row']}>
           <h1>{name}</h1>

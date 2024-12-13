@@ -1,5 +1,9 @@
-import { Form, Link } from 'react-router-dom';
 import classes from './FilterForm.module.css';
+
+import DropdownInput from './DropdownInput';
+
+import { hostelList } from '../../utils/data';
+import { categoryList } from '../../utils/data';
 
 export default function FilterForm({ isHidden }) {
   return (
@@ -8,13 +12,11 @@ export default function FilterForm({ isHidden }) {
       <div className={classes['row']}>
         <div className={classes['col']}>
           <div className={classes['filter-container']}>
-            <label htmlFor="category" className={classes['form-label']}>
-              Категорія
-            </label>
-            <input
-              id="category"
-              type="text"
-              name="category"
+            <DropdownInput
+              title="Категорія"
+              name="typeId"
+              data={categoryList}
+              type="checkbox"
               placeholder="Будь-яка"
             />
           </div>
@@ -34,33 +36,35 @@ export default function FilterForm({ isHidden }) {
             </div>
           </div>
           <div className={classes['price-container']}>
-            <label htmlFor="hostel" className={classes['form-label']}>
-              Гуртожиток
-            </label>
-            <div className={classes['price']}>
-              <input
-                id="hostel"
-                type="number"
-                name="hostel"
-                placeholder="Номер"
-              />
-            </div>
+            <DropdownInput
+              title="Гуртожиток"
+              name="hostel"
+              data={hostelList}
+              placeholder="Номер"
+              type="checkbox"
+            />
           </div>
         </div>
         <div className={classes['col']}>
-          <div>
-            <label htmlFor="name-sort" className={classes['form-label']}>
-              За назвою:
-            </label>
-            <input id="name-sort" name="name-sort" />
-          </div>
+          <DropdownInput
+            title="За ціною:"
+            name="price-sort"
+            data={[
+              { id: 'asc', name: 'Спочатку дешевші' },
+              { id: 'desc', name: 'Спочатку дорожчі' },
+            ]}
+            type="radio"
+          />
 
-          <div>
-            <label htmlFor="price-sort" className={classes['form-label']}>
-              За ціною:
-            </label>
-            <input id="price-sort" name="price-sort" />
-          </div>
+          <DropdownInput
+            title="За датою:"
+            name="date-sort"
+            data={[
+              { id: 'asc', name: 'Спочатку старіші' },
+              { id: 'desc', name: 'Спочатку новіші' },
+            ]}
+            type="radio"
+          />
         </div>
       </div>
     </div>

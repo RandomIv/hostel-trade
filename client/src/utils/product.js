@@ -16,14 +16,17 @@ export async function getProductById(id) {
 }
 
 export async function getProducts(searchParams) {
+  const types = searchParams.get('typeId');
+  const hostels = searchParams.get('hostel');
+
   const filter = {
     name: searchParams.get('name') || null,
     price: {
       min: searchParams.get('min') || null,
       max: searchParams.get('max') || null,
     },
-    typeId: searchParams.get('typeId') || null,
-    hostel: searchParams.get('hostel') || null,
+    typeId: types ? types.split(',') : null,
+    hostel: hostels ? hostels.split(',') : null,
   };
 
   const sort = {
