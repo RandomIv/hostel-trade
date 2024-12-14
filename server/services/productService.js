@@ -16,7 +16,8 @@ export const getProductById = async (id) => {
       views_count,
       image(id, url, is_main),
       type(*),
-      user(id, username, first_name, last_name, email, avatar_img, phone_number, created_at, hostel)
+      user(id, username, first_name, last_name, email, avatar_img, phone_number, created_at),
+      hostel(*)
     `,
     )
     .eq('id', id)
@@ -31,7 +32,7 @@ export const selectProducts = async (filter, sort) => {
       *,
       image(id, url, is_main),
       type(*),
-      user!inner(id, hostel)
+      hostel!inner(*)
     `,
     )
     .eq('image.is_main', true);
@@ -40,7 +41,7 @@ export const selectProducts = async (filter, sort) => {
   query = applyQueryModifiers(query, 'gte', 'price', filter?.price?.min);
   query = applyQueryModifiers(query, 'lte', 'price', filter?.price?.max);
   query = applyQueryModifiers(query, 'in', 'type_id', filter?.typeId);
-  query = applyQueryModifiers(query, 'in', 'user.hostel', filter?.hostel);
+  query = applyQueryModifiers(query, 'in', 'hostel.number', filter?.hostel);
   query = applyQueryModifiers(query, 'order', 'price', {
     ascending: sort?.price === 'asc',
   });
