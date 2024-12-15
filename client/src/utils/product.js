@@ -16,8 +16,7 @@ export async function getProductById(id) {
 }
 
 export async function getProducts(searchParams) {
-  const types = searchParams.get('typeId');
-  const hostels = searchParams.get('hostel');
+  const parseParams = (param) => (param ? param.split(',') : null);
 
   const filter = {
     name: searchParams.get('name') || null,
@@ -25,13 +24,18 @@ export async function getProducts(searchParams) {
       min: searchParams.get('min') || null,
       max: searchParams.get('max') || null,
     },
-    typeId: types ? types.split(',') : null,
-    hostelId: hostels ? hostels.split(',') : null,
+    typeId: parseParams(searchParams.get('typeId')),
+    hostelId: parseParams(searchParams.get('hostelId')),
   };
 
+  const [sortKey, sortValue] = searchParams.get('sort')?.split('-') || [
+    null,
+    null,
+  ];
   const sort = {
-    price: searchParams.get('price-sort') || null,
-    date: searchParams.get('date-sort') || null,
+    price: null,
+    date: null,
+    [sortKey]: sortValue,
   };
 
   const params = new URLSearchParams({
@@ -44,9 +48,7 @@ export async function getProducts(searchParams) {
   try {
     const response = await fetch(url, {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
     });
 
     if (!response.ok) {
@@ -54,8 +56,8 @@ export async function getProducts(searchParams) {
       throw new Error('Failed to fetch products');
     }
 
-    const res = await response.json();
-    return res.data?.products || [];
+    const { data } = await response.json();
+    return data?.products || [];
   } catch (error) {
     console.error('Fetch Error:', error);
     return [];

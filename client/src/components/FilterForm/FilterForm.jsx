@@ -10,8 +10,6 @@ export default function FilterForm({ isHidden, hostels, types }) {
 
   const sortedHostels = hostels.sort((a, b) => a.number - b.number);
 
-  console.log(sortedHostels);
-
   const handleDelAllBtnClick = () => {
     setDefaultValue([]);
   };
@@ -28,50 +26,41 @@ export default function FilterForm({ isHidden, hostels, types }) {
           placeholder="Будь-яка"
           defaultValue={defaultValue}
         />
-
         <PriceInput defaultValue={defaultValue} />
-
         <DropdownInput
           title="Гуртожиток"
-          name="hostel"
+          name="hostelId"
           data={sortedHostels}
           placeholder="Номер"
           defaultValue={defaultValue}
           type="checkbox"
         />
-      </div>
-      <div className={classes['row']}>
-        <DropdownInput
-          title="За ціною:"
-          name="price-sort"
-          data={[
-            { id: 'asc', name: 'Спочатку дешевші' },
-            { id: 'desc', name: 'Спочатку дорожчі' },
-          ]}
-          type="radio"
-          defaultValue={defaultValue}
-        />
+        <div className={classes['sort-box']}>
+          <DropdownInput
+            title="Сортувати:"
+            name="sort"
+            data={[
+              { id: 'price-asc', name: 'Спочатку дешевші' },
+              { id: 'price-desc', name: 'Спочатку дорожчі' },
+              { id: 'date-asc', name: 'Спочатку старіші' },
+              { id: 'date-desc', name: 'Спочатку новіші' },
+            ]}
+            type="radio"
+            defaultValue={defaultValue}
+          />
+        </div>
 
-        <DropdownInput
-          title="За датою:"
-          name="date-sort"
-          data={[
-            { id: 'asc', name: 'Спочатку старіші' },
-            { id: 'desc', name: 'Спочатку новіші' },
-          ]}
-          type="radio"
-          defaultValue={defaultValue}
-        />
-
-        <button
-          className={classes['del-all-btn']}
-          onClick={(event) => {
-            event.preventDefault(); // Prevent form submission
-            handleDelAllBtnClick();
-          }}
-        >
-          Скинути фільтри
-        </button>
+        <div className={classes['del-all-box']}>
+          <button
+            className={classes['del-all-btn']}
+            onClick={(event) => {
+              event.preventDefault(); // Prevent form submission
+              handleDelAllBtnClick();
+            }}
+          >
+            Скинути фільтри
+          </button>
+        </div>
       </div>
     </div>
   );
