@@ -10,8 +10,8 @@ import { toSnakeCase } from '../utils/objectUtils.js';
 
 export const getUser = handleAsync(async (req, res, next) => {
   const { id } = req.params;
-  const { data: user, error } = await getUserById(id);
 
+  const { data: user, error } = await getUserById(id);
   if (error) return next(error);
 
   sendResponse(res, 200, { user });
@@ -24,8 +24,8 @@ export const updateUser = handleAsync(async (req, res, next) => {
   if (dataToUpdate.password) {
     dataToUpdate.password = await bcrypt.hash(dataToUpdate.password, 10);
   }
-  const { error } = await updateUserById(id, dataToUpdate);
 
+  const { error } = await updateUserById(id, dataToUpdate);
   if (error) return next(error);
 
   sendResponse(res, 200, null, 'User updated successfully');
@@ -33,8 +33,8 @@ export const updateUser = handleAsync(async (req, res, next) => {
 
 export const deleteUser = handleAsync(async (req, res, next) => {
   const { id } = req.params;
-  const { error } = deleteUserById(id);
 
+  const { error } = deleteUserById(id);
   if (error) return next(error);
 
   sendResponse(res, 200, null, 'User deleted successfully');
