@@ -4,7 +4,7 @@ export const getUserById = async (id) => {
   return db
     .from('user')
     .select(
-      'id, username, first_name, last_name, email, avatar_img, phone_number, created_at, hostel',
+      'id, username, first_name, last_name, email, avatar_img, phone_number, created_at, hostel(*)',
     )
     .eq('id', id)
     .single();

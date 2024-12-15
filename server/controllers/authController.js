@@ -10,7 +10,7 @@ import AppError from '../utils/appError.js';
 import bcrypt from 'bcrypt';
 import { sendResponse } from '../utils/responseUtils.js';
 
-export const register = handleAsync(async (req, res, next) => {
+export const signup = handleAsync(async (req, res, next) => {
   const { username, email, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
   const { error } = await createUser(username, email, hashedPassword);
@@ -60,4 +60,8 @@ export const refresh = handleAsync(async (req, res, next) => {
     { token: accessToken },
     'Token refreshed successfully',
   );
+});
+
+export const protect = handleAsync(async (req, res) => {
+  sendResponse(res, 200, { user: req.user });
 });
