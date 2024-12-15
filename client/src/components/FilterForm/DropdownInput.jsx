@@ -42,12 +42,12 @@ export default function DropdownInput({
 
   return (
     <div className={classes['filter-container']}>
-      <label htmlFor="display" className={classes['form-label']}>
+      <label htmlFor={'display' + name} className={classes['form-label']}>
         {title}
       </label>
       <div className={classes['input-container']}>
         <input
-          id="display"
+          id={'display' + name}
           placeholder={placeholder ? placeholder : ''}
           readOnly
           value={selectedNames.join(', ').slice(0, 20)}

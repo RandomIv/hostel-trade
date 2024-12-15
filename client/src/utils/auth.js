@@ -24,10 +24,11 @@ export const checkRefreshToken = async () => {
     credentials: 'include',
   });
 
-  const data = await response.json();
+  const res = await response.json();
+  const token = res.data.token;
 
-  if (response.ok && data.token) {
-    localStorage.setItem('token', data.token);
+  if (response.ok && token) {
+    localStorage.setItem('token', token);
     console.log('Refresh Token:', data);
     return true;
   } else {

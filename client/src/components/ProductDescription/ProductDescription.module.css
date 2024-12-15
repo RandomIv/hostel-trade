@@ -45,3 +45,17 @@
 .created-updated-row {
   border-bottom: 1px solid rgb(0, 0, 0, 0.3);
 }
+
+.dorm-box {
+  margin-bottom: 0;
+}
+
+.dorm-box div {
+  display: flex;
+  align-items: center;
+}
+
+.dorm-box h2 {
+  margin-bottom: 0;
+  font-size: 20px;
+}

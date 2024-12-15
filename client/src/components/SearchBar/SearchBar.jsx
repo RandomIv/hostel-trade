@@ -22,6 +22,7 @@ export default function SearchBar() {
             name="name"
             className={classes['search-input']}
             placeholder="Знайти..."
+            autoComplete="off"
           />
           <button className={classes['filter-btn']} onClick={handleFilterClick}>
             <i className="fa-solid fa-filter" />

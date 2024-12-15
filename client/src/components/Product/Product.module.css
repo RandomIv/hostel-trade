@@ -28,21 +28,26 @@
   object-fit: cover;
 }
 
-.details-price-container {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-}
-
-.details-container {
+.text-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 5px;
+  padding-top: 0;
+  width: 100%;
 }
 
-.details-container h3 {
+.row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.text-container h3 {
   font-size: 25px;
+}
+
+.text-container p {
+  font-size: 15px;
 }
 
 .category {
@@ -50,13 +55,9 @@
   background-color: #f7f7f7;
 }
 
-.details-container p {
-  font-size: 15px;
-}
-
 .price {
-  padding: 5px 10px;
+  padding: 5px 0;
 
-  font-size: 20px;
+  font-size: 20px !important;
   font-weight: 600;
 }
