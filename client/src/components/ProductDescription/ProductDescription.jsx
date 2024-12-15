@@ -34,7 +34,13 @@ export default function ProductDescription({ data }) {
           <div>
             <h2>Місцезнаходження:</h2>
           </div>
-          {hostel_num && <span>Гуртожиток №{hostel_num}</span>}
+          <div>
+            {hostel_num ? (
+              <span>Гуртожиток №{hostel_num}</span>
+            ) : (
+              <span>Невідомо</span>
+            )}
+          </div>
         </div>
       </div>
     </>
