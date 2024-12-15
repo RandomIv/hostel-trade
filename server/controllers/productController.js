@@ -36,7 +36,6 @@ export const postProduct = handleAsync(async (req, res, next) => {
   const dataToCreate = toSnakeCase(req.body);
 
   const { error } = await createProduct(dataToCreate);
-
   if (error) return next(error);
 
   sendResponse(res, 201, null, 'Product created successfully');
@@ -47,7 +46,6 @@ export const updateProduct = handleAsync(async (req, res, next) => {
   const dataToUpdate = toSnakeCase(req.body);
 
   const { error } = await saveUpdatedProduct(id, dataToUpdate);
-
   if (error) return next(error);
 
   sendResponse(res, 200, null, 'Product updated successfully');
@@ -55,8 +53,8 @@ export const updateProduct = handleAsync(async (req, res, next) => {
 
 export const deleteProduct = handleAsync(async (req, res, next) => {
   const { id } = req.params;
-  const { error } = await deleteProductById(id);
 
+  const { error } = await deleteProductById(id);
   if (error) return next(error);
 
   sendResponse(res, 200, null, 'Product deleted successfully');

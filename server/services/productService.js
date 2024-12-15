@@ -41,13 +41,23 @@ export const selectProducts = async (filter, sort) => {
   query = applyQueryModifiers(query, 'gte', 'price', filter?.price?.min);
   query = applyQueryModifiers(query, 'lte', 'price', filter?.price?.max);
   query = applyQueryModifiers(query, 'in', 'type_id', filter?.typeId);
-  query = applyQueryModifiers(query, 'in', 'hostel.number', filter?.hostel);
-  query = applyQueryModifiers(query, 'order', 'price', {
-    ascending: sort?.price === 'asc',
-  });
-  query = applyQueryModifiers(query, 'order', 'created_at', {
-    ascending: sort?.date === 'asc',
-  });
+  query = applyQueryModifiers(query, 'in', 'hostel.id', filter?.hostelId);
+  query = applyQueryModifiers(
+    query,
+    'order',
+    'price',
+    sort?.price && {
+      ascending: sort?.price === 'asc',
+    },
+  );
+  query = applyQueryModifiers(
+    query,
+    'order',
+    'created_at',
+    sort?.date && {
+      ascending: sort?.date === 'asc',
+    },
+  );
 
   return query;
 };

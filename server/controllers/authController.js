@@ -13,8 +13,8 @@ import { sendResponse } from '../utils/responseUtils.js';
 export const signup = handleAsync(async (req, res, next) => {
   const { username, email, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
-  const { error } = await createUser(username, email, hashedPassword);
 
+  const { error } = await createUser(username, email, hashedPassword);
   if (error) return next(error);
 
   sendResponse(res, 201, null, 'User registered successfully');
@@ -22,8 +22,8 @@ export const signup = handleAsync(async (req, res, next) => {
 
 export const login = handleAsync(async (req, res, next) => {
   const { loginIdentifier, password } = req.body;
-  const { data: user, error } = await getUserByIdentifier(loginIdentifier);
 
+  const { data: user, error } = await getUserByIdentifier(loginIdentifier);
   if (error) return next(error);
 
   if (!user || !(await bcrypt.compare(password, user.password))) {
