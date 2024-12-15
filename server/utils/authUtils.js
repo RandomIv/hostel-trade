@@ -30,3 +30,9 @@ export const generateActivationToken = async (payload) => {
     expiresIn: TOKEN_OPTIONS.activation.expiresIn,
   });
 };
+
+export const generateResetToken = async (payload) => {
+  return promisify(jwt.sign)(payload, TOKEN_OPTIONS.access.secret, {
+    expiresIn: TOKEN_OPTIONS.reset.expiresIn,
+  });
+};

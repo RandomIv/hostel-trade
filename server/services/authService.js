@@ -15,3 +15,7 @@ export const getUserByIdentifier = async (identifier) => {
 export const setUserVerifiedStatus = async (email) => {
   return db.from('user').update({ is_verified: true }).eq('email', email);
 };
+
+export const updateUserPasswordById = async (id, password) => {
+  return db.from('user').update({ password }).eq('id', id);
+};

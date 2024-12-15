@@ -2,6 +2,7 @@ import {
   getUserByIdentifier,
   createUser,
   setUserVerifiedStatus,
+  updateUserPasswordById,
 } from '../services/authService.js';
 import {
   generateRefreshToken,
@@ -9,6 +10,7 @@ import {
   verifyRefreshToken,
   generateActivationToken,
   verifyAccessToken,
+  generateResetToken,
 } from '../utils/authUtils.js';
 import handleAsync from '../utils/handleAsync.js';
 import COOKIE_OPTIONS from '../config/cookieConfig.js';
@@ -92,6 +94,41 @@ export const refresh = handleAsync(async (req, res, next) => {
     { token: accessToken },
     'Token refreshed successfully',
   );
+});
+
+export const forgotPassword = handleAsync(async (req, res, next) => {
+  const { email } = req.body;
+
+  const { data: user, error } = await getUserByIdentifier(email);
+  if (error) return next(error);
+
+  const resetToken = await generateResetToken({ id: user.id });
+  const resetLink = `${process.env.CLIENT_URL}/reset-password?token=${resetToken}`;
+
+  await sendEmail(
+    email,
+    'Reset your password',
+    `
+    <p>Click the link below to reset your password:</p>
+    <a href="${resetLink}">Reset Password</a>
+  `,
+  );
+
+  sendResponse(res, 200, null, 'Password reset email sent.');
+});
+
+export const resetPassword = handleAsync(async (req, res, next) => {
+  const { token } = req.query;
+  const { password } = req.body;
+
+  const { id } = await verifyAccessToken(token);
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  const { error } = await updateUserPasswordById(id, hashedPassword);
+  if (error) return next(error);
+
+  sendResponse(res, 200, null, 'Password reset successfully.');
 });
 
 export const activateAccount = handleAsync(async (req, res, next) => {
