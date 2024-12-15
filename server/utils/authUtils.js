@@ -24,3 +24,15 @@ export const verifyAccessToken = async (token) => {
 export const verifyRefreshToken = async (token) => {
   return promisify(jwt.verify)(token, process.env.REFRESH_TOKEN_SECRET);
 };
+
+export const generateActivationToken = async (payload) => {
+  return promisify(jwt.sign)(payload, TOKEN_OPTIONS.access.secret, {
+    expiresIn: TOKEN_OPTIONS.activation.expiresIn,
+  });
+};
+
+export const generateResetToken = async (payload) => {
+  return promisify(jwt.sign)(payload, TOKEN_OPTIONS.access.secret, {
+    expiresIn: TOKEN_OPTIONS.reset.expiresIn,
+  });
+};
