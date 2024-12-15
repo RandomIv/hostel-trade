@@ -1,8 +1,3 @@
-import classes from './SearchPage.module.css';
-
-import SearchBar from '../../components/SearchBar/SearchBar';
-import Product from '../../components/Product/Product';
-import { getProducts } from '../../utils/product';
 import {
   redirect,
   useActionData,
@@ -11,15 +6,22 @@ import {
   useSearchParams,
 } from 'react-router-dom';
 
+import classes from './SearchPage.module.css';
+
+import SearchBar from '../../components/SearchBar/SearchBar';
+import Product from '../../components/Product/Product';
+
+import { getProducts, getHostels, getTypes } from '../../utils/product';
+
 export default function SearchPage() {
-  const products = useLoaderData();
+  const { productsData, hostelsData, typesData } = useLoaderData();
 
   return (
     <>
-      <SearchBar />
+      <SearchBar hostels={hostelsData} types={typesData} />
       <div className={classes.container}>
-        {products.length > 0 ? (
-          products.map((product) => {
+        {productsData.length > 0 ? (
+          productsData.map((product) => {
             return <Product key={product.id} data={product} />;
           })
         ) : (
@@ -35,7 +37,9 @@ export async function loader({ request }) {
   const searchParams = url.searchParams;
 
   const productsData = await getProducts(searchParams);
-  return productsData;
+  const hostelsData = await getHostels();
+  const typesData = await getTypes();
+  return { productsData, hostelsData, typesData };
 }
 
 export async function action({ request }) {

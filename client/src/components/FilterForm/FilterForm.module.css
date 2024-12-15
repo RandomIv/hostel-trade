@@ -22,9 +22,8 @@
 }
 
 .row {
-  position: relative;
   display: flex;
-  gap: 3%;
+  gap: 2%;
   margin-bottom: 20px;
 }
 
@@ -111,11 +110,14 @@
   padding-top: 3px;
 }
 
-.del-all-btn {
-  position: absolute;
-  bottom: 0px;
-  right: 0px;
+.del-all-box {
+  display: flex;
+  align-items: end;
+  margin-left: auto;
+}
 
+.del-all-btn {
+  margin-left: auto;
   padding: 5px 8px;
 
   font-size: 20px;
@@ -129,4 +131,8 @@
   color: #050c9c;
   background-color: white;
   border: 2px solid #050c9c;
+}
+
+.sort-box {
+  margin-left: 2%;
 }

@@ -26,7 +26,7 @@ export async function getProducts(searchParams) {
       max: searchParams.get('max') || null,
     },
     typeId: types ? types.split(',') : null,
-    hostel: hostels ? hostels.split(',') : null,
+    hostelId: hostels ? hostels.split(',') : null,
   };
 
   const sort = {
@@ -73,6 +73,40 @@ export async function getUserInfo(userId) {
 
     const res = await response.json();
     return res.data?.user || [];
+  } catch (error) {
+    console.error('Fetch Error:', error);
+    return [];
+  }
+}
+
+export async function getHostels() {
+  try {
+    const response = await fetch(`http://localhost:5000/api/hostel`);
+
+    if (!response.ok) {
+      console.error('Response Error:', response);
+      throw new Error('Failed to fetch hostels');
+    }
+
+    const res = await response.json();
+    return res.data?.hostels || [];
+  } catch (error) {
+    console.error('Fetch Error:', error);
+    return [];
+  }
+}
+
+export async function getTypes() {
+  try {
+    const response = await fetch(`http://localhost:5000/api/type`);
+
+    if (!response.ok) {
+      console.error('Response Error:', response);
+      throw new Error('Failed to fetch types');
+    }
+
+    const res = await response.json();
+    return res.data?.types || [];
   } catch (error) {
     console.error('Fetch Error:', error);
     return [];

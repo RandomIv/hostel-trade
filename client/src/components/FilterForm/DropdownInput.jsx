@@ -13,7 +13,7 @@ export default function DropdownInput({
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
   useEffect(() => {
-    setSelectedIds(defaultValue); // Sync with parent state
+    setSelectedIds(defaultValue);
   }, [defaultValue]);
 
   const handleCheckboxChange = (id) => {
@@ -38,7 +38,7 @@ export default function DropdownInput({
 
   const selectedNames = data
     .filter((item) => selectedIds.includes(item.id))
-    .map((item) => item.name);
+    .map((item) => item.name || item.number);
 
   return (
     <div className={classes['filter-container']}>
@@ -83,7 +83,7 @@ export default function DropdownInput({
               }
               onClick={() => handleChange(item.id)}
             >
-              {item.name}
+              {item.name || item.number}
               {selectedIds.includes(item.id) && (
                 <i className="fa-solid fa-check" />
               )}

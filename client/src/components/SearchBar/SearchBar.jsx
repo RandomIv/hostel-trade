@@ -3,7 +3,7 @@ import FilterForm from '../FilterForm/FilterForm';
 import { useState } from 'react';
 import { Form } from 'react-router-dom';
 
-export default function SearchBar() {
+export default function SearchBar({ hostels, types }) {
   const [isFilter, setIsFilter] = useState(true);
 
   const handleFilterClick = () => {
@@ -37,7 +37,7 @@ export default function SearchBar() {
           />
         </button>
       </div>
-      <FilterForm isHidden={isFilter} />
+      <FilterForm isHidden={isFilter} hostels={hostels} types={types} />
     </Form>
   );
 }

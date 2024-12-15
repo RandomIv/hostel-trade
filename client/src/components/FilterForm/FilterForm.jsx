@@ -3,12 +3,14 @@ import classes from './FilterForm.module.css';
 import DropdownInput from './DropdownInput';
 import PriceInput from './PriceInput';
 
-import { hostelList } from '../../utils/data';
-import { categoryList } from '../../utils/data';
 import { useState } from 'react';
 
-export default function FilterForm({ isHidden }) {
+export default function FilterForm({ isHidden, hostels, types }) {
   const [defaultValue, setDefaultValue] = useState([]);
+
+  const sortedHostels = hostels.sort((a, b) => a.number - b.number);
+
+  console.log(sortedHostels);
 
   const handleDelAllBtnClick = () => {
     setDefaultValue([]);
@@ -21,7 +23,7 @@ export default function FilterForm({ isHidden }) {
         <DropdownInput
           title="Категорія"
           name="typeId"
-          data={categoryList}
+          data={types}
           type="checkbox"
           placeholder="Будь-яка"
           defaultValue={defaultValue}
@@ -32,7 +34,7 @@ export default function FilterForm({ isHidden }) {
         <DropdownInput
           title="Гуртожиток"
           name="hostel"
-          data={hostelList}
+          data={sortedHostels}
           placeholder="Номер"
           defaultValue={defaultValue}
           type="checkbox"
