@@ -3,15 +3,24 @@
   margin: 0;
   box-sizing: border-box;
 
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
 }
 
 body,
 html {
-  height: 90vh;
+  height: 100%;
+}
+
+body {
+  background-color: rgb(198, 231, 255, 0.2);
+  background-size: cover;
 }
 
 button {
   background: none;
   border: none;
+}
+
+button:hover {
+  cursor: pointer;
 }

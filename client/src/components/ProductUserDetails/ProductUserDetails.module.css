@@ -1,0 +1,54 @@
+.container {
+  width: 100%;
+  margin: 20px auto;
+  padding: 15px 20px;
+  background-color: white;
+  border-radius: 15px;
+  border: 1px solid rgb(0, 0, 0, 0.3);
+}
+
+.container h2 {
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.container h4 {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.container p {
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.img-row {
+  display: flex;
+  gap: 15px;
+}
+
+.centered-col {
+  height: 70px;
+  display: flex;
+  align-items: center;
+}
+
+.centered-col div p:last-child {
+  margin-bottom: 0;
+}
+
+.avatar-img {
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+}
+
+.info {
+  font-weight: 600;
+}

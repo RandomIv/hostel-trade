@@ -4,19 +4,26 @@ import './App.css';
 
 // Main
 import RootLayout from './pages/Root';
-import HomePage from './pages/Home';
-import SearchPage from './pages/SearchPage';
+import HomePage from './pages//Home/Home';
+import SearchPage, {
+  loader as productsLoader,
+  action as searchAction,
+} from './pages/SearchPage/SearchPage';
 import ErrorPage from './pages/Error/Error';
 
 // Access Control
 import AuthPage, {
   action as authAction,
-} from './pages/AccessControl/Authentication';
-import { action as logoutAction } from './pages/AccessControl/Logout.jsx';
+} from './pages/Auth/Authentication.jsx';
+import { action as logoutAction } from './components/Auth/Logout.jsx';
+
 // Products
 import EditProductPage from './pages/Products/EditProduct';
 import NewProductPage from './pages/Products/NewProduct';
-import ProductDetailsPage from './pages/Products/ProductDetails';
+import ProductDetailsPage, {
+  loader as productDetailsLoader,
+} from './pages/ProductDetails/ProductDetails';
+
 // User
 import ProfilePage from './pages/User/Profile';
 import LikedProductsPage from './pages/User/LikedProducts';
@@ -35,14 +42,23 @@ const router = createBrowserRouter([
     children: [
       // Main
       { index: true, element: <HomePage /> },
-      { path: 'search', element: <SearchPage /> },
+      {
+        path: 'search',
+        element: <SearchPage />,
+        loader: productsLoader,
+        action: searchAction,
+      },
 
       // Access Control
       { path: 'auth', element: <AuthPage />, action: authAction },
       { path: 'logout', action: logoutAction },
 
       // Products
-      { path: 'product-details', element: <ProductDetailsPage /> },
+      {
+        path: 'product/:productId',
+        element: <ProductDetailsPage />,
+        loader: productDetailsLoader,
+      },
 
       // User
       {

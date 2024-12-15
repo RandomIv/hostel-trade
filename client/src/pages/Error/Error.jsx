@@ -1,6 +1,7 @@
 import { useRouteError } from 'react-router-dom';
 
 import classes from './Error.module.css';
+import sadEmoticonPhoto from '../../assets/sad-emoticon-face.png';
 
 export default function ErrorPage() {
   const error = useRouteError();
@@ -25,7 +26,7 @@ export default function ErrorPage() {
   return (
     <div className={classes['container']}>
       <div className={classes['error-container']}>
-        <img src="/sad-emoticon-face.png" alt="sad-emoticon-face" />
+        <img src={sadEmoticonPhoto} alt="sad-emoticon-face" />
         <div className={classes['error-info']}>
           <div>
             <h1>{title}</h1>
