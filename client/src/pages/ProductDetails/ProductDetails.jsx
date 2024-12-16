@@ -1,4 +1,4 @@
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 
 import classes from './ProductDetails.module.css';
 
@@ -12,6 +12,9 @@ export default function ProductDetailsPage() {
   const { prodData, userData } = useLoaderData();
   const { name, price, image: images } = prodData;
 
+  const currentUserId = localStorage.getItem('userId');
+  console.log(userData.id, currentUserId);
+
   return (
     <div className={classes.container}>
       <div className={classes['name-price-row']}>
@@ -23,6 +26,11 @@ export default function ProductDetailsPage() {
       <PhotoContainer images={images} />
       <ProductDescription data={prodData} />
       <ProductUserDetails data={userData} />
+      {currentUserId === userData.id && (
+        <p className={classes['change-row']}>
+          <Link to="/profile/edit-product">Редагувати</Link>
+        </p>
+      )}
     </div>
   );
 }

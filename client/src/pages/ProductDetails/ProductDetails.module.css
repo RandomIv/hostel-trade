@@ -35,3 +35,25 @@
   padding: 5px 10px;
   background-color: #f7f7f7;
 }
+
+.change-row {
+  display: flex;
+  justify-content: end;
+}
+
+.change-row a {
+  padding: 10px 15px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+  background-color: #050c9c;
+  border: 3px solid transparent;
+  border-radius: 5px;
+}
+
+.change-row a:hover {
+  color: #050c9c;
+  background-color: transparent;
+  border: 3px solid #050c9c;
+}
