@@ -8,7 +8,7 @@ export default function ProfileNavBar() {
   return (
     <div className={classes['row']}>
       <NavLink
-        to="/profile/"
+        to="/profile"
         end
         className={({ isActive }) => (isActive ? classes['active-link'] : '')}
       >

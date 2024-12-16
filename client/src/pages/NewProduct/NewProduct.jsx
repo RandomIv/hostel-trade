@@ -1,18 +1,20 @@
+import { Form } from 'react-router-dom';
 import classes from './NewProduct.module.css';
+
+import MainInfo from '../../components/NewProduct/MainInfo';
+import PhotoBox from '../../components/NewProduct/PhotoBox';
+import NewProductDescription from '../../components/NewProduct/NewProductDescription';
 
 export default function NewProductPage() {
   return (
-    <div className={classes.container}>
+    <Form className={classes.container}>
       <h1>Нове оголошення</h1>
-      <div className={classes['box']}>
-        <h2>Головна інформація</h2>
-        <div className={classes['row']}>
-          <div>
-            <label htmlFor=""></label>
-          </div>
-        </div>
-        <div className={classes['row']}></div>
-      </div>
-    </div>
+      <MainInfo />
+      <PhotoBox />
+      <NewProductDescription />
+      <p>
+        <button className={classes['publish-btn']}>Опублікувати</button>
+      </p>
+    </Form>
   );
 }

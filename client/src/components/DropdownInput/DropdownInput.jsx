@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import classes from './FilterForm.module.css';
+import classes from '../FilterForm/FilterForm.module.css';
 
 export default function DropdownInput({
   title,
@@ -53,6 +53,7 @@ export default function DropdownInput({
           value={selectedNames.join(', ').slice(0, 20)}
           onFocus={() => setIsDropdownVisible(true)}
           onBlur={() => setTimeout(() => setIsDropdownVisible(false), 200)}
+          className={classes[props.className] || ''}
         />
         {selectedIds.length > 0 && (
           <button

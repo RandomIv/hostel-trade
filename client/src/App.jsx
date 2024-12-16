@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
 import './App.css';
 
@@ -36,6 +37,8 @@ import LikedProductsPage from './pages/LikedProducts/LikedProducts';
 import UserProductsPage from './pages/UserProducts/UserProducts';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import { tokenLoader } from './utils/auth.js';
+
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
@@ -92,7 +95,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  );
 }
 
 export default App;

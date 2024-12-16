@@ -1,0 +1,137 @@
+.box {
+  padding: 15px 20px;
+  margin: auto;
+  margin-bottom: 20px;
+
+  background-color: white;
+  border-radius: 15px;
+  border: 1px solid rgb(0, 0, 0, 0.3);
+}
+
+.box h2 {
+  margin-bottom: 15px;
+}
+
+.row {
+  display: flex;
+  gap: 5%;
+  margin-bottom: 10px;
+}
+
+.form-label {
+  display: inline-block;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.form-input {
+  padding: 5px;
+  font-size: 15px;
+  background-color: rgb(0, 0, 0, 0.01);
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.form-input[type='number']::-webkit-inner-spin-button,
+.form-input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.form-input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.title-input {
+  width: 50%;
+  margin-bottom: 15px;
+}
+
+/* Photo Box */
+
+.photo-title {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.photo-title h2 {
+  margin-bottom: 0;
+}
+
+.photo-title div {
+  display: flex;
+  align-items: center;
+}
+
+.row-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 5px;
+  row-gap: 10px;
+  margin-bottom: 5px;
+}
+
+.file-btn {
+  display: none;
+}
+
+.custom-file-btn {
+  display: inline-block;
+  box-sizing: border-box;
+
+  height: 100px;
+  width: 100px;
+
+  font-size: 9px;
+  text-align: center;
+  color: black;
+  background-color: #f7f7f7;
+  border: 3px solid #050c9c;
+  border-radius: 10px;
+}
+
+.custom-file-btn:hover {
+  cursor: pointer;
+  background-color: rgb(0, 0, 0, 0.1);
+}
+
+.custom-file-btn-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.custom-file-btn img {
+  height: 40px;
+  width: 40px;
+  margin-bottom: 5px;
+}
+
+.photo-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  width: 100px;
+  border: 3px solid #050c9c;
+  border-radius: 10px;
+}
+
+.photo-div img {
+  height: 60px;
+  width: 70px;
+}
+
+/* Description Box*/
+
+.description {
+  padding: 10px 12px;
+  width: 100%;
+  font-size: 15px;
+  background-color: rgb(0, 0, 0, 0.01);
+  border: 1px solid black;
+  border-radius: 5px;
+}

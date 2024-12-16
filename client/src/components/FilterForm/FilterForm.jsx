@@ -1,6 +1,6 @@
 import classes from './FilterForm.module.css';
 
-import DropdownInput from './DropdownInput';
+import DropdownInput from '../DropdownInput/DropdownInput';
 import PriceInput from './PriceInput';
 
 import { useState } from 'react';

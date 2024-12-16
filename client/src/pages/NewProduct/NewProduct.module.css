@@ -13,15 +13,21 @@
   font-size: 25px;
 }
 
-.box {
+.container p {
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
+}
 
-  padding: 20px;
-  margin: auto;
-  margin-bottom: 20px;
+.publish-btn {
+  padding: 8px 15px;
 
-  background-color: white;
-  border-radius: 15px;
-  border: 1px solid rgb(0, 0, 0, 0.3);
+  font-size: 20px;
+  color: white;
+  background-color: #050c9c;
+  border: 3px solid #050c9c;
+  border-radius: 5px;
+}
+
+.publish-btn:hover {
+  background-color: transparent;
 }
