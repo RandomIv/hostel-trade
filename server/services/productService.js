@@ -63,12 +63,12 @@ export const selectProducts = async (filter, sort) => {
   return query;
 };
 
-export const createProduct = async (data) => {
-  return db.from('product').insert({ data });
+export const createProduct = async (userId, data) => {
+  return db.from('product').insert({ user_id: userId, ...data });
 };
 
 export const saveUpdatedProduct = async (id, data) => {
-  return db.from('product').update({ data }).eq('id', id);
+  return db.from('product').update(data).eq('id', id);
 };
 
 export const deleteProductById = async (id) => {

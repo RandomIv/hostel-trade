@@ -29,8 +29,9 @@ export const getProducts = handleAsync(async (req, res, next) => {
 
 export const postProduct = handleAsync(async (req, res, next) => {
   const dataToCreate = toSnakeCase(req.body);
+  const { id: userId } = req.params;
 
-  const { error } = await createProduct(dataToCreate);
+  const { error } = await createProduct(userId, dataToCreate);
   if (error) return next(error);
 
   sendResponse(res, 201, null, 'Product created successfully');
