@@ -34,6 +34,7 @@
 
 .filter-form input {
   padding: 5px;
+
   font-size: 15px;
 }
 
@@ -71,12 +72,12 @@
   background-color: white;
   border: 1px solid #ccc;
   border-radius: 4px;
-  width: 200px;
+  width: 175px;
   max-height: 150px;
   overflow-y: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  z-index: 1000;
+  z-index: 5;
   margin-top: 4px;
   padding: 0;
   list-style: none;

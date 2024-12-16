@@ -5,6 +5,10 @@ import { useState } from 'react';
 export default function PhotoContainer({ images }) {
   const [imageIndex, setImageIndex] = useState(0);
 
+  const sortedImages = images.sort((a, b) => {
+    return (b.is_main === true) - (a.is_main === true);
+  });
+
   function handlePrevBtnClick() {
     setImageIndex((prev) => {
       return prev !== 0 ? prev - 1 : images.length - 1;
@@ -17,7 +21,8 @@ export default function PhotoContainer({ images }) {
     });
   }
 
-  const imageUrl = images.length !== 0 ? images[imageIndex].url : emptyPhoto;
+  const imageUrl =
+    sortedImages.length !== 0 ? sortedImages[imageIndex].url : emptyPhoto;
 
   return (
     <>

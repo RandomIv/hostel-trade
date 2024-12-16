@@ -25,7 +25,7 @@ import ProductDetailsPage, {
 } from './pages/ProductDetails/ProductDetails';
 
 // User
-import ProfilePage from './pages/User/Profile';
+import ProfilePage, { loader as profileLoader } from './pages/User/Profile';
 import LikedProductsPage from './pages/User/LikedProducts';
 import ProfileSettingsPage from './pages/User/ProfileSettings';
 import UserProductsPage from './pages/User/UserProducts';
@@ -64,6 +64,8 @@ const router = createBrowserRouter([
       {
         path: 'profile',
         element: <ProtectedRoute />,
+        id: 'profile-root',
+        loader: profileLoader,
         children: [
           { index: true, element: <ProfilePage /> },
           { path: 'profile-settings', element: <ProfileSettingsPage /> },
