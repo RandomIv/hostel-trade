@@ -18,7 +18,10 @@ import AppError from '../utils/appError.js';
 import bcrypt from 'bcrypt';
 import { sendResponse } from '../utils/responseUtils.js';
 import dotenv from 'dotenv';
-import { sendEmail } from '../config/emailConfig.js';
+import {
+  sendActivationEmail,
+  sendResetPasswordEmail,
+} from '../config/emailConfig.js';
 
 dotenv.config({ path: '../.env' });
 
@@ -30,16 +33,7 @@ export const signup = handleAsync(async (req, res, next) => {
   if (error) return next(error);
 
   const activationToken = await generateActivationToken({ email });
-  const activationLink = `${process.env.CLIENT_URL}/activate-account?token=${activationToken}`;
-
-  await sendEmail(
-    email,
-    'Activate your account',
-    `
-    <p>Please activate your account by clicking the link below:</p>
-    <a href="${activationLink}">Activate Account</a>
-  `,
-  );
+  await sendActivationEmail(email, activationToken);
 
   sendResponse(
     res,
@@ -103,16 +97,7 @@ export const forgotPassword = handleAsync(async (req, res, next) => {
   if (error) return next(error);
 
   const resetToken = await generateResetToken({ id: user.id });
-  const resetLink = `${process.env.CLIENT_URL}/reset-password?token=${resetToken}`;
-
-  await sendEmail(
-    email,
-    'Reset your password',
-    `
-    <p>Click the link below to reset your password:</p>
-    <a href="${resetLink}">Reset Password</a>
-  `,
-  );
+  await sendResetPasswordEmail(email, resetToken);
 
   sendResponse(res, 200, null, 'Password reset email sent.');
 });

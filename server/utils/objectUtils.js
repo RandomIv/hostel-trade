@@ -5,7 +5,7 @@ export const toSnakeCase = (obj) => {
         /([A-Z])/g,
         (match) => `_${match.toLowerCase()}`,
       );
-      return [snakeKey, value]; // Повертаємо ключ у snake_case, значення без змін
+      return [snakeKey, value];
     }),
   );
 };
