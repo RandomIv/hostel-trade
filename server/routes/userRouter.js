@@ -11,6 +11,9 @@ const userRouter = Router();
 
 userRouter.route('/user/:id').get(getUser).patch(updateUser).delete(deleteUser);
 
-userRouter.get('/me', authenticateToken, setCurrentUserId, getUser);
+userRouter
+  .route('/me')
+  .get(authenticateToken, setCurrentUserId, getUser)
+  .patch(authenticateToken, setCurrentUserId, updateUser);
 
 export default userRouter;

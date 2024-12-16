@@ -20,11 +20,10 @@ export const getUser = handleAsync(async (req, res, next) => {
 export const updateUser = handleAsync(async (req, res, next) => {
   const { id } = req.params;
   const dataToUpdate = toSnakeCase(req.body);
-
+  console.log(dataToUpdate);
   if (dataToUpdate.password) {
     dataToUpdate.password = await bcrypt.hash(dataToUpdate.password, 10);
   }
-
   const { error } = await updateUserById(id, dataToUpdate);
   if (error) return next(error);
 
