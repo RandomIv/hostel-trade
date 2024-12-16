@@ -1,4 +1,4 @@
-import db from '../config/db.js';
+import db from '../config/dbConfig.js';
 
 export const createUser = async (username, email, password) => {
   return db.from('user').insert({ username, email, password });
