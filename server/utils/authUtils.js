@@ -1,9 +1,6 @@
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
 import TOKEN_OPTIONS from '../config/tokenConfig.js';
 import { promisify } from 'util';
-
-dotenv.config({ path: '../.env' });
 
 export const generateRefreshToken = async (payload) => {
   return promisify(jwt.sign)(payload, TOKEN_OPTIONS.refresh.secret, {
@@ -18,11 +15,11 @@ export const generateAccessToken = async (payload) => {
 };
 
 export const verifyAccessToken = async (token) => {
-  return promisify(jwt.verify)(token, process.env.ACCESS_TOKEN_SECRET);
+  return promisify(jwt.verify)(token, TOKEN_OPTIONS.access.secret);
 };
 
 export const verifyRefreshToken = async (token) => {
-  return promisify(jwt.verify)(token, process.env.REFRESH_TOKEN_SECRET);
+  return promisify(jwt.verify)(token, TOKEN_OPTIONS.refresh.secret);
 };
 
 export const generateActivationToken = async (payload) => {
