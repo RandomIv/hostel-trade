@@ -10,10 +10,8 @@ import { getProductById, getUserInfo } from '../../utils/product';
 
 export default function ProductDetailsPage() {
   const { prodData, userData } = useLoaderData();
-  const { name, price, image: images } = prodData;
-
+  const { id, name, price, image: images } = prodData;
   const currentUserId = localStorage.getItem('userId');
-  console.log(userData.id, currentUserId);
 
   return (
     <div className={classes.container}>
@@ -28,7 +26,7 @@ export default function ProductDetailsPage() {
       <ProductUserDetails data={userData} />
       {currentUserId === userData.id && (
         <p className={classes['change-row']}>
-          <Link to="/profile/edit-product">Редагувати</Link>
+          <Link to={`/profile/edit-product/${id}`}>Редагувати</Link>
         </p>
       )}
     </div>

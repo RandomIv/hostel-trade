@@ -18,17 +18,22 @@ import AuthPage, {
 import { action as logoutAction } from './components/Auth/Logout.jsx';
 
 // Products
-import EditProductPage from './pages/Products/EditProduct';
-import NewProductPage from './pages/Products/NewProduct';
 import ProductDetailsPage, {
   loader as productDetailsLoader,
 } from './pages/ProductDetails/ProductDetails';
 
-// User
-import ProfilePage, { loader as profileLoader } from './pages/User/Profile';
-import LikedProductsPage from './pages/User/LikedProducts';
-import ProfileSettingsPage from './pages/User/ProfileSettings';
-import UserProductsPage from './pages/User/UserProducts';
+import EditProductPage, {
+  loader as editProductLoader,
+} from './pages/EditProduct/EditProduct';
+import NewProductPage from './pages/NewProduct/NewProduct';
+
+// Profile
+import ProfilePage, { loader as profileLoader } from './pages/Profile/Profile';
+import ProfileSettingsPage from './pages/Profile/ProfileSettings';
+
+// User Products
+import LikedProductsPage from './pages/LikedProducts/LikedProducts';
+import UserProductsPage from './pages/UserProducts/UserProducts';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import { tokenLoader } from './utils/auth.js';
 
@@ -74,7 +79,11 @@ const router = createBrowserRouter([
           { path: 'user-products', element: <UserProductsPage /> },
           { path: 'liked-products', element: <LikedProductsPage /> },
 
-          { path: 'edit-product', element: <EditProductPage /> },
+          {
+            path: 'edit-product/:productId',
+            element: <EditProductPage />,
+            loader: editProductLoader,
+          },
           { path: 'new-product', element: <NewProductPage /> },
         ],
       },
