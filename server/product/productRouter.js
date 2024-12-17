@@ -5,11 +5,16 @@ import {
   postProduct,
   updateProduct,
   deleteProduct,
-} from '../controllers/productController.js';
+} from './productController.js';
+import authenticateToken from '../middlewares/authenticateToken.js';
+import setCurrentUserId from '../middlewares/setCurrentUserId.js';
 
 const productRouter = Router();
 
-productRouter.route('/product').get(getProducts).post(postProduct);
+productRouter
+  .route('/product')
+  .get(getProducts)
+  .post(authenticateToken, setCurrentUserId, postProduct);
 
 productRouter
   .route('/product/:id')

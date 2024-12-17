@@ -5,7 +5,7 @@ import {
   deleteTypeById,
   getTypeById,
   selectTypes,
-} from '../services/typeService.js';
+} from './typeService.js';
 
 export const getTypes = handleAsync(async (req, res, next) => {
   const { data: types, error } = await selectTypes();

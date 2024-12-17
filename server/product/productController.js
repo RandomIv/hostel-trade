@@ -5,7 +5,7 @@ import {
   createProduct,
   saveUpdatedProduct,
   deleteProductById,
-} from '../services/productService.js';
+} from './productService.js';
 import { sendResponse } from '../utils/responseUtils.js';
 import { toSnakeCase } from '../utils/objectUtils.js';
 
@@ -19,12 +19,7 @@ export const getProduct = handleAsync(async (req, res, next) => {
 });
 
 export const getProducts = handleAsync(async (req, res, next) => {
-  const filter = req.body.filter
-    ? req.body.filter
-    : JSON.parse(req.query.filter || '{}');
-  const sort = req.body.sort
-    ? req.body.sort
-    : JSON.parse(req.query.sort || '{}');
+  const { sort, filter } = req.body;
 
   const { data: products, error } = await selectProducts(filter, sort);
   if (error) return next(error);
@@ -34,8 +29,9 @@ export const getProducts = handleAsync(async (req, res, next) => {
 
 export const postProduct = handleAsync(async (req, res, next) => {
   const dataToCreate = toSnakeCase(req.body);
+  const { id: userId } = req.params;
 
-  const { error } = await createProduct(dataToCreate);
+  const { error } = await createProduct(userId, dataToCreate);
   if (error) return next(error);
 
   sendResponse(res, 201, null, 'Product created successfully');

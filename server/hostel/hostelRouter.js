@@ -4,7 +4,7 @@ import {
   getHostels,
   postHostel,
   deleteHostel,
-} from '../controllers/hostelController.js';
+} from './hostelController.js';
 
 const hostelRouter = Router();
 

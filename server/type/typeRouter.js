@@ -1,10 +1,5 @@
 import Router from 'express';
-import {
-  getType,
-  getTypes,
-  postType,
-  deleteType,
-} from '../controllers/typeController.js';
+import { getType, getTypes, postType, deleteType } from './typeController.js';
 
 const typeRouter = Router();
 
