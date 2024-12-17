@@ -1,19 +1,15 @@
 import { sendRequest } from './http';
 
 export async function getProductById(id) {
-  const response = await fetch(`http://localhost:5000/api/product/${id}`);
-
-  if (!response.ok) {
-    throw new Response(
-      JSON.stringify({ message: 'Could not fetch product.' }),
-      {
-        status: 500,
-      }
-    );
-  } else {
-    const res = await response.json();
-    const resData = res.data.product;
-    return resData;
+  try {
+    const { data } = await sendRequest({
+      url: `http://localhost:5000/api/product/${id}`,
+      method: 'GET',
+    });
+    return data.product;
+  } catch (error) {
+    console.error('Error fetching product by ID:', error);
+    throw new Error('Could not fetch product.');
   }
 }
 
@@ -46,74 +42,54 @@ export async function getProducts(searchParams) {
     sort: JSON.stringify(sort),
   });
 
-  const url = `http://localhost:5000/api/product?${params.toString()}`;
-
   try {
-    const response = await fetch(url, {
+    const { data } = await sendRequest({
+      url: `http://localhost:5000/api/product?${params.toString()}`,
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     });
-
-    if (!response.ok) {
-      console.error('Response Error:', response);
-      throw new Error('Failed to fetch products');
-    }
-
-    const { data } = await response.json();
     return data?.products || [];
   } catch (error) {
-    console.error('Fetch Error:', error);
+    console.error('Error fetching products:', error);
     return [];
   }
 }
 
 export async function getUserInfo(userId) {
   try {
-    const response = await fetch(`http://localhost:5000/api/user/${userId}`);
-
-    if (!response.ok) {
-      console.error('Response Error:', response);
-      throw new Error('Failed to fetch userInfo');
-    }
-
-    const res = await response.json();
-    return res.data?.user || [];
+    const { data } = await sendRequest({
+      url: `http://localhost:5000/api/user/${userId}`,
+      method: 'GET',
+    });
+    return data?.user || [];
   } catch (error) {
-    console.error('Fetch Error:', error);
+    console.error('Error fetching user info:', error);
     return [];
   }
 }
 
 export async function getHostels() {
   try {
-    const response = await fetch(`http://localhost:5000/api/hostel`);
-
-    if (!response.ok) {
-      console.error('Response Error:', response);
-      throw new Error('Failed to fetch hostels');
-    }
-
-    const res = await response.json();
-    return res.data?.hostels || [];
+    const { data } = await sendRequest({
+      url: `http://localhost:5000/api/hostel`,
+      method: 'GET',
+    });
+    return data?.hostels || [];
   } catch (error) {
-    console.error('Fetch Error:', error);
+    console.error('Error fetching hostels:', error);
     return [];
   }
 }
 
 export async function getTypes() {
   try {
-    const response = await fetch(`http://localhost:5000/api/type`);
-
-    if (!response.ok) {
-      console.error('Response Error:', response);
-      throw new Error('Failed to fetch types');
-    }
-
-    const res = await response.json();
-    return res.data?.types || [];
+    const { data } = await sendRequest({
+      url: `http://localhost:5000/api/type`,
+      method: 'GET',
+    });
+    return data?.types || [];
   } catch (error) {
-    console.error('Fetch Error:', error);
+    console.error('Error fetching types:', error);
     return [];
   }
 }
