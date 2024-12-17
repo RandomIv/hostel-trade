@@ -1,14 +1,29 @@
-import { getUserByIdentifier, createUser } from '../services/authService.js';
+import {
+  getUserByIdentifier,
+  createUser,
+  setUserVerifiedStatus,
+  updateUserPasswordById,
+} from './authService.js';
 import {
   generateRefreshToken,
   generateAccessToken,
   verifyRefreshToken,
+  generateActivationToken,
+  verifyAccessToken,
+  generateResetToken,
 } from '../utils/authUtils.js';
 import handleAsync from '../utils/handleAsync.js';
 import COOKIE_OPTIONS from '../config/cookieConfig.js';
 import AppError from '../utils/appError.js';
 import bcrypt from 'bcrypt';
 import { sendResponse } from '../utils/responseUtils.js';
+import dotenv from 'dotenv';
+import {
+  sendActivationEmail,
+  sendResetPasswordEmail,
+} from '../config/emailConfig.js';
+
+dotenv.config({ path: '../.env' });
 
 export const signup = handleAsync(async (req, res, next) => {
   const { username, email, password } = req.body;
@@ -17,7 +32,15 @@ export const signup = handleAsync(async (req, res, next) => {
   const { error } = await createUser(username, email, hashedPassword);
   if (error) return next(error);
 
-  sendResponse(res, 201, null, 'User registered successfully');
+  const activationToken = await generateActivationToken({ email });
+  await sendActivationEmail(email, activationToken);
+
+  sendResponse(
+    res,
+    201,
+    null,
+    'User registered successfully. Check your email for activation.',
+  );
 });
 
 export const login = handleAsync(async (req, res, next) => {
@@ -30,6 +53,11 @@ export const login = handleAsync(async (req, res, next) => {
     return next(new AppError('Invalid login or password', 401));
   }
 
+  if (!user.is_verified) {
+    return next(
+      new AppError('Email not verified. Please check your inbox.', 403),
+    );
+  }
   const payload = { id: user.id };
   const accessToken = await generateAccessToken(payload);
   const refreshToken = await generateRefreshToken(payload);
@@ -60,6 +88,42 @@ export const refresh = handleAsync(async (req, res, next) => {
     { token: accessToken },
     'Token refreshed successfully',
   );
+});
+
+export const forgotPassword = handleAsync(async (req, res, next) => {
+  const { email } = req.body;
+
+  const { data: user, error } = await getUserByIdentifier(email);
+  if (error) return next(error);
+
+  const resetToken = await generateResetToken({ id: user.id });
+  await sendResetPasswordEmail(email, resetToken);
+
+  sendResponse(res, 200, null, 'Password reset email sent.');
+});
+
+export const resetPassword = handleAsync(async (req, res, next) => {
+  const { token } = req.query;
+  const { password } = req.body;
+
+  const { id } = await verifyAccessToken(token);
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  const { error } = await updateUserPasswordById(id, hashedPassword);
+  if (error) return next(error);
+
+  sendResponse(res, 200, null, 'Password reset successfully.');
+});
+
+export const activateAccount = handleAsync(async (req, res, next) => {
+  const { token } = req.query;
+  const { email } = await verifyAccessToken(token);
+
+  const { error } = await setUserVerifiedStatus(email);
+  if (error) return next(error);
+
+  sendResponse(res, 200, null, 'Account activated successfully.');
 });
 
 export const protect = handleAsync(async (req, res) => {

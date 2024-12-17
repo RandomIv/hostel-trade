@@ -1,4 +1,4 @@
-import db from '../config/db.js';
+import db from '../config/dbConfig.js';
 
 export const selectTypes = async () => {
   return db.from('type').select('*');

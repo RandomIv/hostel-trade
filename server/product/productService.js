@@ -1,4 +1,4 @@
-import db from '../config/db.js';
+import db from '../config/dbConfig.js';
 import applyQueryModifiers from '../utils/queryUtils.js';
 
 export const getProductById = async (id) => {
@@ -40,6 +40,7 @@ export const selectProducts = async (filter, sort) => {
   query = applyQueryModifiers(query, 'ilike', 'name', `%${filter?.name}%`);
   query = applyQueryModifiers(query, 'gte', 'price', filter?.price?.min);
   query = applyQueryModifiers(query, 'lte', 'price', filter?.price?.max);
+  query = applyQueryModifiers(query, 'eq', 'user_id', filter?.userId);
   query = applyQueryModifiers(query, 'in', 'type_id', filter?.typeId);
   query = applyQueryModifiers(query, 'in', 'hostel.id', filter?.hostelId);
   query = applyQueryModifiers(
@@ -62,12 +63,12 @@ export const selectProducts = async (filter, sort) => {
   return query;
 };
 
-export const createProduct = async (data) => {
-  return db.from('product').insert(data);
+export const createProduct = async (userId, data) => {
+  return db.from('product').insert({ user_id: userId, ...data });
 };
 
 export const saveUpdatedProduct = async (id, data) => {
-  return db.from('product').update({ data }).eq('id', id);
+  return db.from('product').update(data).eq('id', id);
 };
 
 export const deleteProductById = async (id) => {

@@ -15,7 +15,10 @@
   border: 3px solid #050c9c;
   border-radius: 7px;
 }
-
+a:hover {
+  background-color: #050c9c;
+  color: white;
+}
 .active-link {
   color: white !important;
   background-color: #050c9c;

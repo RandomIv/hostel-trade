@@ -23,18 +23,13 @@ import ProductDetailsPage, {
   loader as productDetailsLoader,
 } from './pages/ProductDetails/ProductDetails';
 
-import EditProductPage, {
-  loader as editProductLoader,
-} from './pages/EditProduct/EditProduct';
-import NewProductPage from './pages/NewProduct/NewProduct';
-
-// Profile
-import ProfilePage, { loader as profileLoader } from './pages/Profile/Profile';
-import ProfileSettingsPage from './pages/Profile/ProfileSettings';
-
-// User Products
-import LikedProductsPage from './pages/LikedProducts/LikedProducts';
-import UserProductsPage from './pages/UserProducts/UserProducts';
+// User
+import ProfilePage, {
+  loader as profileLoader,
+} from './pages/Profile/Profile.jsx';
+import LikedProductsPage from './pages/User/LikedProducts';
+import ProfileSettingsPage from './pages/User/ProfileSettings';
+import UserProductsPage from './pages/User/UserProducts';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import { tokenLoader } from './utils/auth.js';
 
