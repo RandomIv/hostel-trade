@@ -114,3 +114,44 @@ export async function getTypes() {
     return [];
   }
 }
+
+export async function sendRequest({
+  url,
+  method = 'POST',
+  body = {},
+  headers = {},
+}) {
+  try {
+    const response = await fetch(url, {
+      method,
+      headers,
+      body,
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(
+        error.message || 'An error occurred while processing your request.'
+      );
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Request failed:', error.message);
+    throw error;
+  }
+}
+
+export async function postNewProduct({ body, headers }) {
+  try {
+    const response = await sendRequest({
+      url: 'http://localhost:5000/api/product',
+      method: 'POST',
+      body,
+      headers: headers,
+    });
+    return response;
+  } catch (error) {
+    return error.message;
+  }
+}

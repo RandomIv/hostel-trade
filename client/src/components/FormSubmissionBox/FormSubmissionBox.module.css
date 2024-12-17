@@ -1,0 +1,17 @@
+.error-box {
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: rgb(255, 203, 203, 0.7);
+  border-radius: 5px;
+}
+
+.error-box ul {
+  list-style: none;
+}
+
+.submitted-box {
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: #d8efd3;
+  border-radius: 5px;
+}

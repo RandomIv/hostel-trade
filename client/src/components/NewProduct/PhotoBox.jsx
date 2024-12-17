@@ -15,9 +15,9 @@ export default function PhotoBox() {
       </div>
 
       <div className={classes['row-grid']}>
-        {photos.map((photo) => {
+        {photos.map((photo, index) => {
           return (
-            <div className={classes['photo-div']}>
+            <div key={index} className={classes['photo-div']}>
               <img src={photo ? photo : cameraIco} alt="camera-ico" />
             </div>
           );

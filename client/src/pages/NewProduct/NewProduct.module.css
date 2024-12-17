@@ -29,5 +29,6 @@
 }
 
 .publish-btn:hover {
+  color: #050c9c;
   background-color: transparent;
 }

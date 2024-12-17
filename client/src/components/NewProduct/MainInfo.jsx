@@ -16,6 +16,7 @@ export default function MainInfo() {
   } = useQuery({
     queryKey: ['types'],
     queryFn: getTypes,
+    staleTime: 5000,
   });
 
   const {
@@ -25,6 +26,7 @@ export default function MainInfo() {
   } = useQuery({
     queryKey: ['hostels'],
     queryFn: getHostels,
+    staleTime: 5000,
   });
 
   return (
@@ -40,6 +42,8 @@ export default function MainInfo() {
           name="name"
           className={`${classes['form-input']} ${classes['title-input']}`}
           placeholder="Коротко опишіть товар..."
+          required
+          minLength={3}
         />
       </div>
       <div className={classes['row']}>
@@ -52,6 +56,7 @@ export default function MainInfo() {
             type="number"
             name="price"
             className={classes['form-input']}
+            required
           />
         </div>
 
@@ -79,7 +84,7 @@ export default function MainInfo() {
               placeholder="Номер"
               defaultValue={defaultValue}
               className="input-dropdown"
-            />{' '}
+            />
           </div>
         )}
       </div>

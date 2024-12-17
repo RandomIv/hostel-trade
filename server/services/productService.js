@@ -18,7 +18,7 @@ export const getProductById = async (id) => {
       type(*),
       user(id, username, first_name, last_name, email, avatar_img, phone_number, created_at),
       hostel(*)
-    `,
+    `
     )
     .eq('id', id)
     .single();
@@ -33,7 +33,7 @@ export const selectProducts = async (filter, sort) => {
       image(id, url, is_main),
       type(*),
       hostel!inner(*)
-    `,
+    `
     )
     .eq('image.is_main', true);
 
@@ -48,7 +48,7 @@ export const selectProducts = async (filter, sort) => {
     'price',
     sort?.price && {
       ascending: sort?.price === 'asc',
-    },
+    }
   );
   query = applyQueryModifiers(
     query,
@@ -56,14 +56,14 @@ export const selectProducts = async (filter, sort) => {
     'created_at',
     sort?.date && {
       ascending: sort?.date === 'asc',
-    },
+    }
   );
 
   return query;
 };
 
 export const createProduct = async (data) => {
-  return db.from('product').insert({ data });
+  return db.from('product').insert(data);
 };
 
 export const saveUpdatedProduct = async (id, data) => {

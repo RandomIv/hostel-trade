@@ -44,8 +44,10 @@
 }
 
 .title-input {
-  width: 50%;
   margin-bottom: 15px;
+  padding: 7px;
+  width: 50%;
+  font-size: 20px;
 }
 
 /* Photo Box */

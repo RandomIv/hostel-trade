@@ -87,7 +87,10 @@ const router = createBrowserRouter([
             element: <EditProductPage />,
             loader: editProductLoader,
           },
-          { path: 'new-product', element: <NewProductPage /> },
+          {
+            path: 'new-product',
+            element: <NewProductPage />,
+          },
         ],
       },
     ],
