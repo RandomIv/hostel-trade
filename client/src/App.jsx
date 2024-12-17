@@ -22,14 +22,17 @@ import { action as logoutAction } from './components/Auth/Logout.jsx';
 import ProductDetailsPage, {
   loader as productDetailsLoader,
 } from './pages/ProductDetails/ProductDetails';
+import EditProductPage, {
+  loader as editProductLoader,
+} from './pages/EditProduct/EditProduct';
+import NewProductPage from './pages/NewProduct/NewProduct';
 
 // User
-import ProfilePage, {
-  loader as profileLoader,
-} from './pages/Profile/Profile.jsx';
-import LikedProductsPage from './pages/User/LikedProducts';
+import ProfilePage, { loader as profileLoader } from './pages/User/Profile.jsx';
+import LikedProductsPage from './pages/LikedProducts/LikedProducts';
 import ProfileSettingsPage from './pages/User/ProfileSettings';
-import UserProductsPage from './pages/User/UserProducts';
+import UserProductsPage from './pages/UserProducts/UserProducts';
+
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import { tokenLoader } from './utils/auth.js';
 

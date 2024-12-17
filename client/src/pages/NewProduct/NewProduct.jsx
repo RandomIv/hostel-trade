@@ -14,7 +14,7 @@ export default function NewProductPage() {
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
 
-  const userId = localStorage.getItem('userId');
+  const token = localStorage.getItem('token');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -39,10 +39,21 @@ export default function NewProductPage() {
 
     const formObject = Object.fromEntries(formData.entries());
 
+    // const formattedData = {
+    //   name: formObject.name,
+    //   price: formObject.price,
+    //   type_id: formObject.typeId,
+    //   hostel_id: formObject.hostelId,
+    //   description: formObject.description,
+    // };
+
+    // console.log(formattedData);
+
     const response = await postNewProduct({
-      body: JSON.stringify({ ...formObject, userId }),
+      body: JSON.stringify(formObject),
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`, // Add the token here
       },
     });
 
