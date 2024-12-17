@@ -5,7 +5,7 @@ import {
   deleteHostelById,
   getHostelById,
   selectHostels,
-} from '../services/hostelService.js';
+} from './hostelService.js';
 
 export const getHostels = handleAsync(async (req, res, next) => {
   const { data: hostels, error } = await selectHostels();

@@ -8,7 +8,7 @@ import {
   activateAccount,
   forgotPassword,
   resetPassword,
-} from '../controllers/authController.js';
+} from './authController.js';
 import authenticateToken from '../middlewares/authenticateToken.js';
 
 const authRouter = Router();

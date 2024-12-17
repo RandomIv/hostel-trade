@@ -1,9 +1,5 @@
 import Router from 'express';
-import {
-  deleteUser,
-  getUser,
-  updateUser,
-} from '../controllers/userController.js';
+import { deleteUser, getUser, updateUser } from './userController.js';
 import authenticateToken from '../middlewares/authenticateToken.js';
 import setCurrentUserId from '../middlewares/setCurrentUserId.js';
 
