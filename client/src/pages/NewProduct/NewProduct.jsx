@@ -15,6 +15,7 @@ export default function NewProductPage() {
   const navigate = useNavigate();
 
   const token = localStorage.getItem('token');
+  const userId = localStorage.getItem('userId');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -50,7 +51,7 @@ export default function NewProductPage() {
     if (response.status === 'success') {
       setIsSubmitted(true);
       setTimeout(() => {
-        navigate('/profile/user-products');
+        navigate(`/profile/user-products?userId=${userId}`);
       }, 1000);
     }
   };

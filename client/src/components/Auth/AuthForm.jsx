@@ -8,6 +8,8 @@ import {
 
 import classes from './AuthForm.module.css';
 
+import FormSubmissionBox from '../FormSubmissionBox/FormSubmissionBox';
+
 import { loginErrorHandle } from '../../utils/auth';
 
 export default function AuthForm({ error }) {
@@ -16,6 +18,8 @@ export default function AuthForm({ error }) {
 
   const isLogin = searchParams.get('mode') === 'login';
   const isSubmitting = navigation.state === 'submitting';
+
+  console.log(error);
 
   return (
     <Form method="post" className={classes['auth-form']}>
@@ -64,9 +68,10 @@ export default function AuthForm({ error }) {
           minLength={6}
         />
       </p>
+
       {error && (
         <div className={classes['error-container']}>
-          {loginErrorHandle(error)}
+          <FormSubmissionBox errors={[error.message]} />
         </div>
       )}
       <div className={classes['btn-container']}>

@@ -78,8 +78,6 @@ input {
 
 .error-container {
   margin: auto;
-  padding: 7px 10px;
+  padding-top: 5px;
   width: 80%;
-
-  background-color: rgb(255, 203, 203, 0.7);
 }
