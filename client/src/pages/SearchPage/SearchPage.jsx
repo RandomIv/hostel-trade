@@ -11,6 +11,7 @@ export default function SearchPage() {
       productsData={productsData}
       hostelsData={hostelsData}
       typesData={typesData}
+      userId={''}
     />
   );
 }

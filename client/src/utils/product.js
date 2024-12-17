@@ -19,7 +19,7 @@ export async function getProducts(searchParams) {
   const parseParams = (param) => (param ? param.split(',') : null);
 
   const filter = {
-    userId: null,
+    userId: searchParams.get('userId') || null,
     name: searchParams.get('name') || null,
     price: {
       min: searchParams.get('min') || null,

@@ -15,7 +15,7 @@
   border: 3px solid #050c9c;
   border-radius: 7px;
 }
-a:hover {
+.row a:hover {
   background-color: #050c9c;
   color: white;
 }

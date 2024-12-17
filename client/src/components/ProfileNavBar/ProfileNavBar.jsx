@@ -4,6 +4,7 @@ import classes from './ProfileNavBar.module.css';
 
 export default function ProfileNavBar() {
   const url = useLocation().pathname;
+  const userId = localStorage.getItem('userId');
 
   return (
     <div className={classes['row']}>
@@ -15,7 +16,7 @@ export default function ProfileNavBar() {
         Профіль
       </NavLink>
       <NavLink
-        to="/profile/user-products"
+        to={`/profile/user-products?userId=${userId}`}
         className={({ isActive }) => (isActive ? classes['active-link'] : '')}
       >
         Мої оголошення

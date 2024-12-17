@@ -77,7 +77,12 @@ const router = createBrowserRouter([
           { path: 'profile-settings', element: <ProfileSettingsPage /> },
 
           // User Products
-          { path: 'user-products', element: <UserProductsPage /> },
+          {
+            path: 'user-products',
+            element: <UserProductsPage />,
+            loader: productsLoader,
+            action: searchAction,
+          },
           { path: 'liked-products', element: <LikedProductsPage /> },
 
           {
