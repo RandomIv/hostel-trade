@@ -39,16 +39,6 @@ export default function NewProductPage() {
 
     const formObject = Object.fromEntries(formData.entries());
 
-    // const formattedData = {
-    //   name: formObject.name,
-    //   price: formObject.price,
-    //   type_id: formObject.typeId,
-    //   hostel_id: formObject.hostelId,
-    //   description: formObject.description,
-    // };
-
-    // console.log(formattedData);
-
     const response = await postNewProduct({
       body: JSON.stringify(formObject),
       headers: {
