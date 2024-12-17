@@ -1,3 +1,5 @@
+import { sendRequest } from './http';
+
 export async function getProductById(id) {
   const response = await fetch(`http://localhost:5000/api/product/${id}`);
 
@@ -116,43 +118,19 @@ export async function getTypes() {
   }
 }
 
-export async function sendRequest({
-  url,
-  method = 'POST',
-  body = {},
-  headers = {},
-}) {
-  try {
-    const response = await fetch(url, {
-      method,
-      headers,
-      body,
-    });
-
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(
-        error.message || 'An error occurred while processing your request.'
-      );
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error('Request failed:', error.message);
-    throw error;
-  }
+export function postNewProduct({ body, headers }) {
+  return sendRequest({
+    url: 'http://localhost:5000/api/product',
+    method: 'POST',
+    body,
+    headers,
+  });
 }
 
-export async function postNewProduct({ body, headers }) {
-  try {
-    const response = await sendRequest({
-      url: 'http://localhost:5000/api/product',
-      method: 'POST',
-      body,
-      headers: headers,
-    });
-    return response;
-  } catch (error) {
-    return error.message;
-  }
+export function deleteProduct(id) {
+  return sendRequest({
+    url: `http://localhost:5000/api/product/${id}`,
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+  });
 }

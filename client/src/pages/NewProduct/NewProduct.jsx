@@ -7,6 +7,7 @@ import MainInfo from '../../components/NewProduct/MainInfo';
 import PhotoBox from '../../components/NewProduct/PhotoBox';
 import NewProductDescription from '../../components/NewProduct/NewProductDescription';
 import FormSubmissionBox from '../../components/FormSubmissionBox/FormSubmissionBox';
+
 import { postNewProduct } from '../../utils/product';
 
 export default function NewProductPage() {
@@ -44,7 +45,7 @@ export default function NewProductPage() {
       body: JSON.stringify(formObject),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`, // Add the token here
+        Authorization: `Bearer ${token}`,
       },
     });
 
