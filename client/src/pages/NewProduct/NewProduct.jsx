@@ -1,4 +1,4 @@
-import { Form, useNavigate } from 'react-router-dom';
+import { Form, useLoaderData, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 import classes from './NewProduct.module.css';
@@ -8,7 +8,7 @@ import PhotoBox from '../../components/NewProduct/PhotoBox';
 import NewProductDescription from '../../components/NewProduct/NewProductDescription';
 import FormSubmissionBox from '../../components/FormSubmissionBox/FormSubmissionBox';
 
-import { postNewProduct } from '../../utils/product';
+import { postNewProduct, getHostels, getTypes } from '../../utils/product';
 
 export default function NewProductPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -17,6 +17,8 @@ export default function NewProductPage() {
 
   const token = localStorage.getItem('token');
   const userId = localStorage.getItem('userId');
+
+  const { hostelsData, typesData } = useLoaderData();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -60,7 +62,7 @@ export default function NewProductPage() {
   return (
     <Form method="post" onSubmit={handleSubmit} className={classes.container}>
       <h1>Нове оголошення</h1>
-      <MainInfo />
+      <MainInfo hostelsData={hostelsData} typesData={typesData} />
       <PhotoBox />
       <NewProductDescription />
       {errors.length > 0 && <FormSubmissionBox errors={errors} />}
@@ -75,4 +77,10 @@ export default function NewProductPage() {
       </p>
     </Form>
   );
+}
+
+export async function loader() {
+  const hostelsData = await getHostels();
+  const typesData = await getTypes();
+  return { hostelsData, typesData };
 }

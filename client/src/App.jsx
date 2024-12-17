@@ -25,7 +25,9 @@ import ProductDetailsPage, {
 import EditProductPage, {
   loader as editProductLoader,
 } from './pages/EditProduct/EditProduct';
-import NewProductPage from './pages/NewProduct/NewProduct';
+import NewProductPage, {
+  loader as newProductLoader,
+} from './pages/NewProduct/NewProduct';
 
 // User
 import ProfilePage, { loader as profileLoader } from './pages/User/Profile.jsx';
@@ -93,6 +95,7 @@ const router = createBrowserRouter([
           {
             path: 'new-product',
             element: <NewProductPage />,
+            loader: newProductLoader,
           },
         ],
       },

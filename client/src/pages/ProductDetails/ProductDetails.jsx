@@ -28,7 +28,6 @@ export default function ProductDetailsPage() {
     );
     if (confirmed) {
       const response = await deleteProduct(id);
-      console.log(response);
 
       if (response.status === 'success') {
         setIsDeleted('success');

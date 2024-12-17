@@ -1,33 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 
 import DropdownInput from '../DropdownInput/DropdownInput';
 import classes from './NewProduct.module.css';
 
-import { getHostels, getTypes } from '../../utils/product';
-import { useState } from 'react';
-
-export default function MainInfo() {
+export default function MainInfo({ hostelsData, typesData }) {
   const [defaultValue] = useState([]);
 
-  const {
-    data: typesData,
-    isPending: typesIsPending,
-    isError: typesIsError,
-  } = useQuery({
-    queryKey: ['types'],
-    queryFn: getTypes,
-    staleTime: 5000,
-  });
-
-  const {
-    data: hostelsData,
-    isPending: hostelsIsPending,
-    isError: hostelsIsError,
-  } = useQuery({
-    queryKey: ['hostels'],
-    queryFn: getHostels,
-    staleTime: 5000,
-  });
+  const sortedHostels = hostelsData.sort((a, b) => a.number - b.number);
 
   return (
     <div className={classes['box']}>
@@ -60,33 +39,29 @@ export default function MainInfo() {
           />
         </div>
 
-        {!typesIsPending && !typesIsError && (
-          <div className="dropdown-input">
-            <DropdownInput
-              title="Категорія"
-              name="typeId"
-              data={typesData}
-              type="radio"
-              placeholder="Будь-яка"
-              defaultValue={defaultValue}
-              className="input-dropdown"
-            />
-          </div>
-        )}
+        <div className="dropdown-input">
+          <DropdownInput
+            title="Категорія"
+            name="typeId"
+            data={typesData}
+            type="radio"
+            placeholder="Будь-яка"
+            defaultValue={defaultValue}
+            className="input-dropdown"
+          />
+        </div>
 
-        {!hostelsIsPending && !hostelsIsError && (
-          <div className="dropdown-input">
-            <DropdownInput
-              title="Гуртожиток"
-              name="hostelId"
-              data={hostelsData}
-              type="radio"
-              placeholder="Номер"
-              defaultValue={defaultValue}
-              className="input-dropdown"
-            />
-          </div>
-        )}
+        <div className="dropdown-input">
+          <DropdownInput
+            title="Гуртожиток"
+            name="hostelId"
+            data={sortedHostels}
+            type="radio"
+            placeholder="Номер"
+            defaultValue={defaultValue}
+            className="input-dropdown"
+          />
+        </div>
       </div>
     </div>
   );

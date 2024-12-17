@@ -29,7 +29,6 @@ export const checkRefreshToken = async () => {
 
   if (response.ok && token) {
     localStorage.setItem('token', token);
-    console.log('Refresh Token:', token);
     return true;
   } else {
     console.error('Failed to fetch data:', res.data);
