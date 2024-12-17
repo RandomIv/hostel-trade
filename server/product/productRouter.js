@@ -5,7 +5,7 @@ import {
   postProduct,
   updateProduct,
   deleteProduct,
-} from '../controllers/productController.js';
+} from './productController.js';
 import authenticateToken from '../middlewares/authenticateToken.js';
 import setCurrentUserId from '../middlewares/setCurrentUserId.js';
 

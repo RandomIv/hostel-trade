@@ -5,7 +5,7 @@ import {
   createProduct,
   saveUpdatedProduct,
   deleteProductById,
-} from '../services/productService.js';
+} from './productService.js';
 import { sendResponse } from '../utils/responseUtils.js';
 import { toSnakeCase } from '../utils/objectUtils.js';
 

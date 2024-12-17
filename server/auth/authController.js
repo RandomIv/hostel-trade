@@ -3,7 +3,7 @@ import {
   createUser,
   setUserVerifiedStatus,
   updateUserPasswordById,
-} from '../services/authService.js';
+} from './authService.js';
 import {
   generateRefreshToken,
   generateAccessToken,

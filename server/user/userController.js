@@ -1,9 +1,5 @@
 import handleAsync from '../utils/handleAsync.js';
-import {
-  deleteUserById,
-  getUserById,
-  updateUserById,
-} from '../services/userService.js';
+import { deleteUserById, getUserById, updateUserById } from './userService.js';
 import bcrypt from 'bcrypt';
 import { sendResponse } from '../utils/responseUtils.js';
 import { toSnakeCase } from '../utils/objectUtils.js';
