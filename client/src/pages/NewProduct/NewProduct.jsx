@@ -8,7 +8,12 @@ import PhotoBox from '../../components/NewProduct/PhotoBox';
 import NewProductDescription from '../../components/NewProduct/NewProductDescription';
 import FormSubmissionBox from '../../components/FormSubmissionBox/FormSubmissionBox';
 
-import { postNewProduct, getHostels, getTypes } from '../../utils/product';
+import {
+  postNewProduct,
+  getHostels,
+  getTypes,
+} from '../../utils/product/productRequests';
+import { handleNewProduct } from '../../utils/product/productFormData';
 
 export default function NewProductPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -20,44 +25,20 @@ export default function NewProductPage() {
 
   const { hostelsData, typesData } = useLoaderData();
 
-  const handleSubmit = async (event) => {
+  async function handleSubmit(event) {
     event.preventDefault();
+    const response = await handleNewProduct(event.target, token);
 
-    const form = event.target;
-    const formData = new FormData(form);
-
-    const typeId = formData.get('typeId');
-    const hostelId = formData.get('hostelId');
-    formData.delete('photo');
-
-    const newErrors = [];
-
-    if (!typeId) newErrors.push('Виберіть будь ласка категорію.');
-    if (!hostelId) newErrors.push('Виберіть будь ласка гуртожиток.');
-
-    setErrors(newErrors);
-
-    if (newErrors.length > 0) return;
-
-    setErrors([]);
-
-    const formObject = Object.fromEntries(formData.entries());
-
-    const response = await postNewProduct({
-      body: JSON.stringify(formObject),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (response.status === 'success') {
+    if (response.isSubmitted && !response.errors.length > 0) {
+      setErrors([]);
       setIsSubmitted(true);
       setTimeout(() => {
         navigate(`/profile/user-products?userId=${userId}`);
       }, 1000);
+    } else {
+      setErrors(response.errors);
     }
-  };
+  }
 
   return (
     <Form method="post" onSubmit={handleSubmit} className={classes.container}>

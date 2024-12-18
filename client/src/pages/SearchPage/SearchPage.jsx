@@ -1,6 +1,10 @@
 import { redirect, useLoaderData } from 'react-router-dom';
 
-import { getProducts, getHostels, getTypes } from '../../utils/product';
+import {
+  getProducts,
+  getHostels,
+  getTypes,
+} from '../../utils/product/productRequests';
 import SearchProducts from '../../components/SearchProducts/SearchProducts';
 
 export default function SearchPage() {

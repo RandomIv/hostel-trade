@@ -1,4 +1,4 @@
-import { sendRequest } from './http';
+import { sendRequest } from '../http';
 
 export async function getProductById(id) {
   try {

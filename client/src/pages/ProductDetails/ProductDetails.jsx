@@ -11,7 +11,7 @@ import {
   getProductById,
   getUserInfo,
   deleteProduct,
-} from '../../utils/product';
+} from '../../utils/product/productRequests';
 import { useState } from 'react';
 
 export default function ProductDetailsPage() {
