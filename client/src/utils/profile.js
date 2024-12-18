@@ -2,7 +2,6 @@ import { checkAccessToken, checkRefreshToken } from './auth';
 
 export const getUserByToken = async () => {
   try {
-    await checkAccessToken();
     await checkRefreshToken();
     const token = localStorage.getItem('token');
 
