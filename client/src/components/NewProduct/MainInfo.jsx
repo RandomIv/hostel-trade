@@ -3,8 +3,12 @@ import { useState } from 'react';
 import DropdownInput from '../DropdownInput/DropdownInput';
 import classes from './NewProduct.module.css';
 
-export default function MainInfo({ hostelsData, typesData }) {
+export default function MainInfo({ prodData, hostelsData, typesData }) {
   const [defaultValue] = useState([]);
+
+  const { name, price, type, hostel } = prodData || {};
+  const typeId = type?.id;
+  const hostelId = hostel?.id;
 
   const sortedHostels = hostelsData.sort((a, b) => a.number - b.number);
 
@@ -21,6 +25,7 @@ export default function MainInfo({ hostelsData, typesData }) {
           name="name"
           className={`${classes['form-input']} ${classes['title-input']}`}
           placeholder="Коротко опишіть товар..."
+          defaultValue={name && name}
           required
           minLength={3}
         />
@@ -35,6 +40,7 @@ export default function MainInfo({ hostelsData, typesData }) {
             type="number"
             name="price"
             className={classes['form-input']}
+            defaultValue={price && price}
             required
           />
         </div>
@@ -46,7 +52,7 @@ export default function MainInfo({ hostelsData, typesData }) {
             data={typesData}
             type="radio"
             placeholder="Будь-яка"
-            defaultValue={defaultValue}
+            defaultValue={typeId ? [typeId] : defaultValue}
             className="input-dropdown"
           />
         </div>
@@ -58,7 +64,7 @@ export default function MainInfo({ hostelsData, typesData }) {
             data={sortedHostels}
             type="radio"
             placeholder="Номер"
-            defaultValue={defaultValue}
+            defaultValue={hostelId ? [hostelId] : defaultValue}
             className="input-dropdown"
           />
         </div>

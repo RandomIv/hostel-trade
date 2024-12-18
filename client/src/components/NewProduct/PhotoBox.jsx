@@ -2,8 +2,12 @@ import classes from './NewProduct.module.css';
 import downloadIco from '../../assets/download-ico.png';
 import cameraIco from '../../assets/camera-icon.png';
 
-export default function PhotoBox() {
-  const photos = Array(7).fill(null);
+export default function PhotoBox({ prodData }) {
+  const { image: images = [] } = prodData || {};
+
+  const photos = Array(7)
+    .fill(null)
+    .map((_, index) => images[index]?.url || null);
 
   return (
     <div className={classes['box']}>

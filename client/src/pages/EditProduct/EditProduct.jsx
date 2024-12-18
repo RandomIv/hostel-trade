@@ -1,18 +1,30 @@
 import { useLoaderData } from 'react-router-dom';
-import { getProductById } from '../../utils/product/productRequests';
+
+import ProductForm from '../../components/ProductForm/ProductForm';
+
+import {
+  getProductById,
+  getHostels,
+  getTypes,
+} from '../../utils/product/productRequests';
 
 export default function EditProductPage() {
-  const prodData = useLoaderData();
-  console.log(prodData);
+  const { prodData, hostelsData, typesData } = useLoaderData();
+
   return (
-    <>
-      <h1>Edit Product Page </h1>
-    </>
+    <ProductForm
+      prodData={prodData}
+      hostelsData={hostelsData}
+      typesData={typesData}
+      method={'patch'}
+    />
   );
 }
 
 export async function loader({ params }) {
   const id = params.productId;
   const prodData = await getProductById(id);
-  return prodData;
+  const hostelsData = await getHostels();
+  const typesData = await getTypes();
+  return { prodData, hostelsData, typesData };
 }

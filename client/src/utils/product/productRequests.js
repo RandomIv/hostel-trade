@@ -110,3 +110,11 @@ export function deleteProduct(id) {
     headers: { 'Content-Type': 'application/json' },
   });
 }
+
+export function patchProduct(id, body) {
+  return sendRequest({
+    url: `http://localhost:5000/api/product/${id}`,
+    method: 'PATCH',
+    body,
+  });
+}
