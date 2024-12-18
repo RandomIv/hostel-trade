@@ -47,6 +47,7 @@ export async function getHostels() {
       url: `http://localhost:5000/api/hostel`,
       method: 'GET',
     });
+
     return data?.hostels || [];
   } catch (error) {
     console.error('Error fetching hostels:', error);
