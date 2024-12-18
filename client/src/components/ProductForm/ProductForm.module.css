@@ -6,26 +6,40 @@
 }
 
 .container h1 {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .container h2 {
   font-size: 25px;
 }
 
-.container p {
+.btn-row {
   display: flex;
   justify-content: end;
+  gap: 2%;
+}
+
+.del-btn,
+.publish-btn {
+  padding: 8px 15px;
+  font-size: 20px;
+  font-weight: 600;
+  border-radius: 5px;
+}
+
+.del-btn {
+  color: #050c9c;
+  border: 3px solid transparent;
+}
+
+.del-btn:hover {
+  border: 3px solid #050c9c;
 }
 
 .publish-btn {
-  padding: 8px 15px;
-
-  font-size: 20px;
   color: white;
   background-color: #050c9c;
   border: 3px solid #050c9c;
-  border-radius: 5px;
 }
 
 .publish-btn:hover {

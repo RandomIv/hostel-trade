@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Form, useNavigate } from 'react-router-dom';
 
 import classes from './ProductForm.module.css';
@@ -21,6 +21,10 @@ export default function ProductForm({
 }) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errors, setErrors] = useState([]);
+  const [defaultValue, setDefaultValue] = useState([]);
+
+  const formRef = useRef(null);
+
   const navigate = useNavigate();
 
   const token = localStorage.getItem('token');
@@ -48,13 +52,30 @@ export default function ProductForm({
     }
   }
 
+  function handleReset() {
+    if (formRef.current) {
+      formRef.current.reset();
+      setDefaultValue([]);
+      setErrors([]);
+      setIsSubmitted(false);
+    }
+
+    console.log(defaultValue);
+  }
+
   return (
-    <Form method="post" onSubmit={handleSubmit} className={classes.container}>
+    <Form
+      method="post"
+      onSubmit={handleSubmit}
+      ref={formRef}
+      className={classes.container}
+    >
       <h1>Нове оголошення</h1>
       <MainInfo
         prodData={prodData && prodData}
         hostelsData={hostelsData}
         typesData={typesData}
+        defaultValue={defaultValue}
       />
       <PhotoBox prodData={prodData && prodData} />
       <NewProductDescription prodData={prodData && prodData} />
@@ -69,11 +90,18 @@ export default function ProductForm({
           }
         />
       )}
-      <p>
-        <button className={classes['publish-btn']}>
+      <div className={classes['btn-row']}>
+        <button
+          type="button"
+          className={classes['del-btn']}
+          onClick={handleReset}
+        >
+          Скинути
+        </button>
+        <button type="submit" className={classes['publish-btn']}>
           {method === 'post' ? 'Опублікувати' : 'Зберегти зміни'}
         </button>
-      </p>
+      </div>
     </Form>
   );
 }
