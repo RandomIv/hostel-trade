@@ -5,9 +5,12 @@ export async function sendRequest({
   headers = {},
 }) {
   try {
+    const defaultHeaders = { 'Content-Type': 'application/json' };
+    const mergedHeaders = { ...defaultHeaders, ...headers };
+
     const response = await fetch(url, {
       method,
-      headers,
+      mergedHeaders,
       body: Object.keys(body).length > 0 ? body : undefined,
       credentials: 'include',
     });

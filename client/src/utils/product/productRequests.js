@@ -1,4 +1,5 @@
 import { sendRequest } from '../http';
+import { getProductsValidateForm } from './productFormData';
 
 export async function getProductById(id) {
   try {
@@ -14,39 +15,11 @@ export async function getProductById(id) {
 }
 
 export async function getProducts(searchParams) {
-  const parseParams = (param) => (param ? param.split(',') : null);
-
-  const filter = {
-    userId: searchParams.get('userId') || null,
-    name: searchParams.get('name') || null,
-    price: {
-      min: searchParams.get('min') || null,
-      max: searchParams.get('max') || null,
-    },
-    typeId: parseParams(searchParams.get('typeId')),
-    hostelId: parseParams(searchParams.get('hostelId')),
-  };
-
-  const [sortKey, sortValue] = searchParams.get('sort')?.split('-') || [
-    null,
-    null,
-  ];
-  const sort = {
-    price: null,
-    date: null,
-    [sortKey]: sortValue,
-  };
-
-  const params = new URLSearchParams({
-    filter: JSON.stringify(filter),
-    sort: JSON.stringify(sort),
-  });
-
+  const params = getProductsValidateForm(searchParams);
   try {
     const { data } = await sendRequest({
       url: `http://localhost:5000/api/product?${params.toString()}`,
       method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
     });
     return data?.products || [];
   } catch (error) {
@@ -107,7 +80,6 @@ export function deleteProduct(id) {
   return sendRequest({
     url: `http://localhost:5000/api/product/${id}`,
     method: 'DELETE',
-    headers: { 'Content-Type': 'application/json' },
   });
 }
 
