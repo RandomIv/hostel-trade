@@ -111,10 +111,11 @@ export function deleteProduct(id) {
   });
 }
 
-export function patchProduct(id, body) {
+export function patchProduct({ id, body, headers }) {
   return sendRequest({
     url: `http://localhost:5000/api/product/${id}`,
     method: 'PATCH',
     body,
+    headers,
   });
 }

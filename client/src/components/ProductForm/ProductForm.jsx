@@ -8,7 +8,10 @@ import PhotoBox from '../../components/NewProduct/PhotoBox';
 import NewProductDescription from '../../components/NewProduct/NewProductDescription';
 import FormSubmissionBox from '../../components/FormSubmissionBox/FormSubmissionBox';
 
-import { handleNewProduct } from '../../utils/product/productFormData';
+import {
+  handleEditProduct,
+  handleNewProduct,
+} from '../../utils/product/productFormData';
 
 export default function ProductForm({
   prodData,
@@ -31,7 +34,7 @@ export default function ProductForm({
       response = await handleNewProduct(event.target, token);
     }
     if (method === 'patch') {
-      response = await handleNewProduct(event.target, token);
+      response = await handleEditProduct(event.target, prodData.id, token);
     }
 
     if (response.isSubmitted && !response.errors.length > 0) {
