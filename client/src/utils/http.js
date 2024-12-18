@@ -10,7 +10,7 @@ export async function sendRequest({
 
     const response = await fetch(url, {
       method,
-      mergedHeaders,
+      headers: mergedHeaders,
       body: Object.keys(body).length > 0 ? body : undefined,
       credentials: 'include',
     });

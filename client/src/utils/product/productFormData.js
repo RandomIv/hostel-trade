@@ -21,6 +21,7 @@ export const getProductsValidateForm = (searchParams) => {
     null,
     null,
   ];
+
   const sort = {
     price: null,
     date: null,
