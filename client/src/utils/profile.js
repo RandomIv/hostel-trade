@@ -1,4 +1,4 @@
-import { checkAccessToken, checkRefreshToken } from './auth';
+import { checkRefreshToken } from './auth';
 
 export const getUserByToken = async () => {
   try {

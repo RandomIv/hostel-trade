@@ -30,9 +30,10 @@ import NewProductPage, {
 } from './pages/NewProduct/NewProduct';
 
 // User
-import ProfilePage, { loader as profileLoader } from './pages/User/Profile.jsx';
+import ProfilePage, {
+  loader as profileLoader,
+} from './pages/Profile/Profile.jsx';
 import LikedProductsPage from './pages/LikedProducts/LikedProducts';
-import ProfileSettingsPage from './pages/User/ProfileSettings';
 import UserProductsPage from './pages/UserProducts/UserProducts';
 
 import ProtectedRoute from './components/ProtectedRoute.jsx';
@@ -76,7 +77,6 @@ const router = createBrowserRouter([
         loader: profileLoader,
         children: [
           { index: true, element: <ProfilePage /> },
-          { path: 'profile-settings', element: <ProfileSettingsPage /> },
 
           // User Products
           {
