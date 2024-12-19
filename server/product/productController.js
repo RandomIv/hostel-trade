@@ -19,7 +19,8 @@ export const getProduct = handleAsync(async (req, res, next) => {
 });
 
 export const getProducts = handleAsync(async (req, res, next) => {
-  const { sort, filter } = req.body;
+  const filter = JSON.parse(req.query?.filter);
+  const sort = JSON.parse(req.query?.sort);
 
   const { data: products, error } = await selectProducts(filter, sort);
   if (error) return next(error);
