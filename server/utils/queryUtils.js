@@ -1,5 +1,12 @@
 const applyProductModifiers = (query, filter = {}, sort = {}) => {
-  const modifiers = [
+  query = applyFilters(query, filter);
+  query = applySorting(query, sort);
+
+  return query;
+};
+
+const applyFilters = (query, filter) => {
+  const filterModifiers = [
     {
       action: 'ilike',
       column: 'name',
@@ -10,6 +17,19 @@ const applyProductModifiers = (query, filter = {}, sort = {}) => {
     { action: 'eq', column: 'user_id', value: filter.userId },
     { action: 'in', column: 'type_id', value: filter.typeId },
     { action: 'in', column: 'hostel.id', value: filter.hostelId },
+  ];
+
+  for (const { action, column, value } of filterModifiers) {
+    if (value) {
+      query = query[action](column, value);
+    }
+  }
+
+  return query;
+};
+
+const applySorting = (query, sort) => {
+  const sortModifiers = [
     {
       action: 'order',
       column: 'price',
@@ -22,7 +42,7 @@ const applyProductModifiers = (query, filter = {}, sort = {}) => {
     },
   ];
 
-  for (const { action, column, value } of modifiers) {
+  for (const { action, column, value } of sortModifiers) {
     if (value) {
       query = query[action](column, value);
     }
