@@ -1,6 +1,7 @@
 .row {
   padding-top: 30px;
   margin: auto;
+  margin-top: 10px;
   display: flex;
   width: 80%;
   gap: 3%;
@@ -27,4 +28,9 @@
 
 .add-product-link {
   margin-left: auto;
+}
+
+.add-product-link:hover {
+  color: #050c9c !important;
+  background-color: transparent !important;
 }

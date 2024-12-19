@@ -121,16 +121,13 @@
   padding: 5px 8px;
 
   font-size: 20px;
-  color: white;
-  background-color: #050c9c;
-  border: 2px solid transparent;
+  color: #050c9c;
+  border: 3px solid transparent;
   border-radius: 5px;
 }
 
 .del-all-btn:hover {
-  color: #050c9c;
-  background-color: white;
-  border: 2px solid #050c9c;
+  border-color: #050c9c;
 }
 
 .sort-box {

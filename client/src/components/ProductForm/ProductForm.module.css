@@ -33,7 +33,7 @@
 }
 
 .del-btn:hover {
-  border: 3px solid #050c9c;
+  border-color: #050c9c;
 }
 
 .publish-btn {

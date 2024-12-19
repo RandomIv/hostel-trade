@@ -135,7 +135,7 @@
   margin-bottom: 5px;
 }
 
-.photo-div {
+.photo-box {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -145,9 +145,10 @@
   border-radius: 10px;
 }
 
-.photo-div img {
-  height: 60px;
-  width: 70px;
+.photo-box img {
+  height: 100%;
+  width: 100%;
+  object-fit: fill;
 }
 
 /* Description Box*/

@@ -7,7 +7,7 @@ export default function PhotoBox({ prodData }) {
 
   const photos = Array(7)
     .fill(null)
-    .map((_, index) => images[index]?.url || null);
+    .map((_, index) => images[index]?.url || cameraIco);
 
   return (
     <div className={classes['box']}>
@@ -21,8 +21,8 @@ export default function PhotoBox({ prodData }) {
       <div className={classes['row-grid']}>
         {photos.map((photo, index) => {
           return (
-            <div key={index} className={classes['photo-div']}>
-              <img src={photo ? photo : cameraIco} alt="camera-ico" />
+            <div key={index} className={classes['photo-box']}>
+              <img src={photo} alt="camera-ico" />
             </div>
           );
         })}
