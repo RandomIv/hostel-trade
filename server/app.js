@@ -1,5 +1,5 @@
 import express from 'express';
-import authRouter from './auth/authRouter.js';
+import authController from './auth/authController.js';
 import errorHandler from './middlewares/errorHandler.js';
 import cors from 'cors';
 import productRouter from './product/productRouter.js';
@@ -22,7 +22,7 @@ app.use(
     credentials: true,
   })
 );
-app.use('/api', authRouter);
+app.use('/api', authController);
 app.use('/api', productRouter);
 app.use('/api', userRouter);
 app.use('/api', hostelRouter);
