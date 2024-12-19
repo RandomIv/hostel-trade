@@ -10,12 +10,12 @@ import { sendResponse } from '../utils/responseUtils.js';
 import AppError from '../utils/appError.js';
 import COOKIE_OPTIONS from '../config/cookieConfig.js';
 import {
-  activateUser,
-  createUser,
-  forgotPasswordUser,
-  loginUser,
-  refreshUser,
-  resetPasswordUser,
+  activate,
+  signup,
+  forgotPassword,
+  login,
+  refresh,
+  resetPassword,
 } from './authService.js';
 
 dotenv.config({ path: '../.env' });
@@ -26,7 +26,7 @@ authController.post(
   handleAsync(async (req, res, next) => {
     const { username, email, password } = req.body;
 
-    const activationToken = await createUser(username, email, password, next);
+    const activationToken = await signup(username, email, password, next);
     await sendActivationEmail(email, activationToken);
 
     sendResponse(
@@ -43,7 +43,7 @@ authController.post(
   handleAsync(async (req, res, next) => {
     const { loginIdentifier, password } = req.body;
 
-    const { refreshToken, accessToken } = await loginUser(
+    const { refreshToken, accessToken } = await login(
       loginIdentifier,
       password,
       next,
@@ -70,7 +70,7 @@ authController.get(
       return next(new AppError('Refresh token does not exist', 401));
     }
     const refreshToken = req.cookies.refresh_token;
-    const accessToken = await refreshUser(refreshToken);
+    const accessToken = await refresh(refreshToken);
 
     sendResponse(
       res,
@@ -86,7 +86,7 @@ authController.get(
   handleAsync(async (req, res, next) => {
     const { token } = req.query;
 
-    await activateUser(token, next);
+    await activate(token, next);
 
     sendResponse(res, 200, null, 'Account activated successfully.');
   }),
@@ -97,7 +97,7 @@ authController.post(
   handleAsync(async (req, res, next) => {
     const { email } = req.body;
 
-    const resetToken = forgotPasswordUser(email, next);
+    const resetToken = forgotPassword(email, next);
     await sendResetPasswordEmail(email, resetToken);
 
     sendResponse(res, 200, null, 'Password reset email sent.');
@@ -110,7 +110,7 @@ authController.post(
     const { token } = req.query;
     const { password } = req.body;
 
-    await resetPasswordUser(token, password, next);
+    await resetPassword(token, password, next);
 
     sendResponse(res, 200, null, 'Password reset successfully.');
   }),

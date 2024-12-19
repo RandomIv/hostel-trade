@@ -15,7 +15,7 @@ import {
   verifyRefreshToken,
 } from '../utils/authUtils.js';
 
-export const createUser = async (username, email, password, next) => {
+export const signup = async (username, email, password, next) => {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const { error } = await insertUser(username, email, hashedPassword);
@@ -26,7 +26,7 @@ export const createUser = async (username, email, password, next) => {
   return activationToken;
 };
 
-export const loginUser = async (loginIdentifier, password, next) => {
+export const login = async (loginIdentifier, password, next) => {
   const { data: user, error } = await getUserByIdentifier(loginIdentifier);
   if (error) return next(error);
 
@@ -47,7 +47,7 @@ export const loginUser = async (loginIdentifier, password, next) => {
   return { accessToken, refreshToken };
 };
 
-export const refreshUser = async (refreshToken) => {
+export const refresh = async (refreshToken) => {
   const payload = await verifyRefreshToken(refreshToken);
   const accessToken = await generateAccessToken({
     id: payload.id,
@@ -55,14 +55,14 @@ export const refreshUser = async (refreshToken) => {
   return accessToken;
 };
 
-export const activateUser = async (token, next) => {
+export const activate = async (token, next) => {
   const { email } = await verifyAccessToken(token);
 
   const { error } = await setUserVerifiedStatus(email);
   if (error) return next(error);
 };
 
-export const forgotPasswordUser = async (email, next) => {
+export const forgotPassword = async (email, next) => {
   const { data: user, error } = await getUserByIdentifier(email);
   if (error) return next(error);
 
@@ -71,7 +71,7 @@ export const forgotPasswordUser = async (email, next) => {
   return resetToken;
 };
 
-export const resetPasswordUser = async (token, password, next) => {
+export const resetPassword = async (token, password, next) => {
   const { id } = await verifyAccessToken(token);
 
   const hashedPassword = await bcrypt.hash(password, 10);
