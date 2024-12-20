@@ -48,7 +48,9 @@ export default function ProductDetailsPage() {
           <h3>{price} грн.</h3>
         </div>
       </div>
-      <PhotoContainer images={images} />
+      <div className={classes['photo-box']}>
+        <PhotoContainer images={images} />
+      </div>
       <ProductDescription data={prodData} />
       <ProductUserDetails data={userData} />
       {isDeleted === 'success' && (

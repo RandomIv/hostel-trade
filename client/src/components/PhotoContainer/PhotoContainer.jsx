@@ -2,7 +2,7 @@ import classes from './PhotoContainer.module.css';
 import emptyPhoto from '../../assets/empty-photo-image.jpg';
 import { useState } from 'react';
 
-export default function PhotoContainer({ images }) {
+export default function PhotoContainer({ images, fullscreen }) {
   const [imageIndex, setImageIndex] = useState(0);
 
   const sortedImages = images.sort((a, b) => {
@@ -26,17 +26,27 @@ export default function PhotoContainer({ images }) {
 
   return (
     <>
-      <div className={classes['container']}>
+      <div
+        className={`${classes['container']} ${
+          fullscreen ? classes['container-fullscreen'] : ''
+        }`}
+      >
         <button
+          type="button"
           className={classes['photo-btn-prev']}
           onClick={handlePrevBtnClick}
         >
           <i className="fa-solid fa-arrow-left" />
         </button>
-        <div className={classes['photo-container']}>
+        <div
+          className={`${classes['photo-container']} ${
+            fullscreen ? classes['photo-container-fullscreen'] : ''
+          }`}
+        >
           <img src={imageUrl} alt="product-image" />
         </div>
         <button
+          type="button"
           className={classes['photo-btn-next']}
           onClick={handleNextBtnClick}
         >

@@ -4,7 +4,7 @@ import { Form, useNavigate } from 'react-router-dom';
 import classes from './ProductForm.module.css';
 
 import MainInfo from '../../components/NewProduct/MainInfo';
-import PhotoBox from '../../components/NewProduct/PhotoBox';
+import PhotoBox from '../NewProduct/PhotoBox/PhotoBox';
 import NewProductDescription from '../../components/NewProduct/NewProductDescription';
 import FormSubmissionBox from '../../components/FormSubmissionBox/FormSubmissionBox';
 
