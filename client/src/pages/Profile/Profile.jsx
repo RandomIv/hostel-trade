@@ -3,20 +3,26 @@ import emptyPhoto from './../../assets/no-avatar-image.png';
 import { NavLink, useRouteLoaderData } from 'react-router-dom';
 import ProfileNavBar from '../../components/ProfileNavBar/ProfileNavBar.jsx';
 import { getUserByToken } from '../../utils/profile.js';
+import { getHostels } from '../../utils/product.js';
 export default function ProfilePage() {
-  const { user } = useRouteLoaderData('profile-root');
-  console.log(user);
+  const { userData: user, sortedHostels: hostels } =
+    useRouteLoaderData('profile-root');
+  console.log(user, hostels);
   return (
     <div className={classes['profile-page']}>
       <ProfileNavBar></ProfileNavBar>
       <div className={classes['profile-container']}>
         <div className={classes['profile-main']}>
-          <div className={classes['profile-main-picture']}>
-            <img src={emptyPhoto} alt="Your avatar" />
+          <div className={classes['profile-image-container']}>
+            <img
+              src={user.avatar_img || emptyPhoto}
+              alt="Your avatar"
+              className={classes['profile-image']}
+            />
           </div>
           <ul className={classes['profile-main-description']}>
             <li>
-              <h2>{user.first_name}</h2>
+              <h2>{user.username}</h2>
             </li>
             <li>
               <b>Пошта:</b>
@@ -46,7 +52,7 @@ export default function ProfilePage() {
             </li>
             <li>
               <b>Гуртожиток:</b>
-              <p>{user.hostel.number}</p>
+              <p>{user.hostel}</p>
             </li>
           </ul>
         </div>
@@ -64,6 +70,9 @@ export default function ProfilePage() {
 }
 
 export async function loader() {
-  const userData = await getUserByToken();
-  return userData;
+  const data = await getUserByToken();
+  const userData = { ...data, hostel: data.hostel.number };
+  const hostels = await getHostels();
+  const sortedHostels = hostels.sort((a, b) => a - b);
+  return { userData, sortedHostels };
 }

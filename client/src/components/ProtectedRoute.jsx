@@ -4,7 +4,6 @@ import useAuth from '../hooks/useAuth';
 
 export default function ProtectedRoute() {
   const { isAuthenticated, isLoading, error } = useAuth();
-
   if (isLoading) return <div>Зачекайте хвильку...</div>;
   if (error) return <div>{error.message}</div>;
 

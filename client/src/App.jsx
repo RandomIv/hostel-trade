@@ -29,7 +29,7 @@ import ProfilePage, {
   loader as profileLoader,
 } from './pages/Profile/Profile.jsx';
 import LikedProductsPage from './pages/User/LikedProducts';
-import ProfileSettingsPage from './pages/User/ProfileSettings';
+import ProfileSettingsPage from './pages/ProfileSettings/ProfileSettings';
 import UserProductsPage from './pages/User/UserProducts';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import { tokenLoader } from './utils/auth.js';
