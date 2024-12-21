@@ -42,10 +42,8 @@ export const updateUserProfile = async (user, hostels) => {
       },
       credentials: 'include',
     });
-    if (response.ok) {
-      console.log(response.message);
-    } else {
-      console.log('Failed to update user');
+    if (!response.ok) {
+      console.error('Failed to update user', response);
     }
   } catch (error) {
     console.log(error);
@@ -61,10 +59,8 @@ export async function getHostels() {
     const response = await fetch(`http://localhost:5000/api/hostel`);
 
     if (!response.ok) {
-      console.error('Response Error:', response);
-      throw new Error('Failed to fetch hostels');
+      console.error('Failed to fetch hostels', response);
     }
-
     const res = await response.json();
     return res.data?.hostels || [];
   } catch (error) {
