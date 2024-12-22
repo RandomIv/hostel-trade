@@ -18,8 +18,6 @@ export default function ProfileSettingsPage() {
   const [userData, setUserData] = useState(user);
   const navigate = useNavigate();
 
-  console.log(userData);
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setUserData((prevUser) => ({
@@ -45,10 +43,14 @@ export default function ProfileSettingsPage() {
     }
   };
 
-  const handleSave = async (e) => {
-    e.preventDefault();
+  const handleSave = async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const formObject = Object.fromEntries(formData.entries());
+
     try {
-      await updateUserProfile(userData, hostels);
+      await updateUserProfile(formObject);
       navigate('/profile');
       navigate(0);
     } catch (error) {
@@ -138,7 +140,7 @@ export default function ProfileSettingsPage() {
                 <li>
                   <b>Гуртожиток:</b>
                   <DropdownInput
-                    title="Гуртожиток"
+                    title=""
                     name="hostelId"
                     data={sortedHostels}
                     placeholder="Номер"

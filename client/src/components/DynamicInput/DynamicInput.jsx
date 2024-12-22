@@ -18,7 +18,7 @@ export default function DynamicInput({
           className={classes['editable-input']}
           type="text"
           name={name}
-          value={label}
+          value={label || ''}
           onChange={handleInputChange}
         />
       ) : (

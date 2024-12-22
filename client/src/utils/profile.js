@@ -27,24 +27,22 @@ export const getUserByToken = async () => {
     };
   }
 };
-export const updateUserProfile = async (user, hostels) => {
+export const updateUserProfile = async (formData) => {
   try {
-    const newUser = { ...user };
-    newUser.hostelId = hostels.find(
-      (hostel) => hostel.number === Number(user.hostel),
-    ).id;
-    delete newUser.hostel;
+    const userId = localStorage.getItem('userId');
     const token = localStorage.getItem('token');
-    console.log(newUser);
-    const response = await fetch('http://localhost:5000/api/me', {
+    console.log(formData);
+
+    const response = await fetch(`http://localhost:5000/api/user/${userId}`, {
       method: 'PATCH',
-      body: JSON.stringify(newUser),
+      body: JSON.stringify(formData),
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
       credentials: 'include',
     });
+
     if (!response.ok) {
       console.error('Failed to update user', response);
     }
