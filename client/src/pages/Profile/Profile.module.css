@@ -21,7 +21,7 @@
 .profile-manipulation {
   height: 10vh;
 }
-.profile-main-picture {
+.profile-image-container {
   width: 20%;
   height: 100%;
   display: flex;
@@ -33,19 +33,24 @@
   width: 80%;
   border-radius: 1000px;
   border: 1px solid black;
+.profile-image-container .profile-image{
+    height: 150px;
+    width: 150px;
+    border-radius: 1000px;
+    border: 1px solid black;
 }
 .profile-main-description {
   width: 50%;
 }
-.profile-details ul {
+ul {
   display: flex;
   justify-content: center;
   flex-direction: column;
   list-style-type: none;
   margin-left: 20px;
 }
-.profile-details b,
-.profile-details p {
+b,
+p {
   margin: 5px;
   display: inline-block;
 }
@@ -59,7 +64,7 @@
   justify-content: space-evenly;
 }
 
-.profile-manipulation a {
+a {
   padding: 7px 10px;
 
   font-size: 18px;
@@ -68,7 +73,7 @@
   border: 3px solid #050c9c;
   border-radius: 7px;
 }
-.profile-manipulationa:hover {
+a:hover {
   background-color: #050c9c;
   color: white;
 }
@@ -76,4 +81,18 @@
   color: white !important;
   background-color: #050c9c;
   border: 3px solid #050c9c;
+}
+
+
+.profile-manipulation button{
+    padding: 7px 10px;
+    font-size: 18px;
+    text-decoration: none;
+    color: #050c9c;
+    border: 3px solid #050c9c;
+    border-radius: 7px;
+}
+.profile-manipulation button:hover{
+    color: white !important;
+    background-color: #050c9c;
 }
