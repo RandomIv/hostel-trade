@@ -47,7 +47,10 @@ export default function ProfileSettingsPage() {
     event.preventDefault();
 
     const formData = new FormData(event.target);
-    const formObject = Object.fromEntries(formData.entries());
+
+    const formObject = Object.fromEntries(
+      Array.from(formData.entries()).filter(([key, value]) => value)
+    );
 
     try {
       await updateUserProfile(formObject);
