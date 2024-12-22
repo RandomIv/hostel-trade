@@ -44,7 +44,8 @@
 .profile-main-description {
   width: 50%;
 }
-.profile-main-description ul {
+.profile-main ul,
+.profile-details ul {
   display: flex;
   justify-content: center;
   flex-direction: column;
