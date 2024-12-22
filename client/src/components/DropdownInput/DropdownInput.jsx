@@ -53,7 +53,6 @@ export default function DropdownInput({
           value={selectedNames.join(', ').slice(0, 20)}
           onFocus={() => setIsDropdownVisible(true)}
           onBlur={() => setTimeout(() => setIsDropdownVisible(false), 200)}
-          className={classes[props.className] || ''}
         />
         {selectedIds.length > 0 && (
           <button

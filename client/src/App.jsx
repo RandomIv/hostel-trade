@@ -33,9 +33,7 @@ import NewProductPage, {
 import ProfilePage, {
   loader as profileLoader,
 } from './pages/Profile/Profile.jsx';
-import LikedProductsPage from './pages/User/LikedProducts';
 import ProfileSettingsPage from './pages/ProfileSettings/ProfileSettings';
-import UserProductsPage from './pages/User/UserProducts';
 import LikedProductsPage from './pages/LikedProducts/LikedProducts';
 import UserProductsPage from './pages/UserProducts/UserProducts';
 
@@ -80,6 +78,7 @@ const router = createBrowserRouter([
         loader: profileLoader,
         children: [
           { index: true, element: <ProfilePage /> },
+          { path: 'profile-settings', element: <ProfileSettingsPage /> },
 
           // User Products
           {

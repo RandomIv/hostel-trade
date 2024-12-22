@@ -1,13 +1,17 @@
 import classes from './Profile.module.css';
 import emptyPhoto from './../../assets/no-avatar-image.png';
+
 import { NavLink, useRouteLoaderData } from 'react-router-dom';
 import ProfileNavBar from '../../components/ProfileNavBar/ProfileNavBar.jsx';
+
 import { getUserByToken } from '../../utils/profile.js';
-import { getHostels } from '../../utils/product.js';
+import { getHostels } from '../../utils/product/productRequests.js';
 export default function ProfilePage() {
   const { userData: user, sortedHostels: hostels } =
     useRouteLoaderData('profile-root');
+
   console.log(user, hostels);
+
   return (
     <div className={classes['profile-page']}>
       <ProfileNavBar></ProfileNavBar>

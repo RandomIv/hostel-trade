@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-import DropdownInput from '../DropdownInput/DropdownInput';
+import DropdownInput from '../DropdownInput/DropDownInput';
 import classes from './NewProduct.module.css';
 
 export default function MainInfo({
@@ -76,7 +76,7 @@ export default function MainInfo({
           </div>
         </div>
 
-        <div className="dropdown-input">
+        <div className={classes['dropdown-input']}>
           <DropdownInput
             title="Категорія"
             name="typeId"
@@ -88,7 +88,7 @@ export default function MainInfo({
           />
         </div>
 
-        <div className="dropdown-input">
+        <div className={classes['dropdown-input']}>
           <DropdownInput
             title="Гуртожиток"
             name="hostelId"

@@ -1,19 +1,25 @@
 import { useState } from 'react';
 import classes from './ProfileSettings.module.css';
 import emptyPhoto from './../../assets/no-avatar-image.png';
+
 import DynamicInput from '../../components/DynamicInput/DynamicInput.jsx';
-import DropDownInput from '../../components/DropDownInput/DropDownInput.jsx';
+import DropdownInput from '../../components/DropdownInput/DropDownInput.jsx';
 import { Form, useNavigate, useRouteLoaderData } from 'react-router-dom';
 import ProfileNavBar from '../../components/ProfileNavBar/ProfileNavBar.jsx';
-import { updateUserProfile } from '../../utils/profile.js';
 import UploadImage from '../../components/UploadImage/UploadImage.jsx';
 
+import { updateUserProfile } from '../../utils/profile.js';
+
 export default function ProfileSettingsPage() {
-  const { userData: user, sortedHostels: hostels } =
-    useRouteLoaderData('profile-root');
+  const [defaultValue, setDefaultValue] = useState([]);
+
+  const { userData: user, sortedHostels } = useRouteLoaderData('profile-root');
+
   const [userData, setUserData] = useState(user);
   const navigate = useNavigate();
+
   console.log(userData);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setUserData((prevUser) => ({
@@ -130,12 +136,14 @@ export default function ProfileSettingsPage() {
               </li>
               <li>
                 <b>Гуртожиток:</b>
-                <DropDownInput
-                  name={'hostel'}
-                  label={userData.hostel}
-                  data={hostels}
-                  handleInputChange={handleInputChange}
-                ></DropDownInput>
+                <DropdownInput
+                  title="Гуртожиток"
+                  name="hostelId"
+                  data={sortedHostels}
+                  placeholder="Номер"
+                  defaultValue={defaultValue}
+                  type="checkbox"
+                />
               </li>
             </ul>
           </div>
