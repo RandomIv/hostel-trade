@@ -1,16 +1,44 @@
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData, useNavigate } from 'react-router-dom';
 
 import classes from './ProductDetails.module.css';
 
 import PhotoContainer from '../../components/PhotoContainer/PhotoContainer';
 import ProductDescription from '../../components/ProductDescription/ProductDescription';
 import ProductUserDetails from '../../components/ProductUserDetails/ProductUserDetails';
+import FormSubmissionBox from '../../components/FormSubmissionBox/FormSubmissionBox';
 
-import { getProductById, getUserInfo } from '../../utils/product';
+import {
+  getProductById,
+  getUserInfo,
+  deleteProduct,
+} from '../../utils/product/productRequests';
+import { useState } from 'react';
 
 export default function ProductDetailsPage() {
   const { prodData, userData } = useLoaderData();
-  const { name, price, image: images } = prodData;
+  const navigate = useNavigate();
+  const [isDeleted, setIsDeleted] = useState(false);
+
+  const { id, name, price, image: images } = prodData;
+  const currentUserId = localStorage.getItem('userId');
+
+  const handleLogout = async (event) => {
+    const confirmed = window.confirm(
+      'Ви впевнені, що хочете видалити оголошення?'
+    );
+    if (confirmed) {
+      const response = await deleteProduct(id);
+
+      if (response.status === 'success') {
+        setIsDeleted('success');
+        setTimeout(() => {
+          navigate(`/profile/user-products?userId=${currentUserId}`);
+        }, 1000);
+      } else {
+        setIsDeleted('failed');
+      }
+    }
+  };
 
   return (
     <div className={classes.container}>
@@ -20,9 +48,36 @@ export default function ProductDetailsPage() {
           <h3>{price} грн.</h3>
         </div>
       </div>
-      <PhotoContainer images={images} />
+      <div className={classes['photo-box']}>
+        <PhotoContainer images={images} />
+      </div>
       <ProductDescription data={prodData} />
       <ProductUserDetails data={userData} />
+      {isDeleted === 'success' && (
+        <FormSubmissionBox
+          isSubmitted={isDeleted}
+          title="Оголошення успішно видалено"
+        />
+      )}
+      {isDeleted === 'failed' && (
+        <FormSubmissionBox
+          isSubmitted={isDeleted}
+          title="Оголошення успішно видалено"
+        />
+      )}
+      {currentUserId === userData.id && (
+        <div className={classes['change-row']}>
+          <Link
+            to={`/profile/edit-product/${id}`}
+            className={classes['edit-btn']}
+          >
+            Редагувати
+          </Link>
+          <button className={classes['delete-btn']} onClick={handleLogout}>
+            Видалити
+          </button>
+        </div>
+      )}
     </div>
   );
 }

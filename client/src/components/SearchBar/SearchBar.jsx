@@ -3,7 +3,7 @@ import FilterForm from '../FilterForm/FilterForm';
 import { useState } from 'react';
 import { Form } from 'react-router-dom';
 
-export default function SearchBar({ hostels, types }) {
+export default function SearchBar({ hostels, types, userId }) {
   const [isFilter, setIsFilter] = useState(true);
 
   const handleFilterClick = () => {
@@ -14,6 +14,13 @@ export default function SearchBar({ hostels, types }) {
 
   return (
     <Form method="post" className={classes['container']}>
+      <input
+        type="text"
+        name="userId"
+        readOnly
+        value={userId}
+        style={{ display: 'none' }}
+      />
       <div className={classes['input-container']}>
         <div className={classes['input-bar-container']}>
           <input

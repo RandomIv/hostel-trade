@@ -1,34 +1,22 @@
+import { redirect, useLoaderData } from 'react-router-dom';
+
 import {
-  redirect,
-  useActionData,
-  useFormAction,
-  useLoaderData,
-  useSearchParams,
-} from 'react-router-dom';
-
-import classes from './SearchPage.module.css';
-
-import SearchBar from '../../components/SearchBar/SearchBar';
-import Product from '../../components/Product/Product';
-
-import { getProducts, getHostels, getTypes } from '../../utils/product';
+  getProducts,
+  getHostels,
+  getTypes,
+} from '../../utils/product/productRequests';
+import SearchProducts from '../../components/SearchProducts/SearchProducts';
 
 export default function SearchPage() {
   const { productsData, hostelsData, typesData } = useLoaderData();
 
   return (
-    <>
-      <SearchBar hostels={hostelsData} types={typesData} />
-      <div className={classes.container}>
-        {productsData.length > 0 ? (
-          productsData.map((product) => {
-            return <Product key={product.id} data={product} />;
-          })
-        ) : (
-          <h2>Немає збігів</h2>
-        )}
-      </div>
-    </>
+    <SearchProducts
+      productsData={productsData}
+      hostelsData={hostelsData}
+      typesData={typesData}
+      userId={''}
+    />
   );
 }
 

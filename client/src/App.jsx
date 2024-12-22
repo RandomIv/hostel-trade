@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
 import './App.css';
 
@@ -18,21 +19,28 @@ import AuthPage, {
 import { action as logoutAction } from './components/Auth/Logout.jsx';
 
 // Products
-import EditProductPage from './pages/Products/EditProduct';
-import NewProductPage from './pages/Products/NewProduct';
 import ProductDetailsPage, {
   loader as productDetailsLoader,
 } from './pages/ProductDetails/ProductDetails';
+import EditProductPage, {
+  loader as editProductLoader,
+} from './pages/EditProduct/EditProduct';
+import NewProductPage, {
+  loader as newProductLoader,
+} from './pages/NewProduct/NewProduct';
 
 // User
 import ProfilePage, {
   loader as profileLoader,
 } from './pages/Profile/Profile.jsx';
-import LikedProductsPage from './pages/User/LikedProducts';
 import ProfileSettingsPage from './pages/ProfileSettings/ProfileSettings';
-import UserProductsPage from './pages/User/UserProducts';
+import LikedProductsPage from './pages/LikedProducts/LikedProducts';
+import UserProductsPage from './pages/UserProducts/UserProducts';
+
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import { tokenLoader } from './utils/auth.js';
+
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
@@ -73,11 +81,24 @@ const router = createBrowserRouter([
           { path: 'profile-settings', element: <ProfileSettingsPage /> },
 
           // User Products
-          { path: 'user-products', element: <UserProductsPage /> },
+          {
+            path: 'user-products',
+            element: <UserProductsPage />,
+            loader: productsLoader,
+            action: searchAction,
+          },
           { path: 'liked-products', element: <LikedProductsPage /> },
 
-          { path: 'edit-product', element: <EditProductPage /> },
-          { path: 'new-product', element: <NewProductPage /> },
+          {
+            path: 'edit-product/:productId',
+            element: <EditProductPage />,
+            loader: editProductLoader,
+          },
+          {
+            path: 'new-product',
+            element: <NewProductPage />,
+            loader: newProductLoader,
+          },
         ],
       },
     ],
@@ -85,7 +106,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  );
 }
 
 export default App;

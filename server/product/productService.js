@@ -18,7 +18,7 @@ export const getProductById = async (id) => {
       type(*),
       user(id, username, first_name, last_name, email, avatar_img, phone_number, created_at),
       hostel(*)
-    `,
+    `
     )
     .eq('id', id)
     .single();
@@ -33,7 +33,7 @@ export const selectProducts = async (filter, sort) => {
       image(id, url, is_main),
       type(*),
       hostel!inner(*)
-    `,
+    `
     )
     .eq('image.is_main', true);
 
