@@ -131,3 +131,16 @@ export function postNewFavorite({ userId, productId, token }) {
     },
   });
 }
+
+export function deleteFavorite({ userId, productId, token }) {
+  return sendRequest({
+    url: `http://localhost:5000/api/favorite/${userId}`,
+    method: 'DELETE',
+    body: JSON.stringify({
+      productId: productId,
+    }),
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}

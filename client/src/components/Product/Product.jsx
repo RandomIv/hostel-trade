@@ -5,7 +5,7 @@ import emptyPhoto from '../../assets/empty-photo-image.jpg';
 import { convertDate } from '../../utils/dataConvert';
 import LikeBtn from '../LikeBtn/LikeBtn';
 
-export default function Product({ data }) {
+export default function Product({ data, isFavorite }) {
   const { id, name, price, created_at, image, hostel } = data;
 
   const category = data.type.name;
@@ -44,7 +44,7 @@ export default function Product({ data }) {
           </div>
         </Link>
         <div className={classes['like-btn-container']}>
-          <LikeBtn productId={id} />
+          <LikeBtn productId={id} isLiked={isFavorite} />
         </div>
       </div>
     </>

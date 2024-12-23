@@ -8,7 +8,7 @@ import {
 import SearchProducts from '../../components/SearchProducts/SearchProducts';
 
 export default function LikedProductsPage() {
-  const { favoriteProductsData, hostelsData, typesData } = useLoaderData();
+  const { favoritesData, hostelsData, typesData } = useLoaderData();
 
   const userId = localStorage.getItem('userId');
 
@@ -16,7 +16,7 @@ export default function LikedProductsPage() {
     <>
       <ProfileNavBar />
       <SearchProducts
-        productsData={favoriteProductsData}
+        productsData={favoritesData}
         hostelsData={hostelsData}
         typesData={typesData}
         userId={userId}
@@ -29,8 +29,8 @@ export async function loader({ request }) {
   const url = new URL(request.url);
   const searchParams = url.searchParams;
 
-  const favoriteProductsData = await getFavoriteProducts(searchParams);
+  const favoritesData = await getFavoriteProducts(searchParams);
   const hostelsData = await getHostels();
   const typesData = await getTypes();
-  return { favoriteProductsData, hostelsData, typesData };
+  return { favoritesData, hostelsData, typesData };
 }
