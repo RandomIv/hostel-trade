@@ -34,7 +34,9 @@ import ProfilePage, {
   loader as profileLoader,
 } from './pages/Profile/Profile.jsx';
 import ProfileSettingsPage from './pages/ProfileSettings/ProfileSettings';
-import LikedProductsPage from './pages/LikedProducts/LikedProducts';
+import LikedProductsPage, {
+  loader as favoritesLoader,
+} from './pages/LikedProducts/LikedProducts';
 import UserProductsPage from './pages/UserProducts/UserProducts';
 
 import ProtectedRoute from './components/ProtectedRoute.jsx';
@@ -87,7 +89,12 @@ const router = createBrowserRouter([
             loader: productsLoader,
             action: searchAction,
           },
-          { path: 'liked-products', element: <LikedProductsPage /> },
+          {
+            path: 'liked-products',
+            element: <LikedProductsPage />,
+            loader: favoritesLoader,
+            action: searchAction,
+          },
 
           {
             path: 'edit-product/:productId',

@@ -22,7 +22,7 @@ export default function ProfileNavBar() {
         Мої оголошення
       </NavLink>
       <NavLink
-        to="/profile/liked-products"
+        to={`/profile/liked-products?userId=${userId}`}
         className={({ isActive }) => (isActive ? classes['active-link'] : '')}
       >
         Обране

@@ -7,14 +7,15 @@ import {
 } from './favoriteService.js';
 
 export const getFavorites = handleAsync(async (req, res, next) => {
-  const { id: userId } = req.params;
+  // const { userId, filter, sort } = req.body;
+  const userId = JSON.parse(req.query?.userId);
   const filter = JSON.parse(req.query?.filter);
   const sort = JSON.parse(req.query?.sort);
 
   const { data: favorites, error } = await selectFavorites(
     userId,
     filter,
-    sort,
+    sort
   );
   if (error) return next(error);
 

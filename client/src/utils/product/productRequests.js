@@ -1,5 +1,8 @@
 import { sendRequest } from '../http';
-import { getProductsValidateForm } from './productFormData';
+import {
+  getFavoritesValidateForm,
+  getProductsValidateForm,
+} from './productFormData';
 
 export async function getProductById(id) {
   try {
@@ -91,4 +94,26 @@ export function patchProduct({ id, body, headers }) {
     body,
     headers,
   });
+}
+
+export async function getFavoriteProducts(searchParams) {
+  const params = getFavoritesValidateForm(searchParams);
+
+  const token = localStorage.getItem('token');
+
+  try {
+    const { data } = await sendRequest({
+      url: `http://localhost:5000/api/favorite?${params.toString()}`,
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const products = data?.favorites.map((favorite) => favorite.product);
+    return products || [];
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    return [];
+  }
 }

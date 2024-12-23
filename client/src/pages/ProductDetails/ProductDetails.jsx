@@ -22,7 +22,7 @@ export default function ProductDetailsPage() {
   const { id, name, price, image: images } = prodData;
   const currentUserId = localStorage.getItem('userId');
 
-  const handleLogout = async (event) => {
+  const handleDelete = async (event) => {
     const confirmed = window.confirm(
       'Ви впевнені, що хочете видалити оголошення?'
     );
@@ -73,7 +73,7 @@ export default function ProductDetailsPage() {
           >
             Редагувати
           </Link>
-          <button className={classes['delete-btn']} onClick={handleLogout}>
+          <button className={classes['delete-btn']} onClick={handleDelete}>
             Видалити
           </button>
         </div>

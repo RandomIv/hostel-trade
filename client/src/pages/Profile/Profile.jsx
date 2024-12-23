@@ -10,8 +10,6 @@ export default function ProfilePage() {
   const { userData: user, sortedHostels: hostels } =
     useRouteLoaderData('profile-root');
 
-  console.log(user, hostels);
-
   return (
     <>
       <ProfileNavBar />
