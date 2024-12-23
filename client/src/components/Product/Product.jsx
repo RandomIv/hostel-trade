@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import classes from './Product.module.css';
 import emptyPhoto from '../../assets/empty-photo-image.jpg';
 import { convertDate } from '../../utils/dataConvert';
+import LikeBtn from '../LikeBtn/LikeBtn';
 
 export default function Product({ data }) {
   const { id, name, price, created_at, image, hostel } = data;
@@ -13,30 +14,39 @@ export default function Product({ data }) {
   const formattedDate = convertDate(created_at);
 
   return (
-    <Link to={`/product/${id}`} className={classes.link}>
-      <div className={classes['product-container']}>
-        <div className={classes['inner-container']}>
-          <div className={classes['image-container']}>
-            <img src={imageUrl} alt="product-image" />
-          </div>
+    <>
+      <div className={classes.container}>
+        <Link to={`/product/${id}`} className={classes.link}>
+          <div className={classes['product-container']}>
+            <div className={classes['inner-container']}>
+              <div className={classes['image-container']}>
+                <img src={imageUrl} alt="product-image" />
+              </div>
 
-          <div className={classes['text-container']}>
-            <div className={classes.row}>
-              <h3>{name}</h3>
-              <p className={classes.price}>{price} грн.</p>
-            </div>
-            <div className={classes.row}>
-              <div>
-                <span className={classes.category}>{category}</span>
+              <div className={classes['text-container']}>
+                <div className={classes.row}>
+                  <h3>{name}</h3>
+                  <p className={classes.price}>{price} грн.</p>
+                </div>
+                <div className={classes.row}>
+                  <div>
+                    <span className={classes.category}>{category}</span>
+                  </div>
+                </div>
+                <div className={classes.row}>
+                  <div className={classes['row-left']}>
+                    <span>Гуртожиток №{hostel_num}</span> -
+                    <span>{formattedDate}</span>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className={classes.row}>
-              <span>Гуртожиток №{hostel_num}</span>
-              <span>{formattedDate}</span>
-            </div>
           </div>
+        </Link>
+        <div className={classes['like-btn-container']}>
+          <LikeBtn />
         </div>
       </div>
-    </Link>
+    </>
   );
 }

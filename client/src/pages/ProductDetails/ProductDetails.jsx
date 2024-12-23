@@ -13,6 +13,7 @@ import {
   deleteProduct,
 } from '../../utils/product/productRequests';
 import { useState } from 'react';
+import LikeBtn from '../../components/LikeBtn/LikeBtn';
 
 export default function ProductDetailsPage() {
   const { prodData, userData } = useLoaderData();
@@ -46,6 +47,7 @@ export default function ProductDetailsPage() {
         <h1>{name}</h1>
         <div>
           <h3>{price} грн.</h3>
+          <LikeBtn />
         </div>
       </div>
       <div className={classes['photo-box']}>
