@@ -19,6 +19,7 @@ export default function LikedProductsPage() {
         productsData={favoritesData}
         hostelsData={hostelsData}
         typesData={typesData}
+        favoritesData={favoritesData}
         userId={userId}
       />
     </>

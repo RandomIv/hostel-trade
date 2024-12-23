@@ -11,17 +11,20 @@ import {
   getProductById,
   getUserInfo,
   deleteProduct,
+  getFavoriteProducts,
 } from '../../utils/product/productRequests';
 import { useState } from 'react';
 import LikeBtn from '../../components/LikeBtn/LikeBtn';
 
 export default function ProductDetailsPage() {
-  const { prodData, userData } = useLoaderData();
+  const { prodData, userData, favoritesData } = useLoaderData();
   const navigate = useNavigate();
   const [isDeleted, setIsDeleted] = useState(false);
 
   const { id, name, price, image: images } = prodData;
   const currentUserId = localStorage.getItem('userId');
+
+  const isFavorite = favoritesData?.some((favorite) => favorite.id === id);
 
   const handleDelete = async (event) => {
     const confirmed = window.confirm(
@@ -47,7 +50,7 @@ export default function ProductDetailsPage() {
         <h1>{name}</h1>
         <div>
           <h3>{price} грн.</h3>
-          <LikeBtn />
+          <LikeBtn productId={id} isLiked={isFavorite} />
         </div>
       </div>
       <div className={classes['photo-box']}>
@@ -88,5 +91,15 @@ export async function loader({ params }) {
   const id = params.productId;
   const prodData = await getProductById(id);
   const userData = await getUserInfo(prodData.user.id);
-  return { prodData, userData };
+
+  let favoritesData;
+  const userId = localStorage.getItem('userId');
+
+  if (userId) {
+    const favoritesParams = new URLSearchParams();
+    favoritesParams.set('userId', userId);
+    favoritesData = await getFavoriteProducts(favoritesParams);
+  }
+
+  return { prodData, userData, favoritesData };
 }
