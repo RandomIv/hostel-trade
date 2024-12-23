@@ -117,3 +117,17 @@ export async function getFavoriteProducts(searchParams) {
     return [];
   }
 }
+
+export function postNewFavorite({ userId, productId, token }) {
+  return sendRequest({
+    url: 'http://localhost:5000/api/favorite',
+    method: 'POST',
+    body: JSON.stringify({
+      userId: userId,
+      productId: productId,
+    }),
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}

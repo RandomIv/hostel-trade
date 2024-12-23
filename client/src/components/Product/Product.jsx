@@ -44,7 +44,7 @@ export default function Product({ data }) {
           </div>
         </Link>
         <div className={classes['like-btn-container']}>
-          <LikeBtn />
+          <LikeBtn productId={id} />
         </div>
       </div>
     </>

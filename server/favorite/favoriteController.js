@@ -23,8 +23,7 @@ export const getFavorites = handleAsync(async (req, res, next) => {
 });
 
 export const addFavorite = handleAsync(async (req, res, next) => {
-  const { id: userId } = req.params;
-  const { productId } = req.body;
+  const { productId, userId } = req.body;
 
   const { error } = await insertFavorite(userId, productId);
   if (error) return next(error);
