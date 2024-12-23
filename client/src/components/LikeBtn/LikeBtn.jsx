@@ -32,7 +32,6 @@ export default function LikeBtn({ productId, isLiked }) {
     }
 
     if (response.status === 'success') {
-      console.log('success');
       setIsCurrentLiked((prev) => !prev);
     }
   }

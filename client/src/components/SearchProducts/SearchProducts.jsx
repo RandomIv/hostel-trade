@@ -8,7 +8,6 @@ export default function SearchProducts({
   userId,
   favoritesData,
 }) {
-  console.log(favoritesData);
   return (
     <>
       <SearchBar hostels={hostelsData} types={typesData} userId={userId} />
