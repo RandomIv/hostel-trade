@@ -1,58 +1,77 @@
 import handleAsync from '../utils/handleAsync.js';
-import {
-  getProductById,
-  selectProducts,
-  createProduct,
-  saveUpdatedProduct,
-  deleteProductById,
-} from './productService.js';
 import { sendResponse } from '../utils/responseUtils.js';
 import { toSnakeCase } from '../utils/objectUtils.js';
+import Router from 'express';
+import authenticateToken from '../middlewares/authenticateToken.js';
+import setCurrentUserId from '../middlewares/setCurrentUserId.js';
+import {
+  addProduct,
+  fetchProduct,
+  fetchProducts,
+  removeProduct,
+  updateProduct,
+} from './productService.js';
 
-export const getProduct = handleAsync(async (req, res, next) => {
-  const { id } = req.params;
+const productController = Router();
 
-  const { data: product, error } = await getProductById(id);
-  if (error) return next(error);
+productController.get(
+  '/product',
+  handleAsync(async (req, res, next) => {
+    const filter = JSON.parse(req.query?.filter);
+    const sort = JSON.parse(req.query?.sort);
 
-  sendResponse(res, 200, { product });
-});
+    const products = await fetchProducts(filter, sort, next);
 
-export const getProducts = handleAsync(async (req, res, next) => {
-  const filter = JSON.parse(req.query?.filter);
-  const sort = JSON.parse(req.query?.sort);
+    sendResponse(res, 200, { products });
+  }),
+);
 
-  const { data: products, error } = await selectProducts(filter, sort);
-  if (error) return next(error);
+productController.get(
+  '/product/:id',
+  handleAsync(async (req, res, next) => {
+    const { id } = req.params;
 
-  sendResponse(res, 200, { products });
-});
+    const product = await fetchProduct(id, next);
 
-export const postProduct = handleAsync(async (req, res, next) => {
-  const dataToCreate = toSnakeCase(req.body);
-  const { id: userId } = req.params;
+    sendResponse(res, 200, { product });
+  }),
+);
 
-  const { error } = await createProduct(userId, dataToCreate);
-  if (error) return next(error);
+productController.post(
+  '/product',
+  authenticateToken,
+  setCurrentUserId,
+  handleAsync(async (req, res, next) => {
+    const dataToCreate = toSnakeCase(req.body);
+    const { id: userId } = req.params;
 
-  sendResponse(res, 201, null, 'Product created successfully');
-});
+    await addProduct(userId, dataToCreate, next);
 
-export const updateProduct = handleAsync(async (req, res, next) => {
-  const { id } = req.params;
-  const dataToUpdate = toSnakeCase(req.body);
+    sendResponse(res, 201, null, 'Product created successfully');
+  }),
+);
 
-  const { error } = await saveUpdatedProduct(id, dataToUpdate);
-  if (error) return next(error);
+productController.patch(
+  '/product/:id',
+  handleAsync(async (req, res, next) => {
+    const { id } = req.params;
+    const dataToUpdate = toSnakeCase(req.body);
 
-  sendResponse(res, 200, null, 'Product updated successfully');
-});
+    await updateProduct(id, dataToUpdate, next);
 
-export const deleteProduct = handleAsync(async (req, res, next) => {
-  const { id } = req.params;
+    sendResponse(res, 200, null, 'Product updated successfully');
+  }),
+);
 
-  const { error } = await deleteProductById(id);
-  if (error) return next(error);
+productController.delete(
+  '/product/:id',
+  handleAsync(async (req, res, next) => {
+    const { id } = req.params;
 
-  sendResponse(res, 200, null, 'Product deleted successfully');
-});
+    await removeProduct(id, next);
+
+    sendResponse(res, 200, null, 'Product deleted successfully');
+  }),
+);
+
+export default productController;
