@@ -17,6 +17,13 @@ import AuthPage, {
   action as authAction,
 } from './pages/Auth/Authentication.jsx';
 import { action as logoutAction } from './components/Auth/Logout.jsx';
+import ActivateAccount, {
+  loader as activateEmailLoader,
+} from './pages/ActivateAccount/ActivateAccount.jsx';
+import ResetPassword, {
+  loader as resetPasswordLoader,
+  action as resetPasswordAction,
+} from './pages/ResetPassword/ResetPassword.jsx';
 
 // Products
 import ProductDetailsPage, {
@@ -41,9 +48,6 @@ import UserProductsPage from './pages/UserProducts/UserProducts';
 
 import ProtectedRoute from './pages/ProtectedRoute.jsx';
 import { tokenLoader } from './utils/auth.js';
-import ActivateAccount, {
-  loader as activateEmailLoader,
-} from './pages/ActivateAccount/ActivateAccount.jsx';
 
 const queryClient = new QueryClient();
 
@@ -71,6 +75,12 @@ const router = createBrowserRouter([
         path: 'activate-account',
         element: <ActivateAccount />,
         loader: activateEmailLoader,
+      },
+      {
+        path: 'reset-password',
+        element: <ResetPassword />,
+        loader: resetPasswordLoader,
+        action: resetPasswordAction,
       },
 
       // Products

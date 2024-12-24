@@ -1,10 +1,9 @@
 import { redirect, useLoaderData, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
+import classes from './ActivateAccount.module.css';
 import confirmationArrow from '../../assets/confirmation-ico.png';
 import errorCross from '../../assets/error-cross.png';
-
-import classes from './ActivateAccount.module.css';
 
 import { confirmEmail } from '../../utils/confirmation';
 

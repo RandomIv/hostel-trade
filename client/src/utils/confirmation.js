@@ -32,3 +32,23 @@ export const resetPassword = async (email, token) => {
     throw error;
   }
 };
+
+export const saveNewPassword = async (password, token) => {
+  try {
+    const response = await fetch(
+      `http://localhost:5000/api/reset-password?token=${token}`,
+      {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ password }),
+      }
+    );
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
