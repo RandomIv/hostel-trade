@@ -6,8 +6,20 @@ import ProfileNavBar from '../../components/ProfileNavBar/ProfileNavBar.jsx';
 
 import { getUserByToken } from '../../utils/profile.js';
 import { getHostels } from '../../utils/product/productRequests.js';
+import FormSubmissionBox from '../../components/FormSubmissionBox/FormSubmissionBox.jsx';
+import { useState } from 'react';
+import { resetPassword } from '../../utils/confirmation.js';
+import { useMutation } from '@tanstack/react-query';
 export default function ProfilePage() {
+  const { mutate, isPending, isSuccess, isError, error } = useMutation({
+    mutationFn: resetPassword,
+  });
+
   const { userData: user } = useRouteLoaderData('profile-root');
+
+  async function handleChangePassword() {
+    mutate(user.email);
+  }
 
   return (
     <>
@@ -59,6 +71,11 @@ export default function ProfilePage() {
             </ul>
           </div>
         </div>
+        {isPending && <FormSubmissionBox loading={true} />}
+        {isError && <FormSubmissionBox errors={[error]} />}
+        {isSuccess && (
+          <FormSubmissionBox successMessage="Перевірте свою пошту. Ми відправили Вам на пошту лист зі скиданням паролю." />
+        )}
         <div className={classes['profile-manipulation']}>
           <NavLink
             to="/profile/profile-settings"
@@ -68,6 +85,7 @@ export default function ProfilePage() {
           >
             Редагувати профіль
           </NavLink>
+          <button onClick={handleChangePassword}>Змінити пароль</button>
         </div>
       </div>
     </>
@@ -76,7 +94,7 @@ export default function ProfilePage() {
 
 export async function loader() {
   const data = await getUserByToken();
-  const userData = { ...data, hostel: data.hostel.number };
+  const userData = { ...data, hostel: data.hostel?.number || null };
   const hostels = await getHostels();
   const sortedHostels = hostels.sort((a, b) => a - b);
   return { userData, sortedHostels };
