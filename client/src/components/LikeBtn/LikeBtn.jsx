@@ -14,11 +14,11 @@ export default function LikeBtn({ productId, isLiked }) {
   const [isCurrentLiked, setIsCurrentLiked] = useState(isLiked);
   const navigate = useNavigate();
 
-  const { mutateAsync: addFavorite, isAddPending } = useMutation({
+  const { mutateAsync: addFavorite, isPending: isAddPending } = useMutation({
     mutationFn: postNewFavorite,
   });
 
-  const { mutateAsync: delFavorite, isDeletePending } = useMutation({
+  const { mutateAsync: delFavorite, isPending: isDeletePending } = useMutation({
     mutationFn: deleteFavorite,
   });
 
