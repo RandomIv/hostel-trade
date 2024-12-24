@@ -4,11 +4,11 @@ import errorHandler from './middlewares/errorHandler.js';
 import cors from 'cors';
 import userRouter from './user/userRouter.js';
 import cookieParser from 'cookie-parser';
-import typeRouter from './type/typeRouter.js';
 import dotenv from 'dotenv';
 import favoriteController from './favorite/favoriteController.js';
 import hostelController from './hostel/hostelController.js';
 import productController from './product/productController.js';
+import typeController from './type/typeController.js';
 
 const app = express();
 
@@ -26,7 +26,7 @@ app.use('/api', authController);
 app.use('/api', productController);
 app.use('/api', userRouter);
 app.use('/api', hostelController);
-app.use('/api', typeRouter);
+app.use('/api', typeController);
 app.use('/api', favoriteController);
 app.use(errorHandler);
 

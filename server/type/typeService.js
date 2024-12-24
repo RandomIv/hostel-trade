@@ -1,17 +1,28 @@
-import db from '../config/dbConfig.js';
+import {
+  createType,
+  deleteTypeById,
+  getTypeById,
+  selectTypes,
+} from './typeDAL.js';
 
-export const selectTypes = async () => {
-  return db.from('type').select('*');
+export const fetchTypes = async (next) => {
+  const { data, error } = await selectTypes();
+  if (error) return next(error);
+  return data;
 };
 
-export const getTypeById = async (id) => {
-  return db.from('type').select('*').eq('id', id).single();
+export const fetchType = async (id, next) => {
+  const { data, error } = await getTypeById(id);
+  if (error) return next(error);
+  return data;
 };
 
-export const createType = async (name) => {
-  return db.from('type').insert({ name });
+export const addType = async (name, next) => {
+  const { error } = await createType(name);
+  if (error) return next(error);
 };
 
-export const deleteTypeById = async (id) => {
-  return db.from('type').delete().eq('id', id);
+export const removeType = async (id, next) => {
+  const { error } = await deleteTypeById(id);
+  if (error) return next(error);
 };

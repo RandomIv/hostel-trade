@@ -1,42 +1,50 @@
 import handleAsync from '../utils/handleAsync.js';
 import { sendResponse } from '../utils/responseUtils.js';
-import {
-  createType,
-  deleteTypeById,
-  getTypeById,
-  selectTypes,
-} from './typeService.js';
+import Router from 'express';
+import { addType, fetchType, fetchTypes, removeType } from './typeService.js';
 
-export const getTypes = handleAsync(async (req, res, next) => {
-  const { data: types, error } = await selectTypes();
-  if (error) return next(error);
+const typeController = Router();
 
-  sendResponse(res, 200, { types });
-});
+typeController.get(
+  '/type',
+  handleAsync(async (req, res, next) => {
+    const types = await fetchTypes(next);
 
-export const getType = handleAsync(async (req, res, next) => {
-  const { id } = req.params;
+    sendResponse(res, 200, { types });
+  }),
+);
 
-  const { data: type, error } = await getTypeById(id);
-  if (error) return next(error);
+typeController.get(
+  '/type/:id',
+  handleAsync(async (req, res, next) => {
+    const { id } = req.params;
 
-  sendResponse(res, 200, { type });
-});
+    const type = await fetchType(id, next);
 
-export const postType = handleAsync(async (req, res, next) => {
-  const { name } = req.body;
+    sendResponse(res, 200, { type });
+  }),
+);
 
-  const { error } = await createType(name);
-  if (error) return next(error);
+typeController.post(
+  '/type',
+  handleAsync(async (req, res, next) => {
+    const { name } = req.body;
 
-  sendResponse(res, 201, null, 'Type created successfully');
-});
+    await addType(name, next);
 
-export const deleteType = handleAsync(async (req, res, next) => {
-  const { id } = req.params;
+    sendResponse(res, 201, null, 'Type created successfully');
+  }),
+);
 
-  const { error } = await deleteTypeById(id);
-  if (error) return next(error);
+typeController.delete(
+  '/type/:id',
+  handleAsync(async (req, res, next) => {
+    const { id } = req.params;
 
-  sendResponse(res, 200, null, 'Type deleted successfully');
-});
+    await removeType(id, next);
+
+    sendResponse(res, 200, null, 'Type deleted successfully');
+  }),
+);
+
+export default typeController;
