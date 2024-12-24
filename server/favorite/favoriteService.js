@@ -1,35 +1,21 @@
-import db from '../config/dbConfig.js';
-import applyProductModifiers from '../utils/queryUtils.js';
+import {
+  deleteFavoriteById,
+  insertFavorite,
+  selectFavorites,
+} from './favoriteDAL.js';
 
-export const selectFavorites = async (userId, filter = {}, sort = {}) => {
-  let query = db
-    .from('favorite')
-    .select(
-      `
-      *,
-      product!inner(*, 
-        image(id, url, is_main), 
-        type(*), 
-        hostel(*)
-      )
-      `
-    )
-    .eq('user_id', userId)
-    .eq('product.image.is_main', true);
-
-  query = applyProductModifiers(query, filter, sort, 'product');
-
-  return query;
+export const getFavorites = async (userId, filter, sort, next) => {
+  const { data, error } = await selectFavorites(userId, filter, sort);
+  if (error) next(error);
+  return data;
 };
 
-export const insertFavorite = async (userId, productId) => {
-  return db.from('favorite').insert({ user_id: userId, product_id: productId });
+export const addFavorite = async (userId, productId, next) => {
+  const { error } = await insertFavorite(userId, productId);
+  if (error) next(error);
 };
 
-export const deleteFavoriteById = async (userId, productId) => {
-  return db
-    .from('favorite')
-    .delete()
-    .eq('user_id', userId)
-    .eq('product_id', productId);
+export const removeFavorite = async (userId, productId, next) => {
+  const { error } = await deleteFavoriteById(userId, productId);
+  if (error) next(error);
 };

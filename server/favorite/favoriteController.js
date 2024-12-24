@@ -1,42 +1,52 @@
 import handleAsync from '../utils/handleAsync.js';
 import { sendResponse } from '../utils/responseUtils.js';
+import Router from 'express';
+import authenticateToken from '../middlewares/authenticateToken.js';
 import {
-  deleteFavoriteById,
-  insertFavorite,
-  selectFavorites,
+  addFavorite,
+  getFavorites,
+  removeFavorite,
 } from './favoriteService.js';
 
-export const getFavorites = handleAsync(async (req, res, next) => {
-  // const { userId, filter, sort } = req.body;
-  const userId = JSON.parse(req.query?.userId);
-  const filter = JSON.parse(req.query?.filter);
-  const sort = JSON.parse(req.query?.sort);
+const favoriteController = Router();
 
-  const { data: favorites, error } = await selectFavorites(
-    userId,
-    filter,
-    sort
-  );
-  if (error) return next(error);
+favoriteController.get(
+  '/favorite',
+  authenticateToken,
+  handleAsync(async (req, res, next) => {
+    const userId = JSON.parse(req.query?.userId);
+    const filter = JSON.parse(req.query?.filter);
+    const sort = JSON.parse(req.query?.sort);
 
-  sendResponse(res, 200, { favorites });
-});
+    const favorites = await getFavorites(userId, filter, sort, next);
 
-export const addFavorite = handleAsync(async (req, res, next) => {
-  const { productId, userId } = req.body;
+    sendResponse(res, 200, { favorites });
+  }),
+);
 
-  const { error } = await insertFavorite(userId, productId);
-  if (error) return next(error);
+favoriteController.post(
+  '/favorite',
+  authenticateToken,
+  handleAsync(async (req, res, next) => {
+    const { productId, userId } = req.body;
 
-  sendResponse(res, 201, null, 'Favorite added successfully');
-});
+    await addFavorite(productId, userId, next);
 
-export const deleteFavorite = handleAsync(async (req, res, next) => {
-  const { id: userId } = req.params;
-  const { productId } = req.body;
+    sendResponse(res, 201, null, 'Favorite added successfully');
+  }),
+);
 
-  const { error } = await deleteFavoriteById(userId, productId);
-  if (error) return next(error);
+favoriteController.delete(
+  'favorite/:id',
+  authenticateToken,
+  handleAsync(async (req, res, next) => {
+    const { id: userId } = req.params;
+    const { productId } = req.body;
 
-  sendResponse(res, 200, null, 'Favorite deleted successfully');
-});
+    await removeFavorite(userId, productId, next);
+
+    sendResponse(res, 200, null, 'Favorite deleted successfully');
+  }),
+);
+
+export default favoriteController;
