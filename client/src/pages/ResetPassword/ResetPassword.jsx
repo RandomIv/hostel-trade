@@ -1,9 +1,4 @@
-import {
-  Form,
-  useActionData,
-  useLoaderData,
-  useNavigate,
-} from 'react-router-dom';
+import { Form, useActionData, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 import classes from './ResetPassword.module.css';
@@ -11,7 +6,7 @@ import classes from './ResetPassword.module.css';
 import { saveNewPassword } from '../../utils/confirmation';
 import FormSubmissionBox from '../../components/FormSubmissionBox/FormSubmissionBox';
 
-export default function ResetPassword() {
+export default function ResetPasswordPage() {
   const [showPassword, setShowPassword] = useState(false);
   const response = useActionData();
   const navigate = useNavigate();
@@ -70,14 +65,6 @@ export default function ResetPassword() {
       </Form>
     </div>
   );
-}
-
-export async function loader({ request }) {
-  const url = new URL(request.url);
-  const searchParams = url.searchParams;
-  const token = searchParams.get('token');
-
-  return token;
 }
 
 export async function action({ request }) {

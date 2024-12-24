@@ -80,6 +80,11 @@ export default function AuthForm({ error }) {
         </p>
       )}
 
+      <p className={classes.link}>
+        <span>Забули пароль?</span>
+        <Link to={'/reset-password-form'}>Змінити пароль</Link>
+      </p>
+
       {error && (
         <div className={classes['error-container']}>
           <FormSubmissionBox errors={[error.message]} />

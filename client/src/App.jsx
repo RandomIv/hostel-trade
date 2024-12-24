@@ -21,9 +21,11 @@ import ActivateAccount, {
   loader as activateEmailLoader,
 } from './pages/ActivateAccount/ActivateAccount.jsx';
 import ResetPassword, {
-  loader as resetPasswordLoader,
   action as resetPasswordAction,
 } from './pages/ResetPassword/ResetPassword.jsx';
+import ResetPasswordFormPage, {
+  action as resetPasswordFormPageAction,
+} from './pages/ResetPasswordForm/ResetPasswordForm.jsx';
 
 // Products
 import ProductDetailsPage, {
@@ -79,8 +81,12 @@ const router = createBrowserRouter([
       {
         path: 'reset-password',
         element: <ResetPassword />,
-        loader: resetPasswordLoader,
         action: resetPasswordAction,
+      },
+      {
+        path: 'reset-password-form',
+        element: <ResetPasswordFormPage />,
+        action: resetPasswordFormPageAction,
       },
 
       // Products

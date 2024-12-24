@@ -13,10 +13,8 @@ export default function ProfilePage() {
   const [message, setMessage] = useState(null);
   const { userData: user } = useRouteLoaderData('profile-root');
 
-  const token = localStorage.getItem('token');
-
   async function handleChangePassword() {
-    const response = await resetPassword(user.email, token);
+    const response = await resetPassword(user.email);
 
     if (response.ok) {
       setMessage(
