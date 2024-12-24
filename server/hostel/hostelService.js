@@ -1,17 +1,28 @@
-import db from '../config/dbConfig.js';
+import {
+  createHostel,
+  deleteHostelById,
+  getHostelById,
+  selectHostels,
+} from './hostelDAL.js';
 
-export const selectHostels = async () => {
-  return db.from('hostel').select('*');
+export const getAllHostels = async (next) => {
+  const { data, error } = await selectHostels();
+  if (error) next(error);
+  return data;
 };
 
-export const getHostelById = async (id) => {
-  return db.from('hostel').select('*').eq('id', id).single();
+export const getHostel = async (id, next) => {
+  const { data, error } = await getHostelById(id);
+  if (error) next(error);
+  return data;
 };
 
-export const createHostel = async (number) => {
-  return db.from('hostel').insert({ number });
+export const addHostel = async (number, next) => {
+  const { error } = await createHostel(number);
+  if (error) next(error);
 };
 
-export const deleteHostelById = async (id) => {
-  return db.from('hostel').delete().eq('id', id);
+export const removeHostel = async (id, next) => {
+  const { error } = await deleteHostelById(id);
+  if (error) next(error);
 };

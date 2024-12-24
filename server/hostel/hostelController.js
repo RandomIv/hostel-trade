@@ -1,42 +1,55 @@
 import handleAsync from '../utils/handleAsync.js';
 import { sendResponse } from '../utils/responseUtils.js';
+import Router from 'express';
 import {
-  createHostel,
-  deleteHostelById,
-  getHostelById,
-  selectHostels,
+  addHostel,
+  getAllHostels,
+  getHostel,
+  removeHostel,
 } from './hostelService.js';
 
-export const getHostels = handleAsync(async (req, res, next) => {
-  const { data: hostels, error } = await selectHostels();
-  if (error) return next(error);
+const hostelController = Router();
 
-  sendResponse(res, 200, { hostels });
-});
+hostelController.get(
+  '/hostel',
+  handleAsync(async (req, res, next) => {
+    const hostels = await getAllHostels(next);
 
-export const getHostel = handleAsync(async (req, res, next) => {
-  const { id } = req.params;
+    sendResponse(res, 200, { hostels });
+  }),
+);
 
-  const { data: hostel, error } = await getHostelById(id);
-  if (error) return next(error);
+hostelController.get(
+  '/hostel/:id',
+  handleAsync(async (req, res, next) => {
+    const { id } = req.params;
 
-  sendResponse(res, 200, { hostel });
-});
+    const hostel = await getHostel(id, next);
 
-export const postHostel = handleAsync(async (req, res, next) => {
-  const { number } = req.body;
+    sendResponse(res, 200, { hostel });
+  }),
+);
 
-  const { error } = await createHostel(number);
-  if (error) return next(error);
+hostelController.post(
+  '/hostel',
+  handleAsync(async (req, res, next) => {
+    const { number } = req.body;
 
-  sendResponse(res, 201, null, 'Hostel created successfully');
-});
+    await addHostel(number, next);
 
-export const deleteHostel = handleAsync(async (req, res, next) => {
-  const { id } = req.params;
+    sendResponse(res, 201, null, 'Hostel created successfully');
+  }),
+);
 
-  const { error } = await deleteHostelById(id);
-  if (error) return next(error);
+hostelController.delete(
+  '/hostel/:id',
+  handleAsync(async (req, res, next) => {
+    const { id } = req.params;
 
-  sendResponse(res, 200, null, 'Hostel deleted successfully');
-});
+    await removeHostel(id, next);
+
+    sendResponse(res, 200, null, 'Hostel deleted successfully');
+  }),
+);
+
+export default hostelController;

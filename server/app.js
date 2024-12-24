@@ -5,10 +5,10 @@ import cors from 'cors';
 import productRouter from './product/productRouter.js';
 import userRouter from './user/userRouter.js';
 import cookieParser from 'cookie-parser';
-import hostelRouter from './hostel/hostelRouter.js';
 import typeRouter from './type/typeRouter.js';
 import dotenv from 'dotenv';
 import favoriteController from './favorite/favoriteController.js';
+import hostelController from './hostel/hostelController.js';
 
 const app = express();
 
@@ -25,7 +25,7 @@ app.use(
 app.use('/api', authController);
 app.use('/api', productRouter);
 app.use('/api', userRouter);
-app.use('/api', hostelRouter);
+app.use('/api', hostelController);
 app.use('/api', typeRouter);
 app.use('/api', favoriteController);
 app.use(errorHandler);
