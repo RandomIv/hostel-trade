@@ -42,15 +42,31 @@ userController.delete(
   }),
 );
 
-userController.use(
+userController.get(
   '/me',
   authenticateToken,
   setCurrentUserId,
-  (req, res, next) => {
-    req.params.id = req.user.id;
-    req.url = `/user/${req.params.id}`;
-    next();
-  },
+  handleAsync(async (req, res, next) => {
+    const { id } = req.params;
+
+    const user = await fetchUser(id, next);
+
+    sendResponse(res, 200, { user });
+  }),
+);
+
+userController.patch(
+  '/me',
+  authenticateToken,
+  setCurrentUserId,
+  handleAsync(async (req, res, next) => {
+    const { id } = req.params;
+    const dataToUpdate = toSnakeCase(req.body);
+
+    await updateUser(id, dataToUpdate, next);
+
+    sendResponse(res, 200, null, 'User updated successfully');
+  }),
 );
 
 export default userController;
