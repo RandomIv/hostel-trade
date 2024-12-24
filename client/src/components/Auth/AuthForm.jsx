@@ -67,6 +67,19 @@ export default function AuthForm({ error }) {
         />
       </p>
 
+      {!isLogin && (
+        <p>
+          <label htmlFor="confirm-password">Повторіть пароль</label>
+          <input
+            id="confirm-password"
+            type="password"
+            name="confirm-password"
+            required
+            minLength={6}
+          />
+        </p>
+      )}
+
       {error && (
         <div className={classes['error-container']}>
           <FormSubmissionBox errors={[error.message]} />

@@ -41,6 +41,9 @@ import UserProductsPage from './pages/UserProducts/UserProducts';
 
 import ProtectedRoute from './pages/ProtectedRoute.jsx';
 import { tokenLoader } from './utils/auth.js';
+import ActivateAccount, {
+  loader as activateEmailLoader,
+} from './pages/ActivateAccount/ActivateAccount.jsx';
 
 const queryClient = new QueryClient();
 
@@ -64,6 +67,11 @@ const router = createBrowserRouter([
       // Access Control
       { path: 'auth', element: <AuthPage />, action: authAction },
       { path: 'logout', action: logoutAction },
+      {
+        path: 'activate-account',
+        element: <ActivateAccount />,
+        loader: activateEmailLoader,
+      },
 
       // Products
       {

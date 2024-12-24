@@ -26,17 +26,29 @@ export async function action({ request }) {
 
   const data = await request.formData();
 
-  let authData = { password: data.get('password') };
+  const password = data.get('password');
+
+  let authData = {};
 
   if (mode === 'signup') {
+    const confirmPassword = data.get('confirm-password');
+
+    if (password !== confirmPassword) {
+      return {
+        error: true,
+        message: 'Паролі не співпадають',
+        status: 500,
+      };
+    }
+
     authData = {
       username: data.get('username'),
       email: data.get('email'),
-      ...authData,
+      password,
     };
   }
   if (mode === 'login') {
-    authData = { loginIdentifier: data.get('username-email'), ...authData };
+    authData = { loginIdentifier: data.get('username-email'), password };
   }
 
   try {

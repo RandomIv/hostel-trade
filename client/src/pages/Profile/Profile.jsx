@@ -76,7 +76,7 @@ export default function ProfilePage() {
 
 export async function loader() {
   const data = await getUserByToken();
-  const userData = { ...data, hostel: data.hostel.number };
+  const userData = { ...data, hostel: data.hostel?.number || null };
   const hostels = await getHostels();
   const sortedHostels = hostels.sort((a, b) => a - b);
   return { userData, sortedHostels };
