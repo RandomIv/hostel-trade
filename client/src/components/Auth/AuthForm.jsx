@@ -19,8 +19,6 @@ export default function AuthForm({ error }) {
   const isLogin = searchParams.get('mode') === 'login';
   const isSubmitting = navigation.state === 'submitting';
 
-  console.log(error);
-
   return (
     <Form method="post" className={classes['auth-form']}>
       <h1>

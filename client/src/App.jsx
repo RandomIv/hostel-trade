@@ -39,7 +39,7 @@ import FavoritesPage, {
 } from './pages/Favorites/Favorites';
 import UserProductsPage from './pages/UserProducts/UserProducts';
 
-import ProtectedRoute from './components/ProtectedRoute.jsx';
+import ProtectedRoute from './pages/ProtectedRoute.jsx';
 import { tokenLoader } from './utils/auth.js';
 
 const queryClient = new QueryClient();

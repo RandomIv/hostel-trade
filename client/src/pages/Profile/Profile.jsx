@@ -7,8 +7,7 @@ import ProfileNavBar from '../../components/ProfileNavBar/ProfileNavBar.jsx';
 import { getUserByToken } from '../../utils/profile.js';
 import { getHostels } from '../../utils/product/productRequests.js';
 export default function ProfilePage() {
-  const { userData: user, sortedHostels: hostels } =
-    useRouteLoaderData('profile-root');
+  const { userData: user } = useRouteLoaderData('profile-root');
 
   return (
     <>

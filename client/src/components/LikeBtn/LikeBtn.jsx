@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 
 import classes from './LikeBtn.module.css';
@@ -7,9 +8,11 @@ import {
   deleteFavorite,
   postNewFavorite,
 } from '../../utils/product/productRequests';
+import { ensureAccessToken } from '../../utils/auth';
 
 export default function LikeBtn({ productId, isLiked }) {
   const [isCurrentLiked, setIsCurrentLiked] = useState(isLiked);
+  const navigate = useNavigate();
 
   const { mutateAsync: addFavorite, isAddPending } = useMutation({
     mutationFn: postNewFavorite,
@@ -25,14 +28,18 @@ export default function LikeBtn({ productId, isLiked }) {
   let response;
 
   async function handleClick() {
-    if (!isCurrentLiked) {
-      response = await addFavorite({ userId, productId, token });
-    } else {
-      response = await delFavorite({ userId, productId, token });
-    }
+    if (await ensureAccessToken()) {
+      if (!isCurrentLiked) {
+        response = await addFavorite({ userId, productId, token });
+      } else {
+        response = await delFavorite({ userId, productId, token });
+      }
 
-    if (response.status === 'success') {
-      setIsCurrentLiked((prev) => !prev);
+      if (response.status === 'success') {
+        setIsCurrentLiked((prev) => !prev);
+      }
+    } else {
+      navigate('/auth?mode=login');
     }
   }
 
