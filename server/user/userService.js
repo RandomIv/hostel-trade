@@ -1,18 +1,22 @@
-import db from '../config/dbConfig.js';
+import { deleteUserById, getUserById, updateUserById } from './userDAL.js';
+import bcrypt from 'bcrypt';
 
-export const getUserById = async (id) => {
-  return db
-    .from('user')
-    .select(
-      'id, username, first_name, last_name, email, avatar_img, phone_number, created_at, hostel(*)',
-    )
-    .eq('id', id)
-    .single();
-};
-export const updateUserById = async (id, data) => {
-  return db.from('user').update(data).eq('id', id);
+export const fetchUser = async (id, next) => {
+  const { data, error } = await getUserById(id);
+  if (error) return next(error);
+  return data;
 };
 
-export const deleteUserById = async (id) => {
-  return db.from('user').delete().eq('id', id);
+export const updateUser = async (id, dataToUpdate, next) => {
+  if (dataToUpdate.password) {
+    dataToUpdate.password = await bcrypt.hash(dataToUpdate.password, 10);
+  }
+
+  const { error } = await updateUserById(id, dataToUpdate);
+  if (error) return next(error);
+};
+
+export const deleteUser = async (id, next) => {
+  const { error } = deleteUserById(id);
+  if (error) return next(error);
 };

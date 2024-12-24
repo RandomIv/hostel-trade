@@ -1,37 +1,56 @@
 import handleAsync from '../utils/handleAsync.js';
-import { deleteUserById, getUserById, updateUserById } from './userService.js';
-import bcrypt from 'bcrypt';
 import { sendResponse } from '../utils/responseUtils.js';
 import { toSnakeCase } from '../utils/objectUtils.js';
+import authenticateToken from '../middlewares/authenticateToken.js';
+import setCurrentUserId from '../middlewares/setCurrentUserId.js';
+import Router from 'express';
+import { deleteUser, fetchUser, updateUser } from './userService.js';
 
-export const getUser = handleAsync(async (req, res, next) => {
-  const { id } = req.params;
+const userController = Router();
 
-  const { data: user, error } = await getUserById(id);
-  if (error) return next(error);
+userController.get(
+  '/user/:id',
+  handleAsync(async (req, res, next) => {
+    const { id } = req.params;
 
-  sendResponse(res, 200, { user });
-});
+    const user = await fetchUser(id, next);
 
-export const updateUser = handleAsync(async (req, res, next) => {
-  const { id } = req.params;
-  const dataToUpdate = toSnakeCase(req.body);
+    sendResponse(res, 200, { user });
+  }),
+);
 
-  if (dataToUpdate.password) {
-    dataToUpdate.password = await bcrypt.hash(dataToUpdate.password, 10);
-  }
+userController.patch(
+  '/user/:id',
+  handleAsync(async (req, res, next) => {
+    const { id } = req.params;
+    const dataToUpdate = toSnakeCase(req.body);
 
-  const { error } = await updateUserById(id, dataToUpdate);
-  if (error) return next(error);
+    await updateUser(id, dataToUpdate, next);
 
-  sendResponse(res, 200, null, 'User updated successfully');
-});
+    sendResponse(res, 200, null, 'User updated successfully');
+  }),
+);
 
-export const deleteUser = handleAsync(async (req, res, next) => {
-  const { id } = req.params;
+userController.delete(
+  '/user/:id',
+  handleAsync(async (req, res, next) => {
+    const { id } = req.params;
 
-  const { error } = deleteUserById(id);
-  if (error) return next(error);
+    await deleteUser(id, next);
 
-  sendResponse(res, 200, null, 'User deleted successfully');
-});
+    sendResponse(res, 200, null, 'User deleted successfully');
+  }),
+);
+
+userController.use(
+  '/me',
+  authenticateToken,
+  setCurrentUserId,
+  (req, res, next) => {
+    req.params.id = req.user.id;
+    req.url = `/user/${req.params.id}`;
+    next();
+  },
+);
+
+export default userController;

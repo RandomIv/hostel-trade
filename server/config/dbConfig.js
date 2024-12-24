@@ -1,7 +1,7 @@
-import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv';
-
 dotenv.config({ path: '../.env' });
+
+import { createClient } from '@supabase/supabase-js';
 
 const dbUrl = process.env.DB_URL;
 const dbKey = process.env.DB_KEY;

@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+dotenv.config({ path: '../.env' });
 import pino from 'pino';
 
 const logger = pino({

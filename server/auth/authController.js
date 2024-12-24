@@ -1,5 +1,4 @@
 import Router from 'express';
-import dotenv from 'dotenv';
 import authenticateToken from '../middlewares/authenticateToken.js';
 import handleAsync from '../utils/handleAsync.js';
 import {
@@ -18,7 +17,6 @@ import {
   resetPassword,
 } from './authService.js';
 
-dotenv.config({ path: '../.env' });
 const authController = Router();
 
 authController.post(
@@ -43,7 +41,7 @@ authController.post(
   handleAsync(async (req, res, next) => {
     const { loginIdentifier, password } = req.body;
 
-    const { refreshToken, accessToken } = await login(
+    const { accessToken, refreshToken } = await login(
       loginIdentifier,
       password,
       next,
