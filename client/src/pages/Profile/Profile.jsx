@@ -6,8 +6,27 @@ import ProfileNavBar from '../../components/ProfileNavBar/ProfileNavBar.jsx';
 
 import { getUserByToken } from '../../utils/profile.js';
 import { getHostels } from '../../utils/product/productRequests.js';
+import FormSubmissionBox from '../../components/FormSubmissionBox/FormSubmissionBox.jsx';
+import { useState } from 'react';
+import { resetPassword } from '../../utils/confirmation.js';
 export default function ProfilePage() {
+  const [message, setMessage] = useState(null);
   const { userData: user } = useRouteLoaderData('profile-root');
+
+  const token = localStorage.getItem('token');
+
+  async function handleChangePassword() {
+    const response = await resetPassword(user.email, token);
+
+    if (response.ok) {
+      setMessage(
+        'Перевірте свою пошту. Ми відправили Вам на пошту лист зі скиданням паролю.'
+      );
+      setTimeout(() => {
+        setMessage(null);
+      }, 3000);
+    }
+  }
 
   return (
     <>
@@ -59,6 +78,7 @@ export default function ProfilePage() {
             </ul>
           </div>
         </div>
+        {message && <FormSubmissionBox title={message} />}
         <div className={classes['profile-manipulation']}>
           <NavLink
             to="/profile/profile-settings"
@@ -68,6 +88,7 @@ export default function ProfilePage() {
           >
             Редагувати профіль
           </NavLink>
+          <button onClick={handleChangePassword}>Змінити пароль</button>
         </div>
       </div>
     </>

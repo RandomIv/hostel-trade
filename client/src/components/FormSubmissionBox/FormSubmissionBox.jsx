@@ -12,7 +12,7 @@ export default function FormSubmissionBox({ errors, isSubmitted, title }) {
           </ul>
         </div>
       )}
-      {isSubmitted && (
+      {(isSubmitted || title) && (
         <div className={classes['submitted-box']}>
           {title ? title : 'Успішно.'}
         </div>

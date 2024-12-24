@@ -15,3 +15,20 @@ export const confirmEmail = async ({ signal, token }) => {
     throw error;
   }
 };
+
+export const resetPassword = async (email, token) => {
+  try {
+    const response = await fetch('http://localhost:5000/api/forgot-password', {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ email }),
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

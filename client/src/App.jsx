@@ -104,6 +104,7 @@ const router = createBrowserRouter([
             action: searchAction,
           },
 
+          // User Products Actions
           {
             path: 'edit-product/:productId',
             element: <EditProductPage />,
