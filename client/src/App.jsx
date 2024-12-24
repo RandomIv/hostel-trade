@@ -17,6 +17,15 @@ import AuthPage, {
   action as authAction,
 } from './pages/Auth/Authentication.jsx';
 import { action as logoutAction } from './components/Auth/Logout.jsx';
+import ActivateAccount, {
+  loader as activateEmailLoader,
+} from './pages/ActivateAccount/ActivateAccount.jsx';
+import ResetPassword, {
+  action as resetPasswordAction,
+} from './pages/ResetPassword/ResetPassword.jsx';
+import ResetPasswordFormPage, {
+  action as resetPasswordFormPageAction,
+} from './pages/ResetPasswordForm/ResetPasswordForm.jsx';
 
 // Products
 import ProductDetailsPage, {
@@ -64,6 +73,21 @@ const router = createBrowserRouter([
       // Access Control
       { path: 'auth', element: <AuthPage />, action: authAction },
       { path: 'logout', action: logoutAction },
+      {
+        path: 'activate-account',
+        element: <ActivateAccount />,
+        loader: activateEmailLoader,
+      },
+      {
+        path: 'reset-password',
+        element: <ResetPassword />,
+        action: resetPasswordAction,
+      },
+      {
+        path: 'reset-password-form',
+        element: <ResetPasswordFormPage />,
+        action: resetPasswordFormPageAction,
+      },
 
       // Products
       {
@@ -96,6 +120,7 @@ const router = createBrowserRouter([
             action: searchAction,
           },
 
+          // User Products Actions
           {
             path: 'edit-product/:productId',
             element: <EditProductPage />,

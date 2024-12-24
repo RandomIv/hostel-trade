@@ -1,26 +1,29 @@
 .profile-page {
+  margin: auto;
   padding-top: 30px;
   width: 80%;
-  margin: auto;
 }
 .profile-container {
-  height: 60vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  height: 60vh;
 }
 .profile-main,
 .profile-details {
-  border: 1px solid black;
-  height: 45%;
-  border-radius: 10px;
   display: flex;
   justify-content: space-between;
-  font-size: 16px;
   margin-bottom: 30px;
+  height: 45%;
+
+  font-size: 16px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 10px;
 }
 .profile-manipulation {
-  height: 10vh;
+  display: flex;
+  justify-content: space-between;
 }
 .profile-image-container {
   width: 20%;
@@ -38,7 +41,7 @@
 .profile-image-container .profile-image {
   height: 150px;
   width: 150px;
-  border-radius: 1000px;
+  border-radius: 50%;
   border: 1px solid black;
 }
 .profile-main-description {

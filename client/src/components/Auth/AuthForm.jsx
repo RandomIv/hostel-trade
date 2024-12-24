@@ -10,8 +10,6 @@ import classes from './AuthForm.module.css';
 
 import FormSubmissionBox from '../FormSubmissionBox/FormSubmissionBox';
 
-import { loginErrorHandle } from '../../utils/auth';
-
 export default function AuthForm({ error }) {
   const navigation = useNavigation();
   const [searchParams] = useSearchParams();
@@ -65,6 +63,24 @@ export default function AuthForm({ error }) {
           required
           minLength={6}
         />
+      </p>
+
+      {!isLogin && (
+        <p>
+          <label htmlFor="confirm-password">Повторіть пароль</label>
+          <input
+            id="confirm-password"
+            type="password"
+            name="confirm-password"
+            required
+            minLength={6}
+          />
+        </p>
+      )}
+
+      <p className={classes.link}>
+        <span>Забули пароль?</span>
+        <Link to={'/reset-password-form'}>Змінити пароль</Link>
       </p>
 
       {error && (
