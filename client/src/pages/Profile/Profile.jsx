@@ -9,21 +9,16 @@ import { getHostels } from '../../utils/product/productRequests.js';
 import FormSubmissionBox from '../../components/FormSubmissionBox/FormSubmissionBox.jsx';
 import { useState } from 'react';
 import { resetPassword } from '../../utils/confirmation.js';
+import { useMutation } from '@tanstack/react-query';
 export default function ProfilePage() {
-  const [message, setMessage] = useState(null);
+  const { mutate, isPending, isSuccess, isError, error } = useMutation({
+    mutationFn: resetPassword,
+  });
+
   const { userData: user } = useRouteLoaderData('profile-root');
 
   async function handleChangePassword() {
-    const response = await resetPassword(user.email);
-
-    if (response.ok) {
-      setMessage(
-        'Перевірте свою пошту. Ми відправили Вам на пошту лист зі скиданням паролю.'
-      );
-      setTimeout(() => {
-        setMessage(null);
-      }, 3000);
-    }
+    mutate(user.email);
   }
 
   return (
@@ -76,7 +71,11 @@ export default function ProfilePage() {
             </ul>
           </div>
         </div>
-        {message && <FormSubmissionBox title={message} />}
+        {isPending && <FormSubmissionBox loading={true} />}
+        {isError && <FormSubmissionBox errors={[error]} />}
+        {isSuccess && (
+          <FormSubmissionBox successMessage="Перевірте свою пошту. Ми відправили Вам на пошту лист зі скиданням паролю." />
+        )}
         <div className={classes['profile-manipulation']}>
           <NavLink
             to="/profile/profile-settings"

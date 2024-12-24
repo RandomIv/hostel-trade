@@ -47,7 +47,7 @@ export default function ResetPasswordPage() {
         </p>
         {response?.error && <FormSubmissionBox errors={[response.message]} />}
         {response?.success && (
-          <FormSubmissionBox title={'Пароль успішно змінено!'} />
+          <FormSubmissionBox successMessage={'Пароль успішно змінено!'} />
         )}
 
         <div className={classes['btn-row']}>

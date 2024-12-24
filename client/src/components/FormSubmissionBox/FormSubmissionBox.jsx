@@ -1,6 +1,6 @@
 import classes from './FormSubmissionBox.module.css';
 
-export default function FormSubmissionBox({ errors, isSubmitted, title }) {
+export default function FormSubmissionBox({ errors, successMessage, loading }) {
   return (
     <>
       {errors && errors.length > 0 && (
@@ -12,9 +12,14 @@ export default function FormSubmissionBox({ errors, isSubmitted, title }) {
           </ul>
         </div>
       )}
-      {(isSubmitted || title) && (
+      {successMessage && (
         <div className={classes['submitted-box']}>
-          {title ? title : 'Успішно.'}
+          {successMessage ? successMessage : 'Успішно.'}
+        </div>
+      )}
+      {loading && (
+        <div className={classes['loading-box']}>
+          <p>Опрацьовуємо запит...</p>
         </div>
       )}
     </>

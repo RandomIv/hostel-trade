@@ -10,8 +10,6 @@ import classes from './AuthForm.module.css';
 
 import FormSubmissionBox from '../FormSubmissionBox/FormSubmissionBox';
 
-import { loginErrorHandle } from '../../utils/auth';
-
 export default function AuthForm({ error }) {
   const navigation = useNavigation();
   const [searchParams] = useSearchParams();

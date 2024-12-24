@@ -59,16 +59,10 @@ export default function ProductDetailsPage() {
       <ProductDescription data={prodData} />
       <ProductUserDetails data={userData} />
       {isDeleted === 'success' && (
-        <FormSubmissionBox
-          isSubmitted={isDeleted}
-          title="Оголошення успішно видалено"
-        />
+        <FormSubmissionBox successMessage="Оголошення успішно видалено" />
       )}
       {isDeleted === 'failed' && (
-        <FormSubmissionBox
-          isSubmitted={isDeleted}
-          title="Оголошення успішно видалено"
-        />
+        <FormSubmissionBox successMessage="Оголошення успішно видалено" />
       )}
       {currentUserId === userData.id && (
         <div className={classes['change-row']}>

@@ -17,7 +17,7 @@ export default function ResetPasswordFormPage() {
 
         {response?.error && <FormSubmissionBox errors={[response.message]} />}
         {response?.success && (
-          <FormSubmissionBox title="Перевірте свою пошту. Ми відправили Вам на пошту лист зі скиданням паролю." />
+          <FormSubmissionBox successMessage="Перевірте свою пошту. Ми відправили Вам на пошту лист зі скиданням паролю." />
         )}
 
         <div className={classes['email-btn-row']}>
