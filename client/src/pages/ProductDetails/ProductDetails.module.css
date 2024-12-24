@@ -25,9 +25,14 @@
 .name-price-row div {
   display: flex;
   align-items: center;
+  gap: 15px;
 }
 
 .name-price-row h3 {
+  font-size: 25px;
+}
+
+.name-price-row button {
   font-size: 25px;
 }
 

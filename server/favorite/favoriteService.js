@@ -10,14 +10,14 @@ export const selectFavorites = async (userId, filter = {}, sort = {}) => {
       product!inner(*, 
         image(id, url, is_main), 
         type(*), 
-        hostel!inner(*)
+        hostel(*)
       )
-      `,
+      `
     )
     .eq('user_id', userId)
     .eq('product.image.is_main', true);
 
-  query = applyProductModifiers(query, filter, sort);
+  query = applyProductModifiers(query, filter, sort, 'product');
 
   return query;
 };

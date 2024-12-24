@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { checkAccessToken, checkRefreshToken } from '../utils/auth';
+import { ensureAccessToken } from '../utils/auth';
 
 export default function useAuth() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -7,7 +7,7 @@ export default function useAuth() {
   const [error, setError] = useState(null);
 
   const authenticate = async () => {
-    if ((await checkAccessToken()) || (await checkRefreshToken())) {
+    if (await ensureAccessToken()) {
       setIsAuthenticated(true);
     }
     setIsLoading(false);

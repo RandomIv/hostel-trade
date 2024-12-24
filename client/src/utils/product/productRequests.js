@@ -1,5 +1,8 @@
 import { sendRequest } from '../http';
-import { getProductsValidateForm } from './productFormData';
+import {
+  getFavoritesValidateForm,
+  getProductsValidateForm,
+} from './productFormData';
 
 export async function getProductById(id) {
   try {
@@ -90,5 +93,54 @@ export function patchProduct({ id, body, headers }) {
     method: 'PATCH',
     body,
     headers,
+  });
+}
+
+export async function getFavoriteProducts(searchParams) {
+  const params = getFavoritesValidateForm(searchParams);
+
+  const token = localStorage.getItem('token');
+
+  try {
+    const { data } = await sendRequest({
+      url: `http://localhost:5000/api/favorite?${params.toString()}`,
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const products = data?.favorites.map((favorite) => favorite.product);
+    return products || [];
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    return [];
+  }
+}
+
+export function postNewFavorite({ userId, productId, token }) {
+  return sendRequest({
+    url: 'http://localhost:5000/api/favorite',
+    method: 'POST',
+    body: JSON.stringify({
+      userId: userId,
+      productId: productId,
+    }),
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
+export function deleteFavorite({ userId, productId, token }) {
+  return sendRequest({
+    url: `http://localhost:5000/api/favorite/${userId}`,
+    method: 'DELETE',
+    body: JSON.stringify({
+      productId: productId,
+    }),
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 }

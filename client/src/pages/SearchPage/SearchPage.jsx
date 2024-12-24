@@ -4,17 +4,20 @@ import {
   getProducts,
   getHostels,
   getTypes,
+  getFavoriteProducts,
 } from '../../utils/product/productRequests';
 import SearchProducts from '../../components/SearchProducts/SearchProducts';
 
 export default function SearchPage() {
-  const { productsData, hostelsData, typesData } = useLoaderData();
+  const { productsData, hostelsData, typesData, favoritesData } =
+    useLoaderData();
 
   return (
     <SearchProducts
       productsData={productsData}
       hostelsData={hostelsData}
       typesData={typesData}
+      favoritesData={favoritesData}
       userId={''}
     />
   );
@@ -27,7 +30,17 @@ export async function loader({ request }) {
   const productsData = await getProducts(searchParams);
   const hostelsData = await getHostels();
   const typesData = await getTypes();
-  return { productsData, hostelsData, typesData };
+
+  const userId = localStorage.getItem('userId');
+  let favoritesData;
+
+  if (userId) {
+    const favoritesParams = new URLSearchParams();
+    favoritesParams.set('userId', userId);
+    favoritesData = await getFavoriteProducts(favoritesParams);
+  }
+
+  return { productsData, hostelsData, typesData, favoritesData };
 }
 
 export async function action({ request }) {

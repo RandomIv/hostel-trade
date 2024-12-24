@@ -6,6 +6,7 @@ export default function SearchProducts({
   hostelsData,
   typesData,
   userId,
+  favoritesData,
 }) {
   return (
     <>
@@ -13,7 +14,16 @@ export default function SearchProducts({
       <div className="container">
         {productsData.length > 0 ? (
           productsData.map((product) => {
-            return <Product key={product.id} data={product} />;
+            const isFavorite = favoritesData?.some(
+              (favorite) => favorite.id === product.id
+            );
+            return (
+              <Product
+                key={product.id}
+                data={product}
+                isFavorite={isFavorite}
+              />
+            );
           })
         ) : (
           <h2>Немає збігів</h2>

@@ -1,8 +1,8 @@
-import { checkRefreshToken } from './auth';
+import { ensureAccessToken } from './auth';
 
 export const getUserByToken = async () => {
   try {
-    await checkRefreshToken();
+    await ensureAccessToken();
     const token = localStorage.getItem('token');
 
     const response = await fetch('http://localhost:5000/api/me', {

@@ -34,10 +34,12 @@ import ProfilePage, {
   loader as profileLoader,
 } from './pages/Profile/Profile.jsx';
 import ProfileSettingsPage from './pages/ProfileSettings/ProfileSettings';
-import LikedProductsPage from './pages/LikedProducts/LikedProducts';
+import FavoritesPage, {
+  loader as favoritesLoader,
+} from './pages/Favorites/Favorites';
 import UserProductsPage from './pages/UserProducts/UserProducts';
 
-import ProtectedRoute from './components/ProtectedRoute.jsx';
+import ProtectedRoute from './pages/ProtectedRoute.jsx';
 import { tokenLoader } from './utils/auth.js';
 
 const queryClient = new QueryClient();
@@ -87,7 +89,12 @@ const router = createBrowserRouter([
             loader: productsLoader,
             action: searchAction,
           },
-          { path: 'liked-products', element: <LikedProductsPage /> },
+          {
+            path: 'liked-products',
+            element: <FavoritesPage />,
+            loader: favoritesLoader,
+            action: searchAction,
+          },
 
           {
             path: 'edit-product/:productId',
