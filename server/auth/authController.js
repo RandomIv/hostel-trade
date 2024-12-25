@@ -95,7 +95,7 @@ authController.post(
   handleAsync(async (req, res, next) => {
     const { email } = req.body;
 
-    const resetToken = forgotPassword(email, next);
+    const resetToken = await forgotPassword(email, next);
     await sendResetPasswordEmail(email, resetToken);
 
     sendResponse(res, 200, null, 'Password reset email sent.');
