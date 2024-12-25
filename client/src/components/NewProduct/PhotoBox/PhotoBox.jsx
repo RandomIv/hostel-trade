@@ -6,14 +6,28 @@ import photoClasses from './PhotoBox.module.css';
 import downloadIco from '../../../assets/download-ico.png';
 import cameraIco from '../../../assets/camera-icon.png';
 import PhotoContainer from '../../PhotoContainer/PhotoContainer';
+import { uploadProductImage } from '../../../utils/photos';
 
 export default function PhotoBox({ prodData }) {
   const [displayPhotos, setDisplayPhotos] = useState(null);
 
   const { image: images = [] } = prodData || {};
-  const photos = Array(7)
-    .fill(null)
-    .map((_, index) => images[index]?.url || null);
+  const photos = images.map((image) => image?.url || null);
+
+  const [photoUrls, setPhotoUrls] = useState(photos);
+
+  const handleFileChange = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    try {
+      const url = await uploadProductImage(file, Date.now().toString(36));
+      if (!url) throw new Error('No file uploaded');
+      setPhotoUrls((prev) => [...prev, url]);
+    } catch (error) {
+      console.error('Error uploading image:', error);
+    }
+  };
 
   function handleImageClick() {
     setDisplayPhotos(true);
@@ -48,26 +62,35 @@ export default function PhotoBox({ prodData }) {
         </div>
 
         <div className={photoClasses['row-grid']}>
-          {photos.map((photo, index) => {
-            return (
-              <div key={index} className={photoClasses['photo-box']}>
-                <img
-                  src={photo ? photo : cameraIco}
-                  alt={photo ? 'photo-image' : 'camera-image'}
-                  className={photo ? photoClasses['active-img'] : ''}
-                  onClick={photo ? handleImageClick : null}
-                />
-              </div>
-            );
-          })}
+          {photoUrls.map((photo, index) => (
+            <div key={`photo-${index}`} className={photoClasses['photo-box']}>
+              <img
+                src={photo ? photo : cameraIco}
+                alt={photo ? 'photo-image' : 'camera-image'}
+                className={photo ? photoClasses['active-img'] : ''}
+                onClick={photo ? handleImageClick : null}
+              />
+              <input
+                type="text"
+                value={photoUrls[index]}
+                name={`photo-${index}`}
+                readOnly
+                style={{ display: 'none' }}
+              />
+            </div>
+          ))}
 
           <input
             type="file"
-            id="photo"
-            name="photo"
+            id="display-photo"
+            name="display-photo"
             className={photoClasses['file-btn']}
+            onChange={handleFileChange}
           />
-          <label htmlFor="photo" className={photoClasses['custom-file-btn']}>
+          <label
+            htmlFor="display-photo"
+            className={photoClasses['custom-file-btn']}
+          >
             <div className={photoClasses['custom-file-btn-div']}>
               <div>
                 <img src={downloadIco} alt="download-ico" />

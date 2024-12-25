@@ -1,5 +1,4 @@
 import { ensureAccessToken } from './auth';
-import uploadImage from '../components/UploadImage/UploadImage.jsx';
 
 export const getUserByToken = async () => {
   try {

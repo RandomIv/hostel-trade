@@ -15,7 +15,10 @@ export default function SearchProducts({
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  const totalPages = Math.ceil(productsData.length / itemsPerPage);
+  const totalPages =
+    productsData.length === 0
+      ? 1
+      : Math.ceil(productsData.length / itemsPerPage);
 
   const paginatedProducts = productsData.slice(
     (currentPage - 1) * itemsPerPage,
