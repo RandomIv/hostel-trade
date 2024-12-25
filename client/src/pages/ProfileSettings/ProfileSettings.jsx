@@ -7,17 +7,17 @@ import DropdownInput from '../../components/DropdownInput/DropDownInput.jsx';
 import { Form, useNavigate, useRouteLoaderData } from 'react-router-dom';
 import ProfileNavBar from '../../components/ProfileNavBar/ProfileNavBar.jsx';
 import UploadImage from '../../components/UploadImage/UploadImage.jsx';
-
+import { uploadAvatar } from '../../utils/profile.js';
 import { updateUserProfile } from '../../utils/profile.js';
 
 export default function ProfileSettingsPage() {
   const [defaultValue, setDefaultValue] = useState([]);
 
   const { userData: user, sortedHostels } = useRouteLoaderData('profile-root');
-
   const [userData, setUserData] = useState(user);
   const navigate = useNavigate();
 
+  console.log(userData);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setUserData((prevUser) => ({
@@ -29,15 +29,15 @@ export default function ProfileSettingsPage() {
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
     try {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        console.log('called: ', reader);
-        setUserData((prevUser) => ({
-          ...prevUser,
-          avatar_img: reader.result,
-        }));
-      };
+      const url = await uploadAvatar(file, userData.id, userData.avatar_img);
+      if (!url) {
+        throw new Error('No file uploaded');
+      }
+      setUserData((prevUser) => ({
+        ...prevUser,
+        avatar_img: url,
+      }));
+      console.log(userData);
     } catch (error) {
       console.error('Error uploading image:', error);
     }
@@ -45,13 +45,15 @@ export default function ProfileSettingsPage() {
 
   const handleSave = async (event) => {
     event.preventDefault();
-
+    console.log(event.target);
     const formData = new FormData(event.target);
 
-    const formObject = Object.fromEntries(
-      Array.from(formData.entries()).filter(([key, value]) => value)
-    );
-
+    const formObject = {
+      ...Object.fromEntries(
+        Array.from(formData.entries()).filter(([key, value]) => value),
+      ),
+      avatar_img: userData.avatar_img,
+    };
     try {
       await updateUserProfile(formObject);
       navigate('/profile');
@@ -146,7 +148,7 @@ export default function ProfileSettingsPage() {
                     title=""
                     name="hostelId"
                     data={sortedHostels}
-                    placeholder="Номер"
+                    placeholder={userData.hostel}
                     defaultValue={defaultValue}
                     type="checkbox"
                   />
