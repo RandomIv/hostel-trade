@@ -59,8 +59,6 @@ export default function ProductForm({
       setErrors([]);
       setIsSubmitted(false);
     }
-
-    console.log(defaultValue);
   }
 
   return (

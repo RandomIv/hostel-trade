@@ -21,17 +21,18 @@ imageController.post(
       {
         url,
       },
-      'url uploaded successfully',
+      'url uploaded successfully'
     );
-  }),
+  })
 );
 imageController.post(
   '/images',
   handleAsync(async (req, res, next) => {
     const data = toSnakeCase(req.body);
+    console.log(data);
     const { error } = await addImage(data);
     if (error) return next(error);
     sendResponse(res, 201, null, 'Hostel created successfully');
-  }),
+  })
 );
 export default imageController;

@@ -34,7 +34,7 @@ export default function Product({ data, isFavorite }) {
                   </div>
                 </div>
                 <div className={classes.row}>
-                  <div className={classes['row-left']}>
+                  <div className={classes['col-left']}>
                     <span>Гуртожиток №{hostel_num}</span> -
                     <span>{formattedDate}</span>
                   </div>

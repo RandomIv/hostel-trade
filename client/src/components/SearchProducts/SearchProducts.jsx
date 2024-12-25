@@ -15,7 +15,10 @@ export default function SearchProducts({
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  const totalPages = Math.ceil(productsData.length / itemsPerPage);
+  const totalPages =
+    productsData.length === 0
+      ? 1
+      : Math.ceil(productsData.length / itemsPerPage);
 
   const paginatedProducts = productsData.slice(
     (currentPage - 1) * itemsPerPage,
@@ -61,7 +64,7 @@ export default function SearchProducts({
               disabled={currentPage === 1}
               className={classes['prev-btn']}
             >
-              <i class="fa-solid fa-caret-left"></i>
+              <i className="fa-solid fa-caret-left"></i>
               <span>Попередня</span>
             </button>
             <span className={classes['pages-count']}>
@@ -73,7 +76,7 @@ export default function SearchProducts({
               className={classes['next-btn']}
             >
               <span>Наступна</span>
-              <i class="fa-solid fa-caret-right" />
+              <i className="fa-solid fa-caret-right" />
             </button>
           </div>
         </div>

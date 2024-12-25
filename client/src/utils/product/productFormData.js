@@ -1,7 +1,10 @@
+import { v4 as uuidv4 } from 'uuid';
+
 import {
   patchProduct,
   postNewProduct,
 } from '../../utils/product/productRequests';
+import { postImage } from '../photos';
 
 export const getProductsValidateForm = (searchParams) => {
   const parseParams = (param) => (param ? param.split(',') : null);
@@ -37,9 +40,18 @@ export const getProductsValidateForm = (searchParams) => {
 };
 
 export const newProductValidateForm = (form) => {
-  const data = { errors: [], formData: {} };
+  const data = { errors: [], formData: {}, images: [] };
   const formData = new FormData(form);
-  formData.delete('photo');
+
+  formData.delete('display-photo');
+
+  for (const [key, value] of formData.entries()) {
+    if (key.startsWith('photo-')) {
+      data.images.push(value);
+    } else {
+      data.formData[key] = value;
+    }
+  }
 
   if (!formData.get('name'))
     data.errors.push('Заповніть будь ласка поле "Назва"');
@@ -52,27 +64,45 @@ export const newProductValidateForm = (form) => {
 
   if (data.errors.length > 0) return data;
 
-  const formObject = Object.fromEntries(formData.entries());
-  data.formData = formObject;
-  return data;
+  return data.errors.length > 0 ? data : { ...data, formData: data.formData };
 };
 
 export const handleNewProduct = async (form, token) => {
-  const { errors, formData } = newProductValidateForm(form);
+  const { errors, formData, images } = newProductValidateForm(form);
 
   if (errors.length > 0) return { errors, isSubmitted: false };
 
+  const myuuid = uuidv4();
+
+  const data = { ...formData, id: myuuid };
+
   const response = await postNewProduct({
-    body: JSON.stringify(formData),
+    body: JSON.stringify(data),
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
 
   if (response.status === 'success') {
-    return { errors: [], isSubmitted: true };
+    try {
+      await Promise.all(
+        images.map((image, index) => {
+          const isMain = index === 0;
+          return postImage({
+            productId: myuuid,
+            url: image,
+            isMain,
+          });
+        })
+      );
+
+      return { errors: [], isSubmitted: true };
+    } catch (err) {
+      errors.push('Failed to upload one or more images.');
+      return { errors, isSubmitted: false };
+    }
   } else {
-    errors.push('Ми не змогли видалити Ваше оголошення.');
+    errors.push('Failed to submit the product.');
     return { errors, isSubmitted: false };
   }
 };
