@@ -1,0 +1,27 @@
+.pagination-controls-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.pagination-controls {
+  display: flex;
+  gap: 20px;
+}
+
+.pages-count {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.pagination-controls button {
+  font-size: 18px;
+}
+
+.prev-btn i {
+  margin-right: 5px;
+}
+
+.next-btn i {
+  margin-left: 5px;
+}
