@@ -11,6 +11,7 @@ import hostelController from './hostel/hostelController.js';
 import productController from './product/productController.js';
 import typeController from './type/typeController.js';
 import userController from './user/userController.js';
+import imageController from './image/imageController.js';
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use('/api', userController);
 app.use('/api', hostelController);
 app.use('/api', typeController);
 app.use('/api', favoriteController);
+app.use('/api', imageController);
 app.use(errorHandler);
 
 export default app;
