@@ -1,5 +1,10 @@
 import AppError from '../utils/appError.js';
-import { deletePrevious, getPublicUrl, upload } from './imageDAL.js';
+import {
+  deletePrevious,
+  getPublicUrl,
+  insertImage,
+  upload,
+} from './imageDAL.js';
 
 export const uploadImage = async (file, id, prevUrl, bucket, next) => {
   if (!file) {
@@ -26,4 +31,8 @@ export const uploadImage = async (file, id, prevUrl, bucket, next) => {
   );
   if (PublicUrlError) return next(PublicUrlError);
   return url.publicUrl;
+};
+export const addImage = async (data, next) => {
+  const { error } = await insertImage(data);
+  if (error) return next(error);
 };
