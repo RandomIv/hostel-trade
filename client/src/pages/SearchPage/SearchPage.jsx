@@ -7,6 +7,7 @@ import {
   getFavoriteProducts,
 } from '../../utils/product/productRequests';
 import SearchProducts from '../../components/SearchProducts/SearchProducts';
+import { ensureAccessToken } from '../../utils/auth';
 
 export default function SearchPage() {
   const { productsData, hostelsData, typesData, favoritesData } =
@@ -35,6 +36,7 @@ export async function loader({ request }) {
   let favoritesData;
 
   if (userId) {
+    ensureAccessToken();
     const favoritesParams = new URLSearchParams();
     favoritesParams.set('userId', userId);
     favoritesData = await getFavoriteProducts(favoritesParams);
