@@ -61,7 +61,7 @@ export const uploadAvatar = async (file, id, prevUrl) => {
   formData.append('id', id);
   formData.append('prevUrl', prevUrl);
   formData.append('bucket', 'avatars');
-  const response = await fetch('http://localhost:5000/api/upload', {
+  const response = await fetch('http://localhost:5000/api/image/upload', {
     method: 'POST',
     body: formData,
     headers: {

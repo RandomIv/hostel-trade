@@ -7,7 +7,6 @@ import ProfileNavBar from '../../components/ProfileNavBar/ProfileNavBar.jsx';
 import { getUserByToken } from '../../utils/profile.js';
 import { getHostels } from '../../utils/product/productRequests.js';
 import FormSubmissionBox from '../../components/FormSubmissionBox/FormSubmissionBox.jsx';
-import { useState } from 'react';
 import { resetPassword } from '../../utils/confirmation.js';
 import { useMutation } from '@tanstack/react-query';
 export default function ProfilePage() {
@@ -29,7 +28,7 @@ export default function ProfilePage() {
           <div className={classes['profile-main']}>
             <div className={classes['profile-image-container']}>
               <img
-                src={user.avatar_img || emptyPhoto}
+                src={user.avatar_img === 'NULL' ? emptyPhoto : user.avatar_img}
                 alt="Your avatar"
                 className={classes['profile-image']}
               />
