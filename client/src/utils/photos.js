@@ -7,7 +7,7 @@ export const uploadProductImage = async (file, id, prevUrl) => {
   formData.append('id', id);
   formData.append('prevUrl', prevUrl);
   formData.append('bucket', 'products');
-  const response = await fetch('http://localhost:5000/api/upload', {
+  const response = await fetch('http://localhost:5000/api/image/upload', {
     method: 'POST',
     body: formData,
     headers: {
@@ -22,7 +22,7 @@ export const uploadProductImage = async (file, id, prevUrl) => {
 
 export function postImage({ productId, url, isMain }) {
   return sendRequest({
-    url: `http://localhost:5000/api/images`,
+    url: `http://localhost:5000/api/image`,
     method: 'POST',
     body: JSON.stringify({
       productId,
