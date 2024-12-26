@@ -31,9 +31,9 @@ imageController.post(
 imageController.post(
   '/image',
   handleAsync(async (req, res, next) => {
-    const data = toSnakeCase(req.body);
+    const dataToUpdate = toSnakeCase(req.body);
 
-    await addImage(data, next);
+    await addImage(dataToUpdate, next);
 
     sendResponse(res, 201, null, 'Image added successfully');
   }),

@@ -11,6 +11,6 @@ export const upload = async (bucket, filePath, file) => {
 export const getPublicUrl = async (bucket, filePath) => {
   return db.storage.from(bucket).getPublicUrl(filePath);
 };
-export const insertImage = async (data) => {
-  return db.from('image').insert(data);
+export const insertImage = async (dataToUpdate) => {
+  return db.from('image').insert(dataToUpdate);
 };

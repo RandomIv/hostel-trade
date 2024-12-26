@@ -10,12 +10,12 @@ export const getFavorites = async (userId, filter, sort, next) => {
   return data;
 };
 
-export const addFavorite = async (userId, productId, next) => {
-  const { error } = await insertFavorite(userId, productId);
+export const addFavorite = async (data, next) => {
+  const { error } = await insertFavorite(data);
   if (error) return next(error);
 };
 
-export const removeFavorite = async (userId, productId, next) => {
-  const { error } = await deleteFavoriteById(userId, productId);
+export const removeFavorite = async (data, next) => {
+  const { error } = await deleteFavoriteById(data);
   if (error) return next(error);
 };

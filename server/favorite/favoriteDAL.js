@@ -12,7 +12,7 @@ export const selectFavorites = async (userId, filter = {}, sort = {}) => {
         type(*), 
         hostel(*)
       )
-      `
+      `,
     )
     .eq('user_id', userId)
     .eq('product.image.is_main', true);
@@ -22,14 +22,14 @@ export const selectFavorites = async (userId, filter = {}, sort = {}) => {
   return query;
 };
 
-export const insertFavorite = async (userId, productId) => {
-  return db.from('favorite').insert({ user_id: userId, product_id: productId });
+export const insertFavorite = async (data) => {
+  return db.from('favorite').insert(data);
 };
 
-export const deleteFavoriteById = async (userId, productId) => {
+export const deleteFavoriteById = async ({ user_id, product_id }) => {
   return db
     .from('favorite')
     .delete()
-    .eq('user_id', userId)
-    .eq('product_id', productId);
+    .eq('user_id', user_id)
+    .eq('product_id', product_id);
 };

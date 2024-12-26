@@ -7,6 +7,7 @@ import {
   getFavorites,
   removeFavorite,
 } from './favoriteService.js';
+import { toSnakeCase } from '../utils/objectUtils.js';
 
 const favoriteController = Router();
 
@@ -29,9 +30,9 @@ favoriteController.post(
   authenticateToken,
   handleAsync(async (req, res, next) => {
     const userId = req.user.id;
-    const { productId } = req.body;
+    const data = toSnakeCase({ ...req.body, userId });
 
-    await addFavorite(userId, productId, next);
+    await addFavorite(data, next);
 
     sendResponse(res, 201, null, 'Favorite added successfully');
   }),
@@ -42,9 +43,9 @@ favoriteController.delete(
   authenticateToken,
   handleAsync(async (req, res, next) => {
     const userId = req.user.id;
-    const { productId } = req.body;
+    const data = toSnakeCase({ ...req.body, userId });
 
-    await removeFavorite(userId, productId, next);
+    await removeFavorite(data, next);
 
     sendResponse(res, 200, null, 'Favorite deleted successfully');
   }),
