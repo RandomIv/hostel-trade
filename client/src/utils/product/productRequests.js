@@ -144,3 +144,13 @@ export function deleteFavorite({ userId, productId, token }) {
     },
   });
 }
+
+export function addUserView(productId, token) {
+  return sendRequest({
+    url: `http://localhost:5000/api/user-view/${productId}`,
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
