@@ -36,7 +36,7 @@ export async function loader({ request }) {
   let favoritesData;
 
   if (userId) {
-    ensureAccessToken();
+    await ensureAccessToken();
     const favoritesParams = new URLSearchParams();
     favoritesParams.set('userId', userId);
     favoritesData = await getFavoriteProducts(favoritesParams);

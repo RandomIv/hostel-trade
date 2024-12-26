@@ -6,6 +6,7 @@ import {
   getTypes,
 } from '../../utils/product/productRequests';
 import SearchProducts from '../../components/SearchProducts/SearchProducts';
+import { ensureAccessToken } from '../../utils/auth.js';
 
 export default function LikedProductsPage() {
   const { favoritesData, hostelsData, typesData } = useLoaderData();
@@ -27,6 +28,7 @@ export default function LikedProductsPage() {
 }
 
 export async function loader({ request }) {
+  await ensureAccessToken();
   const url = new URL(request.url);
   const searchParams = url.searchParams;
 

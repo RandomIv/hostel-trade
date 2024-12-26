@@ -4,8 +4,7 @@ export const ensureAccessToken = async () => {
   const token = localStorage.getItem('token');
 
   if (!token) {
-    const refreshSuccess = await refreshToken();
-    return refreshSuccess;
+    return false;
   }
 
   const response = await fetch(BASE_URL + 'protect', {
@@ -18,10 +17,8 @@ export const ensureAccessToken = async () => {
 
   if (response.ok) {
     return true;
-  } else {
-    const refreshSuccess = await refreshToken();
-    return refreshSuccess;
   }
+  return await refreshToken();
 };
 
 export const refreshToken = async () => {
@@ -56,8 +53,7 @@ export async function logout() {
 }
 
 export function getAuthToken() {
-  const token = localStorage.getItem('token');
-  return token;
+  return localStorage.getItem('token');
 }
 
 export function tokenLoader() {
