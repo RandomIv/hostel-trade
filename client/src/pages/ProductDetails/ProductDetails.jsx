@@ -12,6 +12,7 @@ import {
   getUserInfo,
   deleteProduct,
   getFavoriteProducts,
+  addUserView,
 } from '../../utils/product/productRequests';
 import { useState } from 'react';
 import LikeBtn from '../../components/LikeBtn/LikeBtn';
@@ -83,17 +84,24 @@ export default function ProductDetailsPage() {
 
 export async function loader({ params }) {
   const id = params.productId;
-  const prodData = await getProductById(id);
-  const userData = await getUserInfo(prodData.user.id);
+  const userId = localStorage.getItem('userId');
+  const token = localStorage.getItem('token');
 
   let favoritesData;
-  const userId = localStorage.getItem('userId');
 
-  if (userId) {
-    const favoritesParams = new URLSearchParams();
-    favoritesParams.set('userId', userId);
-    favoritesData = await getFavoriteProducts(favoritesParams);
+  try {
+    if (userId) {
+      const favoritesParams = new URLSearchParams();
+      favoritesParams.set('userId', userId);
+      favoritesData = await getFavoriteProducts(favoritesParams);
+      await addUserView(id, token);
+    }
+  } catch (error) {
+    throw error;
   }
+
+  const prodData = await getProductById(id);
+  const userData = await getUserInfo(prodData.user.id);
 
   return { prodData, userData, favoritesData };
 }
