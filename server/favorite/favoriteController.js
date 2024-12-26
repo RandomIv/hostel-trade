@@ -7,16 +7,14 @@ import {
   getFavorites,
   removeFavorite,
 } from './favoriteService.js';
-import setCurrentUserId from '../middlewares/setCurrentUserId.js';
 
 const favoriteController = Router();
 
 favoriteController.get(
   '/favorite',
   authenticateToken,
-  setCurrentUserId,
   handleAsync(async (req, res, next) => {
-    const { id: userId } = req.params;
+    const userId = req.user.id;
     const filter = JSON.parse(req.query?.filter);
     const sort = JSON.parse(req.query?.sort);
 
@@ -29,9 +27,8 @@ favoriteController.get(
 favoriteController.post(
   '/favorite',
   authenticateToken,
-  setCurrentUserId,
   handleAsync(async (req, res, next) => {
-    const { id: userId } = req.params;
+    const userId = req.user.id;
     const { productId } = req.body;
 
     await addFavorite(userId, productId, next);
@@ -43,9 +40,8 @@ favoriteController.post(
 favoriteController.delete(
   '/favorite/:id',
   authenticateToken,
-  setCurrentUserId,
   handleAsync(async (req, res, next) => {
-    const { id: userId } = req.params;
+    const userId = req.user.id;
     const { productId } = req.body;
 
     await removeFavorite(userId, productId, next);

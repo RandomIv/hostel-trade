@@ -3,7 +3,6 @@ import { sendResponse } from '../utils/responseUtils.js';
 import { toSnakeCase } from '../utils/objectUtils.js';
 import Router from 'express';
 import authenticateToken from '../middlewares/authenticateToken.js';
-import setCurrentUserId from '../middlewares/setCurrentUserId.js';
 import {
   addProduct,
   fetchProduct,
@@ -40,10 +39,9 @@ productController.get(
 productController.post(
   '/product',
   authenticateToken,
-  setCurrentUserId,
   handleAsync(async (req, res, next) => {
     const dataToCreate = toSnakeCase(req.body);
-    const { id: userId } = req.params;
+    const userId = req.user.id;
 
     await addProduct(userId, dataToCreate, next);
 
