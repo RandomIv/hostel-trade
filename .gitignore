@@ -1,0 +1,67 @@
+# General
+.env
+.idea
+.prettierrc
+
+# Server
+server/node_modules
+server/package-lock.json
+
+# Client
+/node_modules/
+client/package-lock.json
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Dependency directories
+node_modules/
+bower_components/
+
+# Build directories
+build/
+dist/
+
+# React specific
+*.swp
+*.swo
+*.idea/
+.vscode/
+*.lock
+coverage/
+
+# IDE/Editor files
+*.sublime-project
+*.sublime-workspace
+*.vscode/*
+.idea/
+
+# OS-specific files
+Thumbs.db
+Desktop.ini
+
+# Git-specific files
+.git/
+
+# Misc
+*.bak
