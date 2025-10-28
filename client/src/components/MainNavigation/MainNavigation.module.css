@@ -1,0 +1,92 @@
+.navbar-container {
+  position: sticky;
+  top: 0px;
+  z-index: 10;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  padding: 10px 0;
+
+  width: 100%;
+  height: 10%;
+
+  background-color: #050c9c;
+}
+
+.navbar-img-link-container {
+  display: flex;
+  align-items: center;
+
+  gap: 20px;
+  text-decoration: none;
+}
+
+.navbar-img-container {
+  width: 60px;
+  height: 50px;
+}
+
+.navbar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.navbar-img-link-text {
+  font-size: 25px;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: white;
+}
+
+.auth-reg-container {
+  margin: 5px 0;
+}
+
+.navbar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.auth-auth-btn,
+.auth-logout-btn {
+  display: inline-block;
+  padding: 10px 15px;
+  margin-right: 10px;
+
+  font-size: 20px;
+  font-weight: 700;
+  text-decoration: none;
+
+  border: 2px solid transparent;
+  border-radius: 5px;
+}
+
+.auth-auth-btn {
+  color: #050c9c;
+  background-color: white;
+}
+
+.auth-auth-btn:hover {
+  color: white;
+  background-color: transparent;
+  border: 2px solid white;
+}
+
+.logout-btn-container {
+  display: flex;
+}
+
+.auth-logout-btn {
+  color: white;
+}
+
+.auth-logout-btn:hover {
+  cursor: pointer;
+  color: white;
+  background-color: transparent;
+  border: 2px solid white;
+}
