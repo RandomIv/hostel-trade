@@ -1,21 +1,25 @@
 import dotenv from 'dotenv';
-dotenv.config({ path: '../.env' });
-
 import express from 'express';
 import errorHandler from './middlewares/errorHandler.js';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import authController from "./auth/authController.js";
+import userController from "./user/userController.js";
+
+dotenv.config({path: '../.env'});
 
 const app = express();
 
 app.use(cookieParser());
 app.use(express.json());
 app.use(
-  cors({
-    origin: `${process.env.CLIENT_URL}`,
-    credentials: true,
-  }),
+    cors({
+        origin: `${process.env.CLIENT_URL}`,
+        credentials: true,
+    }),
 );
+app.use('/api', authController);
+app.use('/api', userController);
 
 app.use(errorHandler);
 
