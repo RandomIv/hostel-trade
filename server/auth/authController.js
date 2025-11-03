@@ -1,4 +1,5 @@
 import Router from 'express';
+import authenticateToken from '../middlewares/authenticateToken.js';
 import handleAsync from '../utils/handleAsync.js';
 import {
   sendActivationEmail,
@@ -110,6 +111,14 @@ authController.post(
     await resetPassword(token, password, next);
 
     sendResponse(res, 200, null, 'Password reset successfully.');
+  }),
+);
+
+authController.get(
+  '/protect',
+  authenticateToken,
+  handleAsync(async (req, res) => {
+    sendResponse(res, 200, { user: req.user });
   }),
 );
 
