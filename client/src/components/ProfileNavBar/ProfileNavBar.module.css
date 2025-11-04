@@ -1,0 +1,36 @@
+.row {
+  padding-top: 30px;
+  margin: auto;
+  margin-top: 10px;
+  display: flex;
+  width: 80%;
+  gap: 3%;
+}
+
+.row a {
+  padding: 7px 10px;
+
+  font-size: 18px;
+  text-decoration: none;
+  color: #050c9c;
+  border: 3px solid #050c9c;
+  border-radius: 7px;
+}
+.row a:hover {
+  background-color: #050c9c;
+  color: white;
+}
+.active-link {
+  color: white !important;
+  background-color: #050c9c;
+  border: 3px solid #050c9c;
+}
+
+.add-product-link {
+  margin-left: auto;
+}
+
+.add-product-link:hover {
+  color: #050c9c !important;
+  background-color: transparent !important;
+}
