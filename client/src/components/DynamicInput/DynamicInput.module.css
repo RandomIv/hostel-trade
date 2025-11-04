@@ -1,0 +1,31 @@
+.editable-input-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.editable-input {
+    border: 1px solid black;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 16px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.editable-input:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 8px rgba(74, 144, 226, 0.5);
+}
+
+
+.edit-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.edit-icon:hover {
+    transform: scale(1.2);
+}
