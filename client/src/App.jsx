@@ -18,6 +18,16 @@ import ResetPasswordFormPage, {
 } from './pages/ResetPasswordForm/ResetPasswordForm.jsx';
 import {action as logoutAction} from './components/Auth/Logout.jsx';
 
+import ProductDetailsPage, {
+    loader as productDetailsLoader,
+} from './pages/ProductDetails/ProductDetails';
+import EditProductPage, {
+    loader as editProductLoader,
+} from './pages/EditProduct/EditProduct';
+import NewProductPage, {
+    loader as newProductLoader,
+} from './pages/NewProduct/NewProduct';
+
 import ProtectedRoute from './pages/ProtectedRoute.jsx';
 import {tokenLoader} from './utils/auth.js';
 import ProfilePage, {loader as profileLoader} from './pages/Profile/Profile.jsx';
@@ -62,7 +72,11 @@ const router = createBrowserRouter([
                 element: <ResetPasswordFormPage />,
                 action: resetPasswordFormPageAction,
             },
-
+            {
+                path: 'product/:productId',
+                element: <ProductDetailsPage />,
+                loader: productDetailsLoader,
+            },
             {
                 path: 'profile',
                 element: <ProtectedRoute />,
@@ -83,6 +97,16 @@ const router = createBrowserRouter([
                         element: <FavoritesPage />,
                         loader: favoritesLoader,
                         action: searchAction,
+                    },
+                    {
+                        path: 'edit-product/:productId',
+                        element: <EditProductPage />,
+                        loader: editProductLoader,
+                    },
+                    {
+                        path: 'new-product',
+                        element: <NewProductPage />,
+                        loader: newProductLoader,
                     },
 
                 ],
