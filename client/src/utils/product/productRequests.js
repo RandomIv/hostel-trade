@@ -92,4 +92,3 @@ export function deleteFavorite({ userId, productId, token }) {
       Authorization: `Bearer ${token}`,
     },
   });
-}

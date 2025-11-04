@@ -20,6 +20,8 @@ import {action as logoutAction} from './components/Auth/Logout.jsx';
 
 import ProtectedRoute from './pages/ProtectedRoute.jsx';
 import {tokenLoader} from './utils/auth.js';
+import ProfilePage, {loader as profileLoader} from './pages/Profile/Profile.jsx';
+import ProfileSettingsPage from './pages/ProfileSettings/ProfileSettings.jsx';
 
 const queryClient = new QueryClient();
 
@@ -61,7 +63,11 @@ const router = createBrowserRouter([
                 path: 'profile',
                 element: <ProtectedRoute />,
                 id: 'profile-root',
-                children: [],
+                loader: profileLoader,
+                children: [
+                    { index: true, element: <ProfilePage /> },
+                    { path: 'profile-settings', element: <ProfileSettingsPage /> },
+                ],
             },
         ],
     },
