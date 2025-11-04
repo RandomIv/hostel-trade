@@ -22,6 +22,10 @@ import ProtectedRoute from './pages/ProtectedRoute.jsx';
 import {tokenLoader} from './utils/auth.js';
 import ProfilePage, {loader as profileLoader} from './pages/Profile/Profile.jsx';
 import ProfileSettingsPage from './pages/ProfileSettings/ProfileSettings.jsx';
+import FavoritesPage, {
+    loader as favoritesLoader,
+} from './pages/Favorites/Favorites';
+import UserProductsPage from './pages/UserProducts/UserProducts';
 
 const queryClient = new QueryClient();
 
@@ -67,6 +71,20 @@ const router = createBrowserRouter([
                 children: [
                     { index: true, element: <ProfilePage /> },
                     { path: 'profile-settings', element: <ProfileSettingsPage /> },
+
+                    {
+                        path: 'user-products',
+                        element: <UserProductsPage />,
+                        loader: productsLoader,
+                        action: searchAction,
+                    },
+                    {
+                        path: 'liked-products',
+                        element: <FavoritesPage />,
+                        loader: favoritesLoader,
+                        action: searchAction,
+                    },
+
                 ],
             },
         ],
