@@ -5,7 +5,7 @@ import './App.css';
 
 import RootLayout from './pages/Root';
 import ErrorPage from './pages/Error/Error';
-import HomePage from './pages.Home/Home.jsx';
+import HomePage from './pages/Home/Home.jsx';
 import AuthPage, {action as authAction} from './pages/Auth/Authentication.jsx';
 import ActivateAccount, {loader as activateEmailLoader,} from './pages/ActivateAccount/ActivateAccount.jsx';
 import ResetPassword, {action as resetPasswordAction,} from './pages/ResetPassword/ResetPassword.jsx';
