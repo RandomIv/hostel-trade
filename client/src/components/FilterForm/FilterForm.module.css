@@ -1,0 +1,142 @@
+.filter-form {
+  width: 100%;
+  margin: auto;
+  margin-bottom: 50px;
+  border-bottom: 1px solid black;
+}
+
+.filter-form h2 {
+  font-size: 25px;
+  margin-bottom: 15px;
+}
+
+.filter-form input[type='number']::-webkit-inner-spin-button,
+.filter-form input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.filter-form input[type='number'] {
+  appearance: textfield;
+}
+
+.row {
+  display: flex;
+  gap: 2%;
+  margin-bottom: 20px;
+}
+
+.col {
+  display: flex;
+  gap: 30px;
+}
+
+.filter-form input {
+  padding: 5px;
+  font-size: 15px;
+}
+
+.price {
+  display: flex;
+  gap: 15px;
+}
+
+.form-label {
+  display: block;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.link {
+  padding: 10px 15px;
+  color: white;
+  text-decoration: none;
+  background-color: #050c9c;
+  border-radius: 5px;
+}
+
+.input-container {
+  position: relative;
+}
+
+.input-container button {
+  position: absolute;
+  right: 5%;
+  top: 25%;
+}
+
+.dropdown {
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 175px;
+  max-height: 150px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  z-index: 5;
+  margin-top: 4px;
+  padding: 0;
+  list-style: none;
+}
+
+.dropdown::-webkit-scrollbar {
+  display: none;
+}
+
+.dropdown li {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  border-bottom: 1px solid rgb(0, 0, 0, 0.2);
+}
+
+.dropdown li:hover {
+  cursor: pointer;
+  font-weight: 600;
+  color: #050c9c;
+  background-color: #f7f7f7;
+}
+
+.selected {
+  font-weight: 600;
+  color: #050c9c;
+}
+
+.selected i {
+  padding: 0;
+  padding-top: 3px;
+}
+
+.del-all-box {
+  display: flex;
+  align-items: end;
+  margin-left: auto;
+}
+
+.del-all-btn {
+  margin-left: auto;
+  padding: 5px 8px;
+
+  font-size: 20px;
+  color: #050c9c;
+  border: 3px solid transparent;
+  border-radius: 5px;
+}
+
+.del-all-btn:hover {
+  border-color: #050c9c;
+}
+
+.sort-box {
+  margin-left: 2%;
+}
+
+.input-dropdown {
+  padding: 5px;
+  font-size: 15px;
+  background-color: rgb(0, 0, 0, 0.01);
+  border: 1px solid black;
+  border-radius: 5px;
+}
