@@ -13,6 +13,7 @@ import ResetPassword, {action as resetPasswordAction,} from './pages/ResetPasswo
 import ResetPasswordFormPage, {
     action as resetPasswordFormPageAction,
 } from './pages/ResetPasswordForm/ResetPasswordForm.jsx';
+import {action as logoutAction} from './components/Auth/Logout.jsx';
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
         children: [
             { index: true, element: <HomePage/> },
             { path: 'auth', element: <AuthPage />, action: authAction },
+            { path: 'logout', action: logoutAction },
             {
                 path: 'activate-account',
                 element: <ActivateAccount />,
