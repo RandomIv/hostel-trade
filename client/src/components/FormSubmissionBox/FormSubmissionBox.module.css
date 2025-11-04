@@ -1,0 +1,23 @@
+.error-box,
+.submitted-box,
+.loading-box {
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.error-box {
+  background-color: rgb(255, 203, 203, 0.7);
+}
+
+.error-box ul {
+  list-style: none;
+}
+
+.submitted-box {
+  background-color: #d8efd3;
+}
+
+.loading-box {
+  background-color: #f7f7f7;
+}

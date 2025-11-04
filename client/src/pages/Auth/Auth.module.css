@@ -1,0 +1,11 @@
+.background {
+  display: flex;
+  align-items: center;
+  height: 95vh;
+
+  background-image: url("/dorm-background.jpeg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+}
