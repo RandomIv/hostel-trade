@@ -23,6 +23,7 @@ app.use(
 app.use('/api', authController);
 app.use('/api', userController);
 app.use('/api', hostelController);
+app.use('/api', typeController);
 
 app.use(errorHandler);
 
