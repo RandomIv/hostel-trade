@@ -1,0 +1,50 @@
+.container {
+  position: relative;
+  margin: auto;
+  width: 100%;
+  height: auto;
+}
+
+.photo-container {
+  display: flex;
+  justify-content: center;
+}
+
+.photo-container img {
+  padding: 20px;
+  max-height: 500px;
+  max-width: 80%;
+}
+
+.photo-container-fullscreen img {
+  max-height: 800px;
+}
+
+.container button {
+  position: absolute;
+  top: 50%;
+  z-index: 5;
+}
+
+.photo-btn-prev {
+  left: 10px;
+  transform: translateY(-50%);
+}
+
+.photo-btn-next {
+  right: 10px;
+  transform: translateY(-50%);
+}
+
+.container button i {
+  padding: 10px 12px;
+  font-size: 17px;
+  background-color: #f7f7f7;
+  border-radius: 5px;
+}
+
+.container-fullscreen button i {
+  font-size: 40px;
+  color: white;
+  background-color: transparent;
+}

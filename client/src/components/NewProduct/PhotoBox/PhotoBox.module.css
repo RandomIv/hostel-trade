@@ -1,0 +1,142 @@
+.photo-title {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.photo-title h2 {
+    margin-bottom: 0;
+}
+
+.photo-title div {
+    display: flex;
+    align-items: center;
+}
+
+.row-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 100px);
+    gap: 5px;
+    row-gap: 10px;
+    margin-bottom: 5px;
+}
+
+.file-btn {
+    display: none;
+}
+
+.custom-file-btn {
+    display: inline-block;
+    box-sizing: border-box;
+    height: 100px;
+    width: 100px;
+    font-size: 9px;
+    text-align: center;
+    color: black;
+    background-color: #f7f7f7;
+    border: 3px solid #050c9c;
+    border-radius: 10px;
+}
+
+.custom-file-btn:hover {
+    cursor: pointer;
+    background-color: rgb(0, 0, 0, 0.1);
+}
+
+.custom-file-btn-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.custom-file-btn img {
+    height: 40px;
+    width: 40px;
+    margin-bottom: 5px;
+}
+
+.photo-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 100px;
+    border: 3px solid #050c9c;
+    border-radius: 10px;
+    position: relative;
+}
+
+.photo-box img {
+    height: 100%;
+    width: 100%;
+    object-fit: fill;
+    border-radius: 5px;
+    z-index: 1;
+}
+
+.active-img:hover {
+    cursor: pointer;
+}
+
+.display-img-box-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    background-size: cover;
+}
+
+.display-img-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    width: 80%;
+    height: 100%;
+}
+
+.display-img-box-bg p {
+    display: flex;
+    justify-content: end;
+}
+
+.close-display-btn {
+    margin-left: auto;
+    padding: 0 30px;
+    padding-top: 20px;
+    font-size: 30px;
+    color: white;
+}
+
+.delete-photo-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    display: none;
+    width: 22px;
+    height: 22px;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #ff0000;
+    border: 1px solid #ff0000;
+    border-radius: 50%;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 20px;
+    text-align: center;
+    padding: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.photo-box:hover .delete-photo-btn {
+    display: block;
+}
+
+.delete-photo-btn:hover {
+    background-color: #ff0000;
+    color: white;
+}
