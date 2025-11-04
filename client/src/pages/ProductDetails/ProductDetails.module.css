@@ -1,0 +1,85 @@
+.container {
+  margin: auto;
+  margin-top: 50px;
+  padding-bottom: 30px;
+  width: 70%;
+}
+
+.name-price-row {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 20px;
+  margin: auto;
+  margin-bottom: 20px;
+
+  background-color: white;
+  border-radius: 15px;
+  border: 1px solid rgb(0, 0, 0, 0.3);
+}
+
+.name-price-row h1 {
+  font-size: 32px;
+}
+
+.name-price-row div {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.name-price-row h3 {
+  font-size: 25px;
+}
+
+.name-price-row button {
+  font-size: 25px;
+}
+
+.photo-box {
+  background-color: white;
+  border: 1px solid rgb(0, 0, 0, 0.3);
+
+  border-radius: 10px;
+}
+
+.category {
+  padding: 5px 10px;
+  background-color: #f7f7f7;
+}
+
+.change-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.delete-btn,
+.edit-btn {
+  padding: 10px 15px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 5px;
+}
+
+.delete-btn {
+  color: #ff748b;
+  border: 3px solid #ff748b;
+}
+
+.delete-btn:hover {
+  color: white;
+  background-color: #ff748b;
+}
+
+.edit-btn {
+  color: white;
+  text-decoration: none;
+  background-color: #050c9c;
+  border: 3px solid transparent;
+}
+
+.edit-btn:hover {
+  color: #050c9c;
+  background-color: transparent;
+  border: 3px solid #050c9c;
+}
