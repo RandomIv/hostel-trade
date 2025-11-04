@@ -6,6 +6,10 @@ import './App.css';
 import RootLayout from './pages/Root';
 import ErrorPage from './pages/Error/Error';
 import HomePage from './pages/Home/Home.jsx';
+import SearchPage, {
+    loader as productsLoader,
+    action as searchAction,
+} from './pages/SearchPage/SearchPage';
 import AuthPage, {action as authAction} from './pages/Auth/Authentication.jsx';
 import ActivateAccount, {loader as activateEmailLoader,} from './pages/ActivateAccount/ActivateAccount.jsx';
 import ResetPassword, {action as resetPasswordAction,} from './pages/ResetPassword/ResetPassword.jsx';
@@ -28,6 +32,13 @@ const router = createBrowserRouter([
         loader: tokenLoader,
         children: [
             { index: true, element: <HomePage /> },
+            {
+                path: 'search',
+                element: <SearchPage />,
+                loader: productsLoader,
+                action: searchAction,
+            },
+
             { path: 'auth', element: <AuthPage />, action: authAction },
             { path: 'logout', action: logoutAction },
             {
