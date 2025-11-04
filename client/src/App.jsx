@@ -9,6 +9,10 @@ import ErrorPage from './pages/Error/Error';
 import HomePage from './pages/Home/Home.jsx';
 import AuthPage, {action as authAction} from './pages/Auth/Authentication.jsx';
 import ActivateAccount, {loader as activateEmailLoader} from './pages/ActivateAccount/ActivateAccount.jsx';
+import ResetPassword, {action as resetPasswordAction,} from './pages/ResetPassword/ResetPassword.jsx';
+import ResetPasswordFormPage, {
+    action as resetPasswordFormPageAction,
+} from './pages/ResetPasswordForm/ResetPasswordForm.jsx';
 
 const queryClient = new QueryClient();
 
@@ -26,6 +30,17 @@ const router = createBrowserRouter([
                 element: <ActivateAccount />,
                 loader: activateEmailLoader,
             },
+            {
+                path: 'reset-password',
+                element: <ResetPassword />,
+                action: resetPasswordAction,
+            },
+            {
+                path: 'reset-password-form',
+                element: <ResetPasswordFormPage />,
+                action: resetPasswordFormPageAction,
+            },
+
         ],
     },
 ]);
