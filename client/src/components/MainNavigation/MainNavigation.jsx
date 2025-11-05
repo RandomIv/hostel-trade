@@ -14,7 +14,7 @@ export default function MainNavigation() {
     return (
         <>
             <div className={classes['navbar-container']}>
-                <Link to="/" className={classes['navbar-img-link-container']}>
+                <Link to="/search" className={classes['navbar-img-link-container']}>
                     <div className={classes['navbar-img-container']}>
                         <img
                             src="/hostel-image.png"
