@@ -84,4 +84,30 @@ describe('applyProductModifiers', () => {
       expect(mockQuery.in).toHaveBeenCalledWith('hostel_id', [5, 10]);
     });
   });
+
+  describe('Sorting', () => {
+    test('should call order for price ascending', () => {
+      const sort = { price: 'asc' };
+      applyProductModifiers(mockQuery, {}, sort);
+      expect(mockQuery.order).toHaveBeenCalledWith('price', { ascending: true });
+    });
+
+    test('should call order for price descending', () => {
+      const sort = { price: 'desc' };
+      applyProductModifiers(mockQuery, {}, sort);
+      expect(mockQuery.order).toHaveBeenCalledWith('price', { ascending: false });
+    });
+
+    test('should call order for date ascending', () => {
+      const sort = { date: 'asc' };
+      applyProductModifiers(mockQuery, {}, sort);
+      expect(mockQuery.order).toHaveBeenCalledWith('created_at', { ascending: true });
+    });
+
+    test('should call order for date descending', () => {
+      const sort = { date: 'desc' };
+      applyProductModifiers(mockQuery, {}, sort);
+      expect(mockQuery.order).toHaveBeenCalledWith('created_at', { ascending: false });
+    });
+  });
 });
