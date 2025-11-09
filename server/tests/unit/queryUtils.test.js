@@ -110,4 +110,20 @@ describe('applyProductModifiers', () => {
       expect(mockQuery.order).toHaveBeenCalledWith('created_at', { ascending: false });
     });
   });
+
+  describe('Nested column handling', () => {
+    test('should prefix column when column parameter is provided', () => {
+      const filter = { name: 'test', price: { min: 100 } };
+      const column = 'product';
+      applyProductModifiers(mockQuery, filter, {}, column);
+      expect(mockQuery.ilike).toHaveBeenCalledWith('product.name', '%test%');
+      expect(mockQuery.gte).toHaveBeenCalledWith('product.price', 100);
+    });
+
+    test('should not prefix column if column parameter is empty', () => {
+      const filter = { name: 'test' };
+      applyProductModifiers(mockQuery, filter, {}, '');
+      expect(mockQuery.ilike).toHaveBeenCalledWith('name', '%test%');
+    });
+  });
 });
