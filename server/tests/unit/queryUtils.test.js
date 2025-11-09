@@ -59,4 +59,29 @@ describe('applyProductModifiers', () => {
       expect(mockQuery.lte).not.toHaveBeenCalled();
     });
   });
+
+  describe('Filtering by userId', () => {
+    test('should call eq for userId', () => {
+      const filter = { userId: '123' };
+      applyProductModifiers(mockQuery, filter);
+      expect(mockQuery.eq).toHaveBeenCalledWith('user_id', '123');
+      expect(mockQuery.eq).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('Filtering by typeId', () => {
+    test('should call in for typeId array', () => {
+      const filter = { typeId: [1, 2, 3] };
+      applyProductModifiers(mockQuery, filter);
+      expect(mockQuery.in).toHaveBeenCalledWith('type_id', [1, 2, 3]);
+    });
+  });
+
+  describe('Filtering by hostelId', () => {
+    test('should call in for hostelId array', () => {
+      const filter = { hostelId: [5, 10] };
+      applyProductModifiers(mockQuery, filter);
+      expect(mockQuery.in).toHaveBeenCalledWith('hostel_id', [5, 10]);
+    });
+  });
 });
