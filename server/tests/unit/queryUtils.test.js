@@ -126,4 +126,71 @@ describe('applyProductModifiers', () => {
       expect(mockQuery.ilike).toHaveBeenCalledWith('name', '%test%');
     });
   });
+
+  describe('Complex scenarios', () => {
+    test('should apply multiple filters at once', () => {
+      const filter = {
+        name: 'laptop',
+        price: { min: 100, max: 1000 },
+        userId: 'user123',
+        typeId: [1, 2],
+        hostelId: [5]
+      };
+      const sort = { price: 'asc', date: 'desc' };
+      applyProductModifiers(mockQuery, filter, sort);
+      expect(mockQuery.ilike).toHaveBeenCalledWith('name', '%laptop%');
+      expect(mockQuery.gte).toHaveBeenCalledWith('price', 100);
+      expect(mockQuery.lte).toHaveBeenCalledWith('price', 1000);
+      expect(mockQuery.eq).toHaveBeenCalledWith('user_id', 'user123');
+      expect(mockQuery.in).toHaveBeenCalledWith('type_id', [1, 2]);
+      expect(mockQuery.in).toHaveBeenCalledWith('hostel_id', [5]);
+      expect(mockQuery.order).toHaveBeenCalledWith('price', { ascending: true });
+      expect(mockQuery.order).toHaveBeenCalledWith('created_at', { ascending: false });
+    });
+
+    test('should return the same query object for chaining', () => {
+      const filter = { name: 'test' };
+      const result = applyProductModifiers(mockQuery, filter);
+      expect(result).toBe(mockQuery);
+    });
+
+    test('should work correctly with empty parameters', () => {
+      const result = applyProductModifiers(mockQuery);
+      expect(result).toBe(mockQuery);
+      expect(mockQuery.ilike).not.toHaveBeenCalled();
+      expect(mockQuery.gte).not.toHaveBeenCalled();
+      expect(mockQuery.lte).not.toHaveBeenCalled();
+      expect(mockQuery.eq).not.toHaveBeenCalled();
+      expect(mockQuery.in).not.toHaveBeenCalled();
+      expect(mockQuery.order).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('Edge cases', () => {
+    test('should ignore undefined values in filters', () => {
+      const filter = {
+        name: undefined,
+        price: { min: undefined, max: undefined },
+        userId: undefined
+      };
+      applyProductModifiers(mockQuery, filter);
+      expect(mockQuery.ilike).not.toHaveBeenCalled();
+      expect(mockQuery.gte).not.toHaveBeenCalled();
+      expect(mockQuery.lte).not.toHaveBeenCalled();
+      expect(mockQuery.eq).not.toHaveBeenCalled();
+    });
+
+    test('should handle zero price values correctly', () => {
+      const filter = { price: { min: 0 } };
+      applyProductModifiers(mockQuery, filter);
+      expect(mockQuery.gte).not.toHaveBeenCalled();
+    });
+
+    test('should work with empty typeId and hostelId arrays', () => {
+      const filter = { typeId: [], hostelId: [] };
+      applyProductModifiers(mockQuery, filter);
+      expect(mockQuery.in).toHaveBeenCalledWith('type_id', []);
+      expect(mockQuery.in).toHaveBeenCalledWith('hostel_id', []);
+    });
+  });
 });
