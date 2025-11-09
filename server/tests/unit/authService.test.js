@@ -66,4 +66,57 @@ describe('authService', () => {
       expect(authDAL.insertUser).not.toHaveBeenCalled();
     });
   });
+
+  describe('login', () => {
+    const mockUser = { id: 1, username: 'testuser', password: 'hashedpassword', is_verified: true };
+
+    beforeEach(() => {
+      authUtils.generateAccessToken.mockResolvedValue('access-token');
+      authUtils.generateRefreshToken.mockResolvedValue('refresh-token');
+    });
+
+    test('should successfully log in a user', async () => {
+      authDAL.getUserByIdentifier.mockResolvedValue({ data: mockUser, error: null });
+      bcrypt.compare.mockResolvedValue(true);
+
+      const result = await authService.login('testuser','password123',mockNext);
+
+      expect(authDAL.getUserByIdentifier).toHaveBeenCalledWith('testuser');
+      expect(bcrypt.compare).toHaveBeenCalledWith('password123','hashedpassword');
+      expect(authUtils.generateAccessToken).toHaveBeenCalledWith({ id: 1 });
+      expect(authUtils.generateRefreshToken).toHaveBeenCalledWith({ id: 1 });
+      expect(result).toEqual({ accessToken: 'access-token', refreshToken: 'refresh-token' });
+      expect(mockNext).not.toHaveBeenCalled();
+    });
+
+    test('should call next with AppError if user not found', async () => {
+      authDAL.getUserByIdentifier.mockResolvedValue({ data: null, error: null });
+
+      await authService.login('wronguser','password123',mockNext);
+
+      expect(mockNext).toHaveBeenCalledWith(expect.any(AppError));
+      expect(bcrypt.compare).not.toHaveBeenCalled();
+    });
+
+    test('should call next with AppError if password is incorrect', async () => {
+      authDAL.getUserByIdentifier.mockResolvedValue({ data: mockUser, error: null });
+      bcrypt.compare.mockResolvedValue(false);
+
+      await authService.login('testuser','wrongpassword',mockNext);
+
+      expect(mockNext).toHaveBeenCalledWith(expect.any(AppError));
+      expect(authUtils.generateAccessToken).not.toHaveBeenCalled();
+    });
+
+    test('should call next with AppError if user is not verified', async () => {
+      const unverifiedUser = { ...mockUser, is_verified: false };
+      authDAL.getUserByIdentifier.mockResolvedValue({ data: unverifiedUser, error: null });
+      bcrypt.compare.mockResolvedValue(true);
+
+      await authService.login('testuser','password123',mockNext);
+
+      expect(mockNext).toHaveBeenCalledWith(expect.any(AppError));
+      expect(authUtils.generateAccessToken).not.toHaveBeenCalled();
+    });
+  });
 });
