@@ -1,0 +1,20 @@
+export default {
+  testEnvironment: 'node',
+  transform: {},
+  extensionsToTreatAsEsm: ['.ts'],
+  testMatch: ['**/tests/**/*.test.js'],
+  collectCoverageFrom: [
+    'auth/**/*.js',
+    'user/**/*.js',
+    'product/**/*.js',
+    'favorite/**/*.js',
+    '!**/node_modules/**',
+    '!**/tests/**',
+  ],
+  coverageDirectory: 'coverage',
+  coverageReporters: ['text', 'lcov', 'html'],
+  testTimeout: 10000,
+  clearMocks: true,
+  resetMocks: true,
+  restoreMocks: true,
+};
