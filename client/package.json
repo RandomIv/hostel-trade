@@ -8,11 +8,13 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test": "vitest",
+    "test:ui": "vitest --ui"
     "cypress:open": "cypress open"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.90.5",
+    "babel-jest": "^30.2.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.9.4",
@@ -27,6 +29,9 @@
     "@types/react": "^19.1.16",
     "@types/react-dom": "^19.1.9",
     "@vitejs/plugin-react-swc": "^4.1.0",
+    "@vitest/ui": "^4.0.8",
+    "jsdom": "^27.1.0",
+    "vitest": "^4.0.8",
     "cypress": "^15.6.0",
     "eslint": "^9.36.0",
     "eslint-plugin-react-hooks": "^5.2.0",
