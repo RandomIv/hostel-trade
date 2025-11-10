@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "node --watch server.js",
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest"
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest"
   },
   "author": "",
   "license": "ISC",
@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@jest/globals": "^30.2.0",
+    "cross-env": "^10.1.0",
     "jest": "^30.2.0",
     "pino-pretty": "^13.0.0",
     "prettier": "^3.4.1",
