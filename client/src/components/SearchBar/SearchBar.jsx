@@ -31,7 +31,7 @@ export default function SearchBar({ hostels, types, userId }) {
             placeholder="Знайти..."
             autoComplete="off"
           />
-          <button className={classes['filter-btn']} onClick={handleFilterClick}>
+          <button className={classes['filter-btn']} onClick={handleFilterClick} data-testid="filter-toggle-btn">
             <i className="fa-solid fa-filter" />
           </button>
         </div>
