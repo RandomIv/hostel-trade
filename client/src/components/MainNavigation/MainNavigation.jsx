@@ -13,7 +13,7 @@ export default function MainNavigation() {
 
     return (
         <>
-            <div className={classes['navbar-container']}>
+            <div className={classes['navbar-container']} data-testid="main-navigation">
                 <Link to="/search" className={classes['navbar-img-link-container']}>
                     <div className={classes['navbar-img-container']}>
                         <img

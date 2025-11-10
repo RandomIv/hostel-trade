@@ -75,7 +75,7 @@ export default function DropdownInput({
       />
 
       {isDropdownVisible && (
-        <ul className={classes['dropdown']}>
+        <ul className={classes['dropdown']} data-testid="dropdown-list">
           {data.map((item) => (
             <li
               key={item.id}

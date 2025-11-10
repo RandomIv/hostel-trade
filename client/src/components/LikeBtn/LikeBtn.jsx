@@ -48,6 +48,7 @@ export default function LikeBtn({ productId, isLiked }) {
       className={classes['like-btn']}
       onClick={handleClick}
       disabled={isAddPending && isDeletePending}
+      data-testid="like-btn"
     >
       <i
         className={isCurrentLiked ? 'fa-solid fa-heart' : 'fa-regular fa-heart'}
